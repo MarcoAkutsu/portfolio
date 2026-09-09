@@ -14,14 +14,14 @@
   <style>
     :root {
       --bg-color: #000000;
-      --bg-card: #080808;
-      --bg-card-hover: #0f0f0f;
+      --bg-card: #090909;
+      --bg-card-hover: #121212;
       --border-subtle: rgba(255, 255, 255, 0.12);
-      --border-strong: rgba(255, 255, 255, 0.35);
+      --border-strong: rgba(255, 255, 255, 0.4);
       --text-main: #ffffff;
       --text-muted: #8e8e93;
       --text-dim: #545458;
-      --radius: 8px;
+      --radius: 10px;
       --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
     }
 
@@ -88,7 +88,7 @@
     }
 
     h1 {
-      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1.1;
@@ -102,7 +102,6 @@
       font-weight: 400;
     }
 
-    /* Links Sociais Monocromáticos */
     .social-nav {
       display: flex;
       gap: 12px;
@@ -131,7 +130,7 @@
       border-color: #ffffff;
     }
 
-    /* Títulos de Seção */
+    /* Seções */
     .section-header {
       margin-bottom: 30px;
       display: flex;
@@ -140,7 +139,7 @@
     }
 
     .section-header h2 {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
@@ -150,7 +149,6 @@
       color: var(--text-muted);
     }
 
-    /* SEÇÃO 1: DESTAQUES (1 DE CADA FORMATO) */
     .highlights-section {
       margin-bottom: 80px;
     }
@@ -162,43 +160,74 @@
       align-items: start;
     }
 
-    .highlight-card {
+    /* Cards de Vídeo com Botão Play */
+    .video-card-item {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       overflow: hidden;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       transition: var(--transition);
+      position: relative;
     }
 
-    .highlight-card:hover {
+    .video-card-item:hover {
       border-color: var(--border-strong);
       background: var(--bg-card-hover);
+      transform: translateY(-3px);
     }
 
-    /* Proporções de Vídeo */
-    .video-frame {
+    .card-thumb-area {
       position: relative;
       width: 100%;
-      background: #050505;
+      background: #030303;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .aspect-16-9 {
+    .card-thumb-area.aspect-16-9 {
       aspect-ratio: 16 / 9;
     }
 
-    .aspect-9-16 {
+    .card-thumb-area.aspect-9-16 {
       aspect-ratio: 9 / 16;
-      max-height: 520px;
-      margin: 0 auto;
+      max-height: 480px;
     }
 
-    .video-frame iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+    /* Ícone Play estilizado minimalista */
+    .play-trigger {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      padding-left: 3px; /* Centraliza a seta */
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .video-card-item:hover .play-trigger {
+      background: #ffffff;
+      color: #000000;
+      transform: scale(1.1);
+      border-color: #ffffff;
+    }
+
+    .card-thumb-area::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
     }
 
     .card-meta {
@@ -219,17 +248,17 @@
     }
 
     .card-meta h3 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       color: #fff;
     }
 
     .card-meta p {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
     }
 
-    /* SEÇÃO 2: VITRINES DE CATEGORIAS */
+    /* Categorias */
     .categories-section {
       margin-bottom: 90px;
     }
@@ -244,7 +273,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
-      padding: 30px 24px;
+      padding: 32px 24px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -256,7 +285,7 @@
     .category-box:hover {
       border-color: #ffffff;
       background: var(--bg-card-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .category-box-top {
@@ -296,7 +325,7 @@
       margin-top: 24px;
     }
 
-    /* TELA 2: VISUALIZAÇÃO INTERNA DA CATEGORIA */
+    /* Telas SPA */
     .view-container {
       display: none;
       animation: fadeIn 0.2s ease forwards;
@@ -353,19 +382,121 @@
       font-size: 0.95rem;
     }
 
-    /* Grade de Empresas dentro da Categoria */
     .company-grid {
       display: grid;
-      gap: 28px;
+      gap: 24px;
       margin-bottom: 80px;
     }
 
     .grid-horizontal {
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 
     .grid-vertical {
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    /* ============================================================
+       MODAL / POP-UP CINEMATOGRÁFICO
+    ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: modalZoom 0.25s cubic-bezier(0.2, 0, 0, 1) forwards;
+    }
+
+    @keyframes modalZoom {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header-actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    .modal-video-box {
+      position: relative;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      width: 100%;
+    }
+
+    /* Ajuste responsivo de tamanho no modal */
+    .modal-video-box.aspect-16-9 {
+      max-width: 1080px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .modal-video-box.aspect-9-16 {
+      max-width: 440px;
+      aspect-ratio: 9 / 16;
+      height: 82vh;
+      max-height: 740px;
+    }
+
+    .modal-video-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .modal-caption {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
     }
 
     footer {
@@ -387,7 +518,7 @@
         <div>
           <div class="tag-status">Educação Corporativa & Treinamentos</div>
           <h1>Marco Akutsu</h1>
-          <p class="role-desc">Produtor Multimídia especializado em aprendizagem corporativa, comunicação estratégica e pós-produção audiovisual.</p>
+          <p class="role-desc">Produtor Multimídia focado em vídeos para Educação Corporativa, unindo metodologia instrucional, dinamismo e pós-produção audiovisual.</p>
         </div>
 
         <div class="social-nav">
@@ -404,27 +535,22 @@
       </div>
     </header>
 
-    <!-- TELA 1: HOME COM DESTAQUES + VITRINES -->
+    <!-- TELA 1: HOME (DESTAQUES + CATEGORIAS) -->
     <div id="view-home" class="view-container active">
       
-      <!-- SEÇÃO 1: DESTAQUES (1 de cada modalidade) -->
+      <!-- Seção: 4 Destaques (1 de cada formato) -->
       <section class="highlights-section">
         <div class="section-header">
           <h2>Destaques Selecionados</h2>
-          <span>1 exemplo de cada formato</span>
+          <span>Clique para reproduzir em tela cheia</span>
         </div>
 
         <div class="highlights-grid">
           
-          <!-- Destaque 1: Vyond + Pós (16:9) -->
-          <div class="highlight-card">
-            <div class="video-frame aspect-16-9">
-              <!-- Exemplo de link Vimeo embed -->
-              <iframe 
-                src="https://player.vimeo.com/video/1224425749?title=0&byline=0&portrait=0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
+          <!-- Destaque 1: Vyond 16:9 -->
+          <div class="video-card-item" onclick="playModal('76979871', 'QuintoAndar — Vyond + Pós', '16-9')">
+            <div class="card-thumb-area aspect-16-9">
+              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
             </div>
             <div class="card-meta">
               <div class="meta-top">
@@ -436,14 +562,10 @@
             </div>
           </div>
 
-          <!-- Destaque 2: Banco de Imagem + Pós (16:9) -->
-          <div class="highlight-card">
-            <div class="video-frame aspect-16-9">
-              <iframe 
-                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
+          <!-- Destaque 2: Banco de Imagem 16:9 -->
+          <div class="video-card-item" onclick="playModal('76979871', 'Banco BMG — Imagem + Pós', '16-9')">
+            <div class="card-thumb-area aspect-16-9">
+              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
             </div>
             <div class="card-meta">
               <div class="meta-top">
@@ -451,18 +573,14 @@
                 <span>Banco de Imagem</span>
               </div>
               <h3>Banco BMG — Imagem + Pós</h3>
-              <p>Edição dinâmica e visual institucional moderno.</p>
+              <p>Edição dinâmica e comunicação institucional.</p>
             </div>
           </div>
 
-          <!-- Destaque 3: Ator + Pós Horizontal (16:9) -->
-          <div class="highlight-card">
-            <div class="video-frame aspect-16-9">
-              <iframe 
-                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
+          <!-- Destaque 3: Ator Horizontal 16:9 -->
+          <div class="video-card-item" onclick="playModal('76979871', 'Senac — Ator + Pós', '16-9')">
+            <div class="card-thumb-area aspect-16-9">
+              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
             </div>
             <div class="card-meta">
               <div class="meta-top">
@@ -470,37 +588,33 @@
                 <span>Apresentador</span>
               </div>
               <h3>Senac — Ator + Pós</h3>
-              <p>Captação em estúdio com recursos instrucionais sobrepostos.</p>
+              <p>Captação em estúdio com elementos instrutivos.</p>
             </div>
           </div>
 
-          <!-- Destaque 4: Ator + Pós Vertical (9:16) -->
-          <div class="highlight-card">
-            <div class="video-frame aspect-9-16">
-              <iframe 
-                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
-                allow="autoplay; fullscreen; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
+          <!-- Destaque 4: Atriz Vertical 9:16 -->
+          <div class="video-card-item" onclick="playModal('76979871', 'Senac — Atriz + Pós', '9-16')">
+            <div class="card-thumb-area aspect-9-16">
+              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
             </div>
             <div class="card-meta">
               <div class="meta-top">
                 <span>Vertical 9:16</span>
-                <span>Mobile Learning</span>
+                <span>Microlearning</span>
               </div>
               <h3>Senac — Atriz + Pós</h3>
-              <p>Pílula rápida vertical voltada para retenção mobile.</p>
+              <p>Pílula vertical dinâmica de alta retenção.</p>
             </div>
           </div>
 
         </div>
       </section>
 
-      <!-- SEÇÃO 2: VITRINES COMPLETAS -->
+      <!-- Seção: Categorias para ver todas as empresas -->
       <section class="categories-section">
         <div class="section-header">
-          <h2>Explorar Categorias</h2>
-          <span>Clique para ver todos os vídeos por empresa</span>
+          <h2>Explorar por Categoria</h2>
+          <span>Clique para navegar por todas as empresas</span>
         </div>
 
         <div class="categories-grid">
@@ -575,6 +689,29 @@
 
   </div>
 
+  <!-- ============================================================
+       MODAL DE VÍDEO (POP-UP CINEMA / VERTICAL)
+  ============================================================ -->
+  <div id="video-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
+    <div class="modal-content-wrapper">
+      <div class="modal-header-actions" id="modal-header">
+        <span id="modal-video-title" class="modal-caption">Título do Projeto</span>
+        <button class="modal-close-btn" onclick="closeModal()" title="Fechar (ESC)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="modal-box" class="modal-video-box aspect-16-9">
+        <iframe 
+          id="modal-iframe" 
+          src="" 
+          allow="autoplay; fullscreen; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <p>&copy; 2026 Marco Akutsu. Portfólio de Educação Corporativa.</p>
@@ -582,63 +719,116 @@
   </footer>
 
   <script>
-    // DADOS DAS CATEGORIAS COM LINKS VIMEO EMBED
-    // Para atualizar um vídeo, basta substituir a URL em 'vimeoUrl' pelo link de embed do seu vídeo no Vimeo!
+    // DADOS DAS CATEGORIAS COM OS IDs DO VIMEO
+    // Dica: Substitua '76979871' pelo ID numérico do vídeo correspondente no seu Vimeo!
+    // Se o vídeo for não-listado (com hash), adicione a hash como no exemplo: "123456789?h=abcd123"
     const categoriesData = {
       'vyond': {
         title: "Vyond + Pós-Produção",
         desc: "Projetos em formato horizontal (16:9) com animação instrutiva.",
-        aspectRatio: "aspect-16-9",
+        aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Bombril", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Bunzl", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "CAM", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "CBA", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "EPI-USE", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Galderma", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "PepsiCo", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "PortoPet", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "QuintoAndar", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Realcafé", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Thermo Fisher", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Unidas", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Whirlpool", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Wire", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
+          { company: "Bombril", vimeoId: "76979871" },
+          { company: "Bunzl", vimeoId: "76979871" },
+          { company: "CAM", vimeoId: "76979871" },
+          { company: "CBA", vimeoId: "76979871" },
+          { company: "EPI-USE", vimeoId: "76979871" },
+          { company: "Galderma", vimeoId: "76979871" },
+          { company: "PepsiCo", vimeoId: "76979871" },
+          { company: "PortoPet", vimeoId: "76979871" },
+          { company: "QuintoAndar", vimeoId: "76979871" },
+          { company: "Realcafé", vimeoId: "76979871" },
+          { company: "Senac", vimeoId: "76979871" },
+          { company: "Thermo Fisher", vimeoId: "76979871" },
+          { company: "Unidas", vimeoId: "76979871" },
+          { company: "Whirlpool", vimeoId: "76979871" },
+          { company: "Wire", vimeoId: "76979871" }
         ]
       },
       'banco-imagem': {
         title: "Banco de Imagem + Pós",
         desc: "Edições conceituais horizontais com acervo de imagem e motion corporativo.",
-        aspectRatio: "aspect-16-9",
+        aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Banco BMG", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Yanmar", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
+          { company: "Banco BMG", vimeoId: "76979871" },
+          { company: "Yanmar", vimeoId: "76979871" }
         ]
       },
       'ator-horizontal': {
         title: "Ator + Pós (Horizontal)",
         desc: "Gravações em estúdio com atores e pós-produção explicativa (16:9).",
-        aspectRatio: "aspect-16-9",
+        aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
-          { company: "Vai Voando", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
+          { company: "Senac", vimeoId: "76979871" },
+          { company: "Vai Voando", vimeoId: "76979871" }
         ]
       },
       'ator-vertical': {
         title: "Ator + Pós (Vertical)",
         desc: "Pílulas em formato vertical (9:16) para treinamento ágil e dispositivos móveis.",
-        aspectRatio: "aspect-9-16",
+        aspectType: "9-16",
         gridClass: "grid-vertical",
         videos: [
-          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
+          { company: "Senac", vimeoId: "76979871" }
         ]
       }
     };
 
+    /* ============================================================
+       CONTROLE DO MODAL DE VÍDEO
+    ============================================================ */
+    const modal = document.getElementById('video-modal');
+    const modalIframe = document.getElementById('modal-iframe');
+    const modalBox = document.getElementById('modal-box');
+    const modalTitle = document.getElementById('modal-video-title');
+    const modalHeader = document.getElementById('modal-header');
+
+    function playModal(vimeoId, title, aspectType) {
+      modalTitle.textContent = title;
+
+      // Ajusta as proporções e larguras do modal
+      if (aspectType === '9-16') {
+        modalBox.className = 'modal-video-box aspect-9-16';
+        modalHeader.style.maxWidth = '440px';
+      } else {
+        modalBox.className = 'modal-video-box aspect-16-9';
+        modalHeader.style.maxWidth = '1080px';
+      }
+
+      // Parâmetros otimizados: autoplay ativo, controles mínimos
+      const separator = vimeoId.includes('?') ? '&' : '?';
+      modalIframe.src = `https://player.vimeo.com/video/${vimeoId}${separator}autoplay=1&title=0&byline=0&portrait=0`;
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Impede o scroll de fundo
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modalIframe.src = ''; // Limpa para pausar o vídeo e áudio imediatamente
+      document.body.style.overflow = '';
+    }
+
+    function handleBackdropClick(e) {
+      // Fecha ao clicar fora do container do vídeo
+      if (e.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Tecla ESC para fechar
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    /* ============================================================
+       NAVEGAÇÃO ENTRE TELAS (SPA)
+    ============================================================ */
     function openCategory(key) {
       const data = categoriesData[key];
       if (!data) return;
@@ -652,18 +842,19 @@
 
       data.videos.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'highlight-card';
+        card.className = 'video-card-item';
+        card.onclick = () => playModal(item.vimeoId, `${item.company} — ${data.title}`, data.aspectType);
+
+        const aspectClass = data.aspectType === '9-16' ? 'aspect-9-16' : 'aspect-16-9';
+
         card.innerHTML = `
-          <div class="video-frame ${data.aspectRatio}">
-            <iframe 
-              src="${item.vimeoUrl}" 
-              allow="autoplay; fullscreen; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
+          <div class="card-thumb-area ${aspectClass}">
+            <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
           </div>
           <div class="card-meta">
             <div class="meta-top">
               <span>Educação Corporativa</span>
+              <span>${data.aspectType === '9-16' ? '9:16' : '16:9'}</span>
             </div>
             <h3>${item.company}</h3>
           </div>
@@ -677,7 +868,6 @@
     }
 
     function backToHome() {
-      // Limpa os vídeos da categoria para pausar execuções em segundo plano
       document.getElementById('category-videos-grid').innerHTML = '';
       document.getElementById('view-category-detail').classList.remove('active');
       document.getElementById('view-home').classList.add('active');
