@@ -149,7 +149,7 @@
       color: var(--text-muted);
     }
 
-    /* Layout Destaques Proporcionais */
+    /* Layout Destaques */
     .highlights-section {
       margin-bottom: 90px;
     }
@@ -209,13 +209,34 @@
       transform: translateY(-3px);
     }
 
+    /* ÁREA DE THUMBNAIL COM IMAGEM REAL DO VÍDEO */
     .card-thumb-area {
       position: relative;
-      background: #030303;
+      background: #090a0f;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+
+    .card-thumb-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
+      opacity: 0.82;
+      z-index: 1;
+    }
+
+    .card-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.65) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
 
     .card-thumb-area.aspect-16-9 {
@@ -231,28 +252,30 @@
       margin: 0 auto;
     }
 
-    .card-thumb-area::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-    }
-
     .play-trigger {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1rem;
-      padding-left: 2px;
+      font-size: 1.05rem;
+      padding-left: 3px;
       transition: var(--transition);
-      z-index: 2;
+      z-index: 3;
+      position: relative;
+    }
+
+    .horizontal-item-card:hover .card-thumb-img,
+    .vertical-item-card:hover .card-thumb-img,
+    .company-item-card:hover .card-thumb-img {
+      transform: scale(1.06);
+      opacity: 1;
     }
 
     .horizontal-item-card:hover .play-trigger,
@@ -260,8 +283,9 @@
     .company-item-card:hover .play-trigger {
       background: #ffffff;
       color: #000000;
-      transform: scale(1.08);
+      transform: scale(1.1);
       border-color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
     }
 
     .card-meta {
@@ -600,7 +624,7 @@
     <!-- TELA 1: HOME -->
     <div id="view-home" class="view-container active">
       
-      <!-- SEÇÃO DESTAQUES -->
+      <!-- SEÇÃO DESTAQUES PROPORCIONAIS -->
       <section class="highlights-section">
         <div class="section-header">
           <h2>Destaques Selecionados</h2>
@@ -614,13 +638,15 @@
             
             <!-- 1. Bombril (Vyond + Pós) -->
             <div class="horizontal-item-card" onclick="playModal('1224425749', 'Bombril — Vyond + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9">
+              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425749">
+                <img class="card-thumb-img" src="https://vumbnail.com/1224425749.jpg" alt="Bombril — Vyond + Pós" loading="lazy">
+                <div class="card-thumb-overlay"></div>
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
               <div class="card-meta">
                 <div class="meta-top">
                   <span>Horizontal 16:9</span>
-                  <span>Animação</span>
+                  <span>Vyond + Pós</span>
                 </div>
                 <h3>Bombril — Vyond + Pós</h3>
                 <p>Animação instrutiva com sound design e pós-produção avançada.</p>
@@ -628,29 +654,33 @@
             </div>
 
             <!-- 2. Yanmar (Banco de Imagem + Pós) -->
-            <div class="horizontal-item-card" onclick="playModal('1224425303', 'Yanmar — Imagem + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9">
+            <div class="horizontal-item-card" onclick="playModal('1224425303', 'Yanmar — Banco de Imagem + Pós', '16-9')">
+              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425303">
+                <img class="card-thumb-img" src="https://vumbnail.com/1224425303.jpg" alt="Yanmar — Banco de Imagem + Pós" loading="lazy">
+                <div class="card-thumb-overlay"></div>
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
               <div class="card-meta">
                 <div class="meta-top">
                   <span>Horizontal 16:9</span>
-                  <span>Banco de Imagem</span>
+                  <span>Banco de Imagem + Pós</span>
                 </div>
-                <h3>Yanmar — Imagem + Pós</h3>
+                <h3>Yanmar — Banco de Imagem + Pós</h3>
                 <p>Edição dinâmica e comunicação institucional corporativa.</p>
               </div>
             </div>
 
             <!-- 3. Senac (Ator + Pós Horizontal) -->
             <div class="horizontal-item-card" onclick="playModal('1224425716', 'Senac — Ator + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9">
+              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425716">
+                <img class="card-thumb-img" src="https://vumbnail.com/1224425716.jpg" alt="Senac — Ator + Pós" loading="lazy">
+                <div class="card-thumb-overlay"></div>
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
               <div class="card-meta">
                 <div class="meta-top">
                   <span>Horizontal 16:9</span>
-                  <span>Apresentador</span>
+                  <span>Ator + Pós</span>
                 </div>
                 <h3>Senac — Ator + Pós</h3>
                 <p>Gravação em estúdio com atores e motion instrucional sobreposto.</p>
@@ -661,17 +691,19 @@
 
           <!-- COLUNA DIREITA: VERTICAL (9:16) -->
           <div class="vertical-col">
-            <!-- 4. Senac (Ator/Atriz + Pós Vertical) -->
-            <div class="vertical-item-card" onclick="playModal('1224424455', 'Senac — Atriz + Pós', '9-16')">
-              <div class="card-thumb-area aspect-9-16">
+            <!-- 4. Senac (Atriz/Ator + Pós Vertical) -->
+            <div class="vertical-item-card" onclick="playModal('1224424455', 'Senac — Ator + Pós', '9-16')">
+              <div class="card-thumb-area aspect-9-16" data-vimeo-id="1224424455">
+                <img class="card-thumb-img" src="https://vumbnail.com/1224424455.jpg" alt="Senac — Ator + Pós" loading="lazy">
+                <div class="card-thumb-overlay"></div>
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
               <div class="card-meta">
                 <div class="meta-top">
                   <span>Vertical 9:16</span>
-                  <span>Microlearning</span>
+                  <span>Ator + Pós</span>
                 </div>
-                <h3>Senac — Atriz + Pós</h3>
+                <h3>Senac — Ator + Pós</h3>
                 <p>Formato vertical ágil com foco em retenção e consumo mobile.</p>
               </div>
             </div>
@@ -787,9 +819,7 @@
   </footer>
 
   <script>
-    // ============================================================
-    // BASE DE DADOS DOS VÍDEOS (VIMEO OFICIAL)
-    // ============================================================
+    // BASE DE DADOS DOS VÍDEOS COM OS IDs DO VIMEO
     const categoriesData = {
       'vyond': {
         title: "Vyond + Pós-Produção",
@@ -845,6 +875,36 @@
       }
     };
 
+    /* SISTEMA INTELIGENTE DE CAPTURA DE THUMBNAILS DO VIMEO */
+    function upgradeVimeoThumbnails(context = document) {
+      const items = context.querySelectorAll('[data-vimeo-id]');
+      items.forEach(el => {
+        const vimeoId = el.getAttribute('data-vimeo-id');
+        const img = el.querySelector('.card-thumb-img');
+        if (!vimeoId || !img) return;
+
+        // Busca a imagem oficial em alta resolução via API do Vimeo
+        fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
+          .then(res => {
+            if (!res.ok) throw new Error('API oEmbed error');
+            return res.json();
+          })
+          .then(data => {
+            if (data && data.thumbnail_url) {
+              img.src = data.thumbnail_url;
+            }
+          })
+          .catch(() => {
+            // Em caso de offline, o src inicial (vumbnail) permanece ativo
+          });
+      });
+    }
+
+    // Inicializa as thumbnails nos destaques assim que a página abre
+    window.addEventListener('DOMContentLoaded', () => {
+      upgradeVimeoThumbnails();
+    });
+
     /* CONTROLE DO MODAL DE VÍDEO */
     const modal = document.getElementById('video-modal');
     const modalIframe = document.getElementById('modal-iframe');
@@ -863,7 +923,6 @@
         modalHeader.style.maxWidth = '1080px';
       }
 
-      // Parâmetros para Vimeo: autoplay automático, sem títulos duplicados
       const separator = vimeoId.includes('?') ? '&' : '?';
       modalIframe.src = `https://player.vimeo.com/video/${vimeoId}${separator}autoplay=1&title=0&byline=0&portrait=0`;
 
@@ -873,7 +932,7 @@
 
     function closeModal() {
       modal.classList.remove('active');
-      modalIframe.src = ''; // Limpa o iframe para parar o vídeo imediatamente
+      modalIframe.src = '';
       document.body.style.overflow = '';
     }
 
@@ -885,7 +944,7 @@
       if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 
-    /* NAVEGAÇÃO SPA */
+    /* NAVEGAÇÃO SPA (CATEGORIAS) */
     function openCategory(key) {
       const data = categoriesData[key];
       if (!data) return;
@@ -905,7 +964,9 @@
         const aspectClass = data.aspectType === '9-16' ? 'aspect-9-16' : 'aspect-16-9';
 
         card.innerHTML = `
-          <div class="card-thumb-area ${aspectClass}">
+          <div class="card-thumb-area ${aspectClass}" data-vimeo-id="${item.vimeoId}">
+            <img class="card-thumb-img" src="https://vumbnail.com/${item.vimeoId}.jpg" alt="${item.company}" loading="lazy">
+            <div class="card-thumb-overlay"></div>
             <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
           </div>
           <div class="card-meta">
@@ -918,6 +979,9 @@
         `;
         grid.appendChild(card);
       });
+
+      // Atualiza as capas dos vídeos gerados nesta categoria
+      upgradeVimeoThumbnails(grid);
 
       document.getElementById('view-home').classList.remove('active');
       document.getElementById('view-category-detail').classList.add('active');
