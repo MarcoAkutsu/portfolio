@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio de Vídeos | Creator & Editor</title>
+  
+  <!-- Fontes Google e Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #090a0f;
+      --bg-card: rgba(22, 24, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* Header & Hero */
+    header {
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--accent-hover);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .social-btn {
+      color: var(--text-main);
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Filtros */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      padding: 10px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    /* Grade de Vídeos */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Cards de Vídeo */
+    .video-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Containers de Mídia Responsivos */
+    .media-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Proporção Horizontal (16:9) */
+    .aspect-horizontal {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Proporção Vertical (9:16) */
+    .aspect-vertical {
+      aspect-ratio: 9 / 16;
+      max-height: 580px;
+      margin: 0 auto;
+    }
+
+    .media-wrapper iframe,
+    .media-wrapper video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Informações do Card */
+    .card-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+    }
+
+    .tag.highlight {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-hover);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Ocultar itens filtrados */
+    .video-card.hidden {
+      display: none;
+    }
+
+    /* Rodapé */
+    footer {
+      margin-top: auto;
+      padding: 50px 0 30px;
+      text-align: center;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent-hover);
+      text-decoration: none;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .aspect-vertical {
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="badge">Disponível para novos projetos</div>
+      <h1>Seu Nome / Marca</h1>
+      <p class="subtitle">Editor de Vídeo & Criador de Conteúdo focado em retenção, narrativa dinâmica e estética moderna.</p>
+
+      <div class="social-links">
+        <a href="https://youtube.com" target="_blank" class="social-btn">
+          <i class="fa-brands fa-youtube"></i> YouTube
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-btn">
+          <i class="fa-brands fa-instagram"></i> Instagram
+        </a>
+        <a href="mailto:seuemail@email.com" class="social-btn">
+          <i class="fa-solid fa-envelope"></i> Contato
+        </a>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="horizontal">Vídeos Longos (16:9)</button>
+        <button class="filter-btn" data-filter="vertical">Reels & Shorts (9:16)</button>
+      </div>
+    </header>
+
+    <!-- Galeria de Vídeos -->
+    <main class="video-grid">
+
+      <!-- ITEM 1: Horizontal (16:9) - Exemplo YouTube -->
+      <div class="video-card" data-category="horizontal">
+        <div class="media-wrapper aspect-horizontal">
+          <!-- Substitua o link pelo embed do seu vídeo do YouTube / Vimeo -->
+          <iframe 
+            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+            title="Vídeo Horizontal" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="card-info">
+          <div class="tags">
+            <span class="tag highlight">16:9</span>
+            <span class="tag">YouTube</span>
+            <span class="tag">Edição Dinâmica</span>
+          </div>
+          <h3 class="card-title">Documentário / Vídeo Longo</h3>
+          <p class="card-desc">Edição cinematográfica com Sound Design imersivo, color grading e storytelling.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 2: Vertical (9:16) - Exemplo Reels / Shorts -->
+      <div class="video-card" data-category="vertical">
+        <div class="media-wrapper aspect-vertical">
+          <!-- Se for vídeo local (MP4), você pode usar a tag <video> -->
+          <video controls playsinline preload="metadata">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-working-on-a-laptop-42171-large.mp4" type="video/mp4">
+            Seu navegador não suporta este vídeo.
+          </video>
+        </div>
+        <div class="card-info">
+          <div class="tags">
+            <span class="tag highlight">9:16</span>
+            <span class="tag">Shorts</span>
+            <span class="tag">TikTok / Reels</span>
+          </div>
+          <h3 class="card-title">Corte de Alta Retenção</h3>
+          <p class="card-desc">Legendas dinâmicas animadas, transições rápidas e ganchos (hooks) otimizados para viralização.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 3: Horizontal (16:9) -->
+      <div class="video-card" data-category="horizontal">
+        <div class="media-wrapper aspect-horizontal">
+          <video controls playsinline preload="metadata">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-42352-large.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-info">
+          <div class="tags">
+            <span class="tag highlight">16:9</span>
+            <span class="tag">Comercial</span>
+          </div>
+          <h3 class="card-title">Vídeo Promocional Tech</h3>
+          <p class="card-desc">Motion graphics, trilha sincronizada e cortes precisos no ritmo da música.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 4: Vertical (9:16) -->
+      <div class="video-card" data-category="vertical">
+        <div class="media-wrapper aspect-vertical">
+          <video controls playsinline preload="metadata">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-man-dancing-under-the-rain-42095-large.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-info">
+          <div class="tags">
+            <span class="tag highlight">9:16</span>
+            <span class="tag">Storytelling</span>
+          </div>
+          <h3 class="card-title">Corte de Podcast / Entrevista</h3>
+          <p class="card-desc">Formatação visual vertical para redes sociais com enquadramento automático de rostos.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Seu Nome. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Script para Filtros -->
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const videoCards = document.querySelectorAll('.video-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Altera botão ativo
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.getAttribute('data-filter');
+
+        // Filtra os cards
+        videoCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filterValue === 'all' || category === filterValue) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
