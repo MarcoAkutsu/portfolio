@@ -14,10 +14,10 @@
   <style>
     :root {
       --bg-color: #000000;
-      --bg-card: #090909;
-      --bg-card-hover: #121212;
-      --border-subtle: rgba(255, 255, 255, 0.12);
-      --border-strong: rgba(255, 255, 255, 0.4);
+      --bg-card: #080808;
+      --bg-card-hover: #111111;
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --border-strong: rgba(255, 255, 255, 0.35);
       --text-main: #ffffff;
       --text-muted: #8e8e93;
       --text-dim: #545458;
@@ -132,7 +132,7 @@
 
     /* Seções */
     .section-header {
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -149,39 +149,73 @@
       color: var(--text-muted);
     }
 
+    /* ============================================================
+       DESTAQUES: COLUNA ESQUERDA (16:9) + COLUNA DIREITA (9:16)
+    ============================================================ */
     .highlights-section {
-      margin-bottom: 80px;
+      margin-bottom: 90px;
     }
 
-    .highlights-grid {
+    .highlights-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: 1.6fr 1fr;
       gap: 24px;
-      align-items: start;
+      align-items: stretch;
     }
 
-    /* Cards de Vídeo com Botão Play */
-    .video-card-item {
+    /* Coluna Esquerda: Horizontais */
+    .horizontals-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+    }
+
+    .horizontal-item-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       overflow: hidden;
+      display: grid;
+      grid-template-columns: 240px 1fr;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
       transition: var(--transition);
-      position: relative;
+      min-height: 145px;
     }
 
-    .video-card-item:hover {
+    .horizontal-item-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+    }
+
+    /* Coluna Direita: Vertical */
+    .vertical-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .vertical-item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .vertical-item-card:hover {
       border-color: var(--border-strong);
       background: var(--bg-card-hover);
       transform: translateY(-3px);
     }
 
+    /* Thumbnails e Proporções */
     .card-thumb-area {
       position: relative;
-      width: 100%;
       background: #030303;
       display: flex;
       align-items: center;
@@ -191,17 +225,27 @@
 
     .card-thumb-area.aspect-16-9 {
       aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
     }
 
     .card-thumb-area.aspect-9-16 {
       aspect-ratio: 9 / 16;
-      max-height: 480px;
+      width: 100%;
+      max-height: 410px;
+      margin: 0 auto;
     }
 
-    /* Ícone Play estilizado minimalista */
+    .card-thumb-area::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    }
+
     .play-trigger {
-      width: 54px;
-      height: 54px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(8px);
@@ -210,37 +254,33 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.1rem;
-      padding-left: 3px; /* Centraliza a seta */
+      font-size: 1rem;
+      padding-left: 2px;
       transition: var(--transition);
       z-index: 2;
     }
 
-    .video-card-item:hover .play-trigger {
+    .horizontal-item-card:hover .play-trigger,
+    .vertical-item-card:hover .play-trigger,
+    .company-item-card:hover .play-trigger {
       background: #ffffff;
       color: #000000;
-      transform: scale(1.1);
+      transform: scale(1.08);
       border-color: #ffffff;
     }
 
-    .card-thumb-area::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-    }
-
     .card-meta {
-      padding: 18px 20px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 4px;
     }
 
     .meta-top {
       display: flex;
       justify-content: space-between;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--text-muted);
@@ -256,9 +296,12 @@
     .card-meta p {
       font-size: 0.82rem;
       color: var(--text-muted);
+      line-height: 1.4;
     }
 
-    /* Categorias */
+    /* ============================================================
+       VITRINES DE CATEGORIAS
+    ============================================================ */
     .categories-section {
       margin-bottom: 90px;
     }
@@ -325,7 +368,9 @@
       margin-top: 24px;
     }
 
-    /* Telas SPA */
+    /* ============================================================
+       TELAS SPA (HOME / CATEGORIA)
+    ============================================================ */
     .view-container {
       display: none;
       animation: fadeIn 0.2s ease forwards;
@@ -396,6 +441,23 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
+    .company-item-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .company-item-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+    }
+
     /* ============================================================
        MODAL / POP-UP CINEMATOGRÁFICO
     ============================================================ */
@@ -448,18 +510,17 @@
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
       width: 100%;
     }
 
-    /* Ajuste responsivo de tamanho no modal */
     .modal-video-box.aspect-16-9 {
       max-width: 1080px;
       aspect-ratio: 16 / 9;
     }
 
     .modal-video-box.aspect-9-16 {
-      max-width: 440px;
+      max-width: 430px;
       aspect-ratio: 9 / 16;
       height: 82vh;
       max-height: 740px;
@@ -507,6 +568,19 @@
       color: var(--text-dim);
       font-size: 0.85rem;
     }
+
+    /* Responsividade */
+    @media (max-width: 960px) {
+      .highlights-layout {
+        grid-template-columns: 1fr;
+      }
+      .horizontal-item-card {
+        grid-template-columns: 1fr;
+      }
+      .vertical-item-card .card-thumb-area.aspect-9-16 {
+        max-width: 300px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -538,72 +612,79 @@
     <!-- TELA 1: HOME (DESTAQUES + CATEGORIAS) -->
     <div id="view-home" class="view-container active">
       
-      <!-- Seção: 4 Destaques (1 de cada formato) -->
+      <!-- Seção: Destaques Proporcionais (Esquerda: 16:9 | Direita: 9:16) -->
       <section class="highlights-section">
         <div class="section-header">
           <h2>Destaques Selecionados</h2>
-          <span>Clique para reproduzir em tela cheia</span>
+          <span>Clique para reproduzir em pop-up</span>
         </div>
 
-        <div class="highlights-grid">
+        <div class="highlights-layout">
           
-          <!-- Destaque 1: Vyond 16:9 -->
-          <div class="video-card-item" onclick="playModal('76979871', 'QuintoAndar — Vyond + Pós', '16-9')">
-            <div class="card-thumb-area aspect-16-9">
-              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-            </div>
-            <div class="card-meta">
-              <div class="meta-top">
-                <span>Horizontal 16:9</span>
-                <span>Animação</span>
+          <!-- COLUNA ESQUERDA: VÍDEOS HORIZONTAIS -->
+          <div class="horizontals-col">
+            
+            <!-- Horizontal 1: Vyond -->
+            <div class="horizontal-item-card" onclick="playModal('76979871', 'QuintoAndar — Vyond + Pós', '16-9')">
+              <div class="card-thumb-area aspect-16-9">
+                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
-              <h3>QuintoAndar — Vyond + Pós</h3>
-              <p>Design instrucional com motion e sound design avançado.</p>
+              <div class="card-meta">
+                <div class="meta-top">
+                  <span>Horizontal 16:9</span>
+                  <span>Animação</span>
+                </div>
+                <h3>QuintoAndar — Vyond + Pós</h3>
+                <p>Animação instrutiva com sound design e pós-produção avançada.</p>
+              </div>
             </div>
+
+            <!-- Horizontal 2: Banco de Imagem -->
+            <div class="horizontal-item-card" onclick="playModal('76979871', 'Banco BMG — Imagem + Pós', '16-9')">
+              <div class="card-thumb-area aspect-16-9">
+                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
+              </div>
+              <div class="card-meta">
+                <div class="meta-top">
+                  <span>Horizontal 16:9</span>
+                  <span>Banco de Imagem</span>
+                </div>
+                <h3>Banco BMG — Imagem + Pós</h3>
+                <p>Edição dinâmica e visual institucional para comunicação corporativa.</p>
+              </div>
+            </div>
+
+            <!-- Horizontal 3: Ator Horizontal -->
+            <div class="horizontal-item-card" onclick="playModal('76979871', 'Senac — Ator + Pós', '16-9')">
+              <div class="card-thumb-area aspect-16-9">
+                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
+              </div>
+              <div class="card-meta">
+                <div class="meta-top">
+                  <span>Horizontal 16:9</span>
+                  <span>Apresentador</span>
+                </div>
+                <h3>Senac — Ator + Pós</h3>
+                <p>Gravação em estúdio com atores e motion instrucional sobreposto.</p>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Destaque 2: Banco de Imagem 16:9 -->
-          <div class="video-card-item" onclick="playModal('76979871', 'Banco BMG — Imagem + Pós', '16-9')">
-            <div class="card-thumb-area aspect-16-9">
-              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-            </div>
-            <div class="card-meta">
-              <div class="meta-top">
-                <span>Horizontal 16:9</span>
-                <span>Banco de Imagem</span>
+          <!-- COLUNA DIREITA: VÍDEO VERTICAL (9:16) -->
+          <div class="vertical-col">
+            <div class="vertical-item-card" onclick="playModal('76979871', 'Senac — Atriz + Pós', '9-16')">
+              <div class="card-thumb-area aspect-9-16">
+                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
-              <h3>Banco BMG — Imagem + Pós</h3>
-              <p>Edição dinâmica e comunicação institucional.</p>
-            </div>
-          </div>
-
-          <!-- Destaque 3: Ator Horizontal 16:9 -->
-          <div class="video-card-item" onclick="playModal('76979871', 'Senac — Ator + Pós', '16-9')">
-            <div class="card-thumb-area aspect-16-9">
-              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-            </div>
-            <div class="card-meta">
-              <div class="meta-top">
-                <span>Horizontal 16:9</span>
-                <span>Apresentador</span>
+              <div class="card-meta">
+                <div class="meta-top">
+                  <span>Vertical 9:16</span>
+                  <span>Microlearning</span>
+                </div>
+                <h3>Senac — Atriz + Pós</h3>
+                <p>Formato vertical ágil, com legendas dinâmicas e retenção mobile.</p>
               </div>
-              <h3>Senac — Ator + Pós</h3>
-              <p>Captação em estúdio com elementos instrutivos.</p>
-            </div>
-          </div>
-
-          <!-- Destaque 4: Atriz Vertical 9:16 -->
-          <div class="video-card-item" onclick="playModal('76979871', 'Senac — Atriz + Pós', '9-16')">
-            <div class="card-thumb-area aspect-9-16">
-              <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-            </div>
-            <div class="card-meta">
-              <div class="meta-top">
-                <span>Vertical 9:16</span>
-                <span>Microlearning</span>
-              </div>
-              <h3>Senac — Atriz + Pós</h3>
-              <p>Pílula vertical dinâmica de alta retenção.</p>
             </div>
           </div>
 
@@ -689,9 +770,7 @@
 
   </div>
 
-  <!-- ============================================================
-       MODAL DE VÍDEO (POP-UP CINEMA / VERTICAL)
-  ============================================================ -->
+  <!-- MODAL DE VÍDEO (POP-UP) -->
   <div id="video-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
     <div class="modal-content-wrapper">
       <div class="modal-header-actions" id="modal-header">
@@ -720,8 +799,6 @@
 
   <script>
     // DADOS DAS CATEGORIAS COM OS IDs DO VIMEO
-    // Dica: Substitua '76979871' pelo ID numérico do vídeo correspondente no seu Vimeo!
-    // Se o vídeo for não-listado (com hash), adicione a hash como no exemplo: "123456789?h=abcd123"
     const categoriesData = {
       'vyond': {
         title: "Vyond + Pós-Produção",
@@ -789,37 +866,33 @@
     function playModal(vimeoId, title, aspectType) {
       modalTitle.textContent = title;
 
-      // Ajusta as proporções e larguras do modal
       if (aspectType === '9-16') {
         modalBox.className = 'modal-video-box aspect-9-16';
-        modalHeader.style.maxWidth = '440px';
+        modalHeader.style.maxWidth = '430px';
       } else {
         modalBox.className = 'modal-video-box aspect-16-9';
         modalHeader.style.maxWidth = '1080px';
       }
 
-      // Parâmetros otimizados: autoplay ativo, controles mínimos
       const separator = vimeoId.includes('?') ? '&' : '?';
       modalIframe.src = `https://player.vimeo.com/video/${vimeoId}${separator}autoplay=1&title=0&byline=0&portrait=0`;
 
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Impede o scroll de fundo
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       modal.classList.remove('active');
-      modalIframe.src = ''; // Limpa para pausar o vídeo e áudio imediatamente
+      modalIframe.src = '';
       document.body.style.overflow = '';
     }
 
     function handleBackdropClick(e) {
-      // Fecha ao clicar fora do container do vídeo
       if (e.target === modal) {
         closeModal();
       }
     }
 
-    // Tecla ESC para fechar
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeModal();
@@ -842,7 +915,7 @@
 
       data.videos.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'video-card-item';
+        card.className = 'company-item-card';
         card.onclick = () => playModal(item.vimeoId, `${item.company} — ${data.title}`, data.aspectType);
 
         const aspectClass = data.aspectType === '9-16' ? 'aspect-9-16' : 'aspect-16-9';
