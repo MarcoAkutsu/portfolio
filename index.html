@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfólio de Vídeos | Creator & Editor</title>
+  <title>Marco Akutsu | Produtor Multimídia</title>
   
-  <!-- Fontes Google e Ícones -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,16 +12,17 @@
 
   <style>
     :root {
-      --bg-dark: #090a0f;
-      --bg-card: rgba(22, 24, 34, 0.7);
+      --bg-dark: #08090d;
+      --bg-card: rgba(19, 22, 31, 0.75);
       --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(99, 102, 241, 0.4);
       --accent: #6366f1;
       --accent-hover: #818cf8;
       --accent-glow: rgba(99, 102, 241, 0.25);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --radius: 16px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -40,8 +40,8 @@
       display: flex;
       flex-direction: column;
       background-image: 
-        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 85% 60%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(147, 51, 234, 0.08) 0%, transparent 45%);
     }
 
     .container {
@@ -51,9 +51,8 @@
       width: 100%;
     }
 
-    /* Header & Hero */
     header {
-      padding: 60px 0 30px;
+      padding: 60px 0 35px;
       text-align: center;
     }
 
@@ -66,8 +65,8 @@
       color: var(--accent-hover);
       padding: 6px 16px;
       border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 700;
       margin-bottom: 20px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -83,10 +82,10 @@
     }
 
     h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
       font-weight: 800;
       letter-spacing: -0.03em;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       background: linear-gradient(135deg, #ffffff 40%, var(--text-muted) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -95,15 +94,15 @@
     p.subtitle {
       color: var(--text-muted);
       font-size: 1.15rem;
-      max-width: 600px;
-      margin: 0 auto 32px;
+      max-width: 680px;
+      margin: 0 auto 30px;
     }
 
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-bottom: 40px;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     .social-btn {
@@ -113,60 +112,200 @@
       padding: 10px 20px;
       border-radius: 12px;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       transition: var(--transition);
+    }
+
+    .social-btn i {
+      font-size: 1.1rem;
+      color: var(--accent-hover);
     }
 
     .social-btn:hover {
       border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.15);
+      background: rgba(99, 102, 241, 0.12);
       transform: translateY(-2px);
     }
 
-    /* Filtros */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
+    /* Views */
+    .view-section {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
     }
 
-    .filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-muted);
+    .view-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grade das Vitrines */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+      margin: 40px 0 70px;
+    }
+
+    .showcase-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--card-border);
-      padding: 10px 22px;
-      border-radius: 30px;
+      border-radius: var(--radius);
+      padding: 32px 26px;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 250px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
       transition: var(--transition);
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--accent);
+    .showcase-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .showcase-card:hover::after {
+      opacity: 1;
+    }
+
+    .showcase-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .showcase-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-hover);
+      font-size: 1.3rem;
+    }
+
+    .pill-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .showcase-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
       color: #fff;
-      border-color: var(--accent);
-      box-shadow: 0 4px 15px var(--accent-glow);
     }
 
-    /* Grade de Vídeos */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 28px;
-      align-items: start;
+    .showcase-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
     }
 
-    /* Cards de Vídeo */
-    .video-card {
+    .card-footer-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent-hover);
+    }
+
+    .card-footer-action i {
+      transition: transform 0.2s ease;
+    }
+
+    .showcase-card:hover .card-footer-action i {
+      transform: translateX(4px);
+    }
+
+    /* Tela 2: Detalhes da Vitrine */
+    .category-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 24px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    .category-title-wrap h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .category-title-wrap p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Grade de Vídeos da Empresa */
+    .videos-grid {
+      display: grid;
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+
+    .grid-horizontal {
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+
+    .grid-vertical {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .company-video-card {
+      background: var(--bg-card);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
       overflow: hidden;
@@ -175,257 +314,278 @@
       transition: var(--transition);
     }
 
-    .video-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(99, 102, 241, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    .company-video-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
-    /* Containers de Mídia Responsivos */
-    .media-wrapper {
+    .video-wrapper {
       position: relative;
       width: 100%;
       background: #000;
-      overflow: hidden;
     }
 
-    /* Proporção Horizontal (16:9) */
-    .aspect-horizontal {
+    .video-wrapper.aspect-16-9 {
       aspect-ratio: 16 / 9;
     }
 
-    /* Proporção Vertical (9:16) */
-    .aspect-vertical {
+    .video-wrapper.aspect-9-16 {
       aspect-ratio: 9 / 16;
-      max-height: 580px;
-      margin: 0 auto;
+      max-height: 520px;
     }
 
-    .media-wrapper iframe,
-    .media-wrapper video {
+    .video-wrapper iframe,
+    .video-wrapper video {
       width: 100%;
       height: 100%;
       border: none;
-      object-fit: cover;
       display: block;
+      object-fit: cover;
     }
 
-    /* Informações do Card */
-    .card-info {
-      padding: 20px;
+    .company-card-info {
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      flex-grow: 1;
+      gap: 6px;
     }
 
-    .tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.07);
-      color: var(--text-muted);
-    }
-
-    .tag.highlight {
-      background: rgba(99, 102, 241, 0.15);
-      color: var(--accent-hover);
-    }
-
-    .card-title {
+    .company-name {
       font-size: 1.15rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #fff;
     }
 
-    .card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
+    .project-type {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-hover);
+      font-weight: 600;
     }
 
-    /* Ocultar itens filtrados */
-    .video-card.hidden {
-      display: none;
-    }
-
-    /* Rodapé */
     footer {
       margin-top: auto;
-      padding: 50px 0 30px;
+      padding: 40px 0;
       text-align: center;
       border-top: 1px solid var(--card-border);
       color: var(--text-muted);
       font-size: 0.9rem;
-    }
-
-    footer a {
-      color: var(--accent-hover);
-      text-decoration: none;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .aspect-vertical {
-        max-width: 320px;
-      }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Header -->
     <header>
-      <div class="badge">Disponível para novos projetos</div>
-      <h1>Seu Nome / Marca</h1>
-      <p class="subtitle">Editor de Vídeo & Criador de Conteúdo focado em retenção, narrativa dinâmica e estética moderna.</p>
+      <div class="badge">Educação Corporativa & Treinamentos</div>
+      <h1>Marco Akutsu</h1>
+      <p class="subtitle">Produtor Multimídia focado em vídeos para Educação Corporativa, unindo metodologia instrucional, dinamismo e pós-produção audiovisual de alto impacto.</p>
 
       <div class="social-links">
-        <a href="https://youtube.com" target="_blank" class="social-btn">
-          <i class="fa-brands fa-youtube"></i> YouTube
+        <a href="https://youtube.com/@Akutsu_TV" target="_blank" class="social-btn">
+          <i class="fa-brands fa-youtube"></i> Akutsu_TV
         </a>
-        <a href="https://instagram.com" target="_blank" class="social-btn">
-          <i class="fa-brands fa-instagram"></i> Instagram
+        <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-btn">
+          <i class="fa-brands fa-instagram"></i> Akutsu_TV
         </a>
-        <a href="mailto:seuemail@email.com" class="social-btn">
-          <i class="fa-solid fa-envelope"></i> Contato
+        <a href="mailto:marco.akutsu@gmail.com" class="social-btn">
+          <i class="fa-solid fa-envelope"></i> marco.akutsu@gmail.com
         </a>
-      </div>
-
-      <!-- Filtros -->
-      <div class="filter-container">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="horizontal">Vídeos Longos (16:9)</button>
-        <button class="filter-btn" data-filter="vertical">Reels & Shorts (9:16)</button>
       </div>
     </header>
 
-    <!-- Galeria de Vídeos -->
-    <main class="video-grid">
+    <!-- TELA 1: VITRINES PRINCIPAIS -->
+    <section id="view-showcases" class="view-section active">
+      <div class="showcase-grid">
 
-      <!-- ITEM 1: Horizontal (16:9) - Exemplo YouTube -->
-      <div class="video-card" data-category="horizontal">
-        <div class="media-wrapper aspect-horizontal">
-          <!-- Substitua o link pelo embed do seu vídeo do YouTube / Vimeo -->
-          <iframe 
-            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
-            title="Vídeo Horizontal" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag highlight">16:9</span>
-            <span class="tag">YouTube</span>
-            <span class="tag">Edição Dinâmica</span>
+        <!-- Vitrine 1 -->
+        <div class="showcase-card" onclick="openCategory('vyond')">
+          <div>
+            <div class="showcase-card-header">
+              <div class="showcase-icon"><i class="fa-solid fa-film"></i></div>
+              <span class="pill-badge">15 Vídeos • 16:9</span>
+            </div>
+            <h3>Vyond + Pós-Produção</h3>
+            <p>Animações instrutivas em formato horizontal com sound design e pós-produção avançada.</p>
           </div>
-          <h3 class="card-title">Documentário / Vídeo Longo</h3>
-          <p class="card-desc">Edição cinematográfica com Sound Design imersivo, color grading e storytelling.</p>
+          <div class="card-footer-action">
+            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Vitrine 2 -->
+        <div class="showcase-card" onclick="openCategory('banco-imagem')">
+          <div>
+            <div class="showcase-card-header">
+              <div class="showcase-icon"><i class="fa-solid fa-photo-film"></i></div>
+              <span class="pill-badge">2 Vídeos • 16:9</span>
+            </div>
+            <h3>Banco de Imagem + Pós</h3>
+            <p>Edição conceitual horizontal utilizando recortes, banco de imagens corporativas e motion.</p>
+          </div>
+          <div class="card-footer-action">
+            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Vitrine 3 -->
+        <div class="showcase-card" onclick="openCategory('ator-horizontal')">
+          <div>
+            <div class="showcase-card-header">
+              <div class="showcase-icon"><i class="fa-solid fa-clapperboard"></i></div>
+              <span class="pill-badge">2 Vídeos • 16:9</span>
+            </div>
+            <h3>Ator + Pós (Horizontal)</h3>
+            <p>Gravações com atores profissionais, chroma key, lettering dinâmico e ambientação educacional.</p>
+          </div>
+          <div class="card-footer-action">
+            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- Vitrine 4 -->
+        <div class="showcase-card" onclick="openCategory('ator-vertical')">
+          <div>
+            <div class="showcase-card-header">
+              <div class="showcase-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+              <span class="pill-badge">1 Vídeo • 9:16</span>
+            </div>
+            <h3>Ator + Pós (Vertical)</h3>
+            <p>Pílulas de aprendizagem e microlearning gravadas em formato vertical com ator e elementos dinâmicos.</p>
+          </div>
+          <div class="card-footer-action">
+            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TELA 2: LISTAGEM DE EMPRESAS POR CATEGORIA -->
+    <section id="view-details" class="view-section">
+      <div class="category-topbar">
+        <button class="back-btn" onclick="backToShowcases()">
+          <i class="fa-solid fa-arrow-left"></i> Voltar às Vitrines
+        </button>
+        <div class="category-title-wrap">
+          <h2 id="current-category-title">Categoria</h2>
+          <p id="current-category-desc">Projetos produzidos para empresas parceiras</p>
         </div>
       </div>
 
-      <!-- ITEM 2: Vertical (9:16) - Exemplo Reels / Shorts -->
-      <div class="video-card" data-category="vertical">
-        <div class="media-wrapper aspect-vertical">
-          <!-- Se for vídeo local (MP4), você pode usar a tag <video> -->
-          <video controls playsinline preload="metadata">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-working-on-a-laptop-42171-large.mp4" type="video/mp4">
-            Seu navegador não suporta este vídeo.
-          </video>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag highlight">9:16</span>
-            <span class="tag">Shorts</span>
-            <span class="tag">TikTok / Reels</span>
-          </div>
-          <h3 class="card-title">Corte de Alta Retenção</h3>
-          <p class="card-desc">Legendas dinâmicas animadas, transições rápidas e ganchos (hooks) otimizados para viralização.</p>
-        </div>
-      </div>
-
-      <!-- ITEM 3: Horizontal (16:9) -->
-      <div class="video-card" data-category="horizontal">
-        <div class="media-wrapper aspect-horizontal">
-          <video controls playsinline preload="metadata">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-screen-42352-large.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag highlight">16:9</span>
-            <span class="tag">Comercial</span>
-          </div>
-          <h3 class="card-title">Vídeo Promocional Tech</h3>
-          <p class="card-desc">Motion graphics, trilha sincronizada e cortes precisos no ritmo da música.</p>
-        </div>
-      </div>
-
-      <!-- ITEM 4: Vertical (9:16) -->
-      <div class="video-card" data-category="vertical">
-        <div class="media-wrapper aspect-vertical">
-          <video controls playsinline preload="metadata">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-man-dancing-under-the-rain-42095-large.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-info">
-          <div class="tags">
-            <span class="tag highlight">9:16</span>
-            <span class="tag">Storytelling</span>
-          </div>
-          <h3 class="card-title">Corte de Podcast / Entrevista</h3>
-          <p class="card-desc">Formatação visual vertical para redes sociais com enquadramento automático de rostos.</p>
-        </div>
-      </div>
-
-    </main>
+      <!-- Grade injetada dinamicamente via JavaScript -->
+      <div id="videos-container" class="videos-grid"></div>
+    </section>
   </div>
 
-  <!-- Rodapé -->
   <footer>
     <div class="container">
-      <p>&copy; 2026 Seu Nome. Todos os direitos reservados.</p>
+      <p>&copy; 2026 Marco Akutsu. Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <!-- Script para Filtros -->
   <script>
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const videoCards = document.querySelectorAll('.video-card');
+    // DADOS DAS SUAS PASTAS E VÍDEOS
+    // Dica: Substitua o link em 'embedUrl' pelo link de Incorporar (Embed) de cada vídeo no seu YouTube!
+    const categoriesData = {
+      'vyond': {
+        title: "HORIZONTAL - VYOND + PÓS",
+        desc: "Projetos corporativos desenvolvidos em formato 16:9 com animação e pós-produção.",
+        aspectRatio: "aspect-16-9",
+        gridClass: "grid-horizontal",
+        videos: [
+          { company: "Bombril", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Bunzl", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "CAM", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "CBA", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "EPI-USE", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Galderma", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "PepsiCo", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "PortoPet", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "QuintoAndar", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Realcafé", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Senac", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Thermo Fisher", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Unidas", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Whirlpool", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Wire", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+        ]
+      },
+      'banco-imagem': {
+        title: "HORIZONTAL - BANCO DE IMAGEM + PÓS",
+        desc: "Edições dinâmicas utilizando acervo de banco de imagens para comunicação corporativa.",
+        aspectRatio: "aspect-16-9",
+        gridClass: "grid-horizontal",
+        videos: [
+          { company: "Banco BMG", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Yanmar", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+        ]
+      },
+      'ator-horizontal': {
+        title: "HORIZONTAL - ATOR + PÓS",
+        desc: "Captação presencial com apresentadores e inserção de pós-produção instrucional.",
+        aspectRatio: "aspect-16-9",
+        gridClass: "grid-horizontal",
+        videos: [
+          { company: "Senac", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
+          { company: "Vai Voando", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+        ]
+      },
+      'ator-vertical': {
+        title: "VERTICAL - ATOR + PÓS",
+        desc: "Pílulas em formato 9:16 voltadas para mobile learning corporativo e redes.",
+        aspectRatio: "aspect-9-16",
+        gridClass: "grid-vertical",
+        videos: [
+          { company: "Senac", format: "Vertical (9:16)", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+        ]
+      }
+    };
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Altera botão ativo
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function openCategory(key) {
+      const data = categoriesData[key];
+      if (!data) return;
 
-        const filterValue = btn.getAttribute('data-filter');
+      document.getElementById('current-category-title').textContent = data.title;
+      document.getElementById('current-category-desc').textContent = data.desc;
 
-        // Filtra os cards
-        videoCards.forEach(card => {
-          const category = card.getAttribute('data-category');
-          if (filterValue === 'all' || category === filterValue) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
+      const container = document.getElementById('videos-container');
+      container.className = `videos-grid ${data.gridClass}`;
+      container.innerHTML = '';
+
+      data.videos.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'company-video-card';
+        card.innerHTML = `
+          <div class="video-wrapper ${data.aspectRatio}">
+            <iframe 
+              src="${item.embedUrl}" 
+              title="${item.company}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="company-card-info">
+            <span class="project-type">${item.format} • Treinamento</span>
+            <div class="company-name">${item.company}</div>
+          </div>
+        `;
+        container.appendChild(card);
       });
-    });
+
+      document.getElementById('view-showcases').classList.remove('active');
+      document.getElementById('view-details').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToShowcases() {
+      // Pausa os vídeos ao voltar removendo os iframes temporariamente
+      document.getElementById('videos-container').innerHTML = '';
+      document.getElementById('view-details').classList.remove('active');
+      document.getElementById('view-showcases').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
