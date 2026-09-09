@@ -149,9 +149,7 @@
       color: var(--text-muted);
     }
 
-    /* ============================================================
-       DESTAQUES: COLUNA ESQUERDA (16:9) + COLUNA DIREITA (9:16)
-    ============================================================ */
+    /* Layout Destaques Proporcionais */
     .highlights-section {
       margin-bottom: 90px;
     }
@@ -163,7 +161,6 @@
       align-items: stretch;
     }
 
-    /* Coluna Esquerda: Horizontais */
     .horizontals-col {
       display: flex;
       flex-direction: column;
@@ -189,7 +186,6 @@
       transform: translateX(4px);
     }
 
-    /* Coluna Direita: Vertical */
     .vertical-col {
       display: flex;
       flex-direction: column;
@@ -213,7 +209,6 @@
       transform: translateY(-3px);
     }
 
-    /* Thumbnails e Proporções */
     .card-thumb-area {
       position: relative;
       background: #030303;
@@ -299,9 +294,7 @@
       line-height: 1.4;
     }
 
-    /* ============================================================
-       VITRINES DE CATEGORIAS
-    ============================================================ */
+    /* Vitrines de Categorias */
     .categories-section {
       margin-bottom: 90px;
     }
@@ -368,9 +361,7 @@
       margin-top: 24px;
     }
 
-    /* ============================================================
-       TELAS SPA (HOME / CATEGORIA)
-    ============================================================ */
+    /* Telas SPA */
     .view-container {
       display: none;
       animation: fadeIn 0.2s ease forwards;
@@ -458,9 +449,7 @@
       transform: translateY(-3px);
     }
 
-    /* ============================================================
-       MODAL / POP-UP CINEMATOGRÁFICO
-    ============================================================ */
+    /* Modal / Pop-up */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -569,7 +558,6 @@
       font-size: 0.85rem;
     }
 
-    /* Responsividade */
     @media (max-width: 960px) {
       .highlights-layout {
         grid-template-columns: 1fr;
@@ -586,7 +574,7 @@
 <body>
 
   <div class="container">
-    <!-- Header Minimalista -->
+    <!-- Header -->
     <header>
       <div class="header-top">
         <div>
@@ -609,10 +597,10 @@
       </div>
     </header>
 
-    <!-- TELA 1: HOME (DESTAQUES + CATEGORIAS) -->
+    <!-- TELA 1: HOME -->
     <div id="view-home" class="view-container active">
       
-      <!-- Seção: Destaques Proporcionais (Esquerda: 16:9 | Direita: 9:16) -->
+      <!-- SEÇÃO DESTAQUES -->
       <section class="highlights-section">
         <div class="section-header">
           <h2>Destaques Selecionados</h2>
@@ -621,11 +609,11 @@
 
         <div class="highlights-layout">
           
-          <!-- COLUNA ESQUERDA: VÍDEOS HORIZONTAIS -->
+          <!-- COLUNA ESQUERDA: HORIZONTAIS (16:9) -->
           <div class="horizontals-col">
             
-            <!-- Horizontal 1: Vyond -->
-            <div class="horizontal-item-card" onclick="playModal('76979871', 'Bombril — Vyond + Pós', '16-9')">
+            <!-- 1. Bombril (Vyond + Pós) -->
+            <div class="horizontal-item-card" onclick="playModal('1224425749', 'Bombril — Vyond + Pós', '16-9')">
               <div class="card-thumb-area aspect-16-9">
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
@@ -634,13 +622,13 @@
                   <span>Horizontal 16:9</span>
                   <span>Animação</span>
                 </div>
-                <h3>QuintoAndar — Vyond + Pós</h3>
+                <h3>Bombril — Vyond + Pós</h3>
                 <p>Animação instrutiva com sound design e pós-produção avançada.</p>
               </div>
             </div>
 
-            <!-- Horizontal 2: Banco de Imagem -->
-            <div class="horizontal-item-card" onclick="playModal('76979871', 'Yanmar — Imagem + Pós', '16-9')">
+            <!-- 2. Yanmar (Banco de Imagem + Pós) -->
+            <div class="horizontal-item-card" onclick="playModal('1224425303', 'Yanmar — Imagem + Pós', '16-9')">
               <div class="card-thumb-area aspect-16-9">
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
@@ -649,13 +637,13 @@
                   <span>Horizontal 16:9</span>
                   <span>Banco de Imagem</span>
                 </div>
-                <h3>Banco BMG — Imagem + Pós</h3>
-                <p>Edição dinâmica e visual institucional para comunicação corporativa.</p>
+                <h3>Yanmar — Imagem + Pós</h3>
+                <p>Edição dinâmica e comunicação institucional corporativa.</p>
               </div>
             </div>
 
-            <!-- Horizontal 3: Ator Horizontal -->
-            <div class="horizontal-item-card" onclick="playModal('76979871', 'Senac — Ator + Pós', '16-9')">
+            <!-- 3. Senac (Ator + Pós Horizontal) -->
+            <div class="horizontal-item-card" onclick="playModal('1224425716', 'Senac — Ator + Pós', '16-9')">
               <div class="card-thumb-area aspect-16-9">
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
@@ -671,9 +659,10 @@
 
           </div>
 
-          <!-- COLUNA DIREITA: VÍDEO VERTICAL (9:16) -->
+          <!-- COLUNA DIREITA: VERTICAL (9:16) -->
           <div class="vertical-col">
-            <div class="vertical-item-card" onclick="playModal('76979871', 'Senac — Atriz + Pós', '9-16')">
+            <!-- 4. Senac (Ator/Atriz + Pós Vertical) -->
+            <div class="vertical-item-card" onclick="playModal('1224424455', 'Senac — Atriz + Pós', '9-16')">
               <div class="card-thumb-area aspect-9-16">
                 <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
               </div>
@@ -683,7 +672,7 @@
                   <span>Microlearning</span>
                 </div>
                 <h3>Senac — Atriz + Pós</h3>
-                <p>Formato vertical ágil, com legendas dinâmicas e retenção mobile.</p>
+                <p>Formato vertical ágil com foco em retenção e consumo mobile.</p>
               </div>
             </div>
           </div>
@@ -691,7 +680,7 @@
         </div>
       </section>
 
-      <!-- Seção: Categorias para ver todas as empresas -->
+      <!-- SEÇÃO CATEGORIAS -->
       <section class="categories-section">
         <div class="section-header">
           <h2>Explorar por Categoria</h2>
@@ -753,7 +742,7 @@
 
     </div>
 
-    <!-- TELA 2: LISTA DE VÍDEOS DA CATEGORIA SELECIONADA -->
+    <!-- TELA 2: LISTA DE EMPRESAS POR CATEGORIA -->
     <div id="view-category-detail" class="view-container">
       <div class="detail-nav">
         <button class="back-button" onclick="backToHome()">
@@ -770,7 +759,7 @@
 
   </div>
 
-  <!-- MODAL DE VÍDEO (POP-UP) -->
+  <!-- POP-UP MODAL -->
   <div id="video-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
     <div class="modal-content-wrapper">
       <div class="modal-header-actions" id="modal-header">
@@ -798,7 +787,9 @@
   </footer>
 
   <script>
-    // DADOS DAS CATEGORIAS COM OS IDs DO VIMEO
+    // ============================================================
+    // BASE DE DADOS DOS VÍDEOS (VIMEO OFICIAL)
+    // ============================================================
     const categoriesData = {
       'vyond': {
         title: "Vyond + Pós-Produção",
@@ -806,21 +797,21 @@
         aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Bombril", vimeoId: "76979871" },
-          { company: "Bunzl", vimeoId: "76979871" },
-          { company: "CAM", vimeoId: "76979871" },
-          { company: "CBA", vimeoId: "76979871" },
-          { company: "EPI-USE", vimeoId: "76979871" },
-          { company: "Galderma", vimeoId: "76979871" },
-          { company: "PepsiCo", vimeoId: "76979871" },
-          { company: "PortoPet", vimeoId: "76979871" },
-          { company: "QuintoAndar", vimeoId: "76979871" },
-          { company: "Realcafé", vimeoId: "76979871" },
-          { company: "Senac", vimeoId: "76979871" },
-          { company: "Thermo Fisher", vimeoId: "76979871" },
-          { company: "Unidas", vimeoId: "76979871" },
-          { company: "Whirlpool", vimeoId: "76979871" },
-          { company: "Wire", vimeoId: "76979871" }
+          { company: "Bombril", vimeoId: "1224425749" },
+          { company: "Bunzl", vimeoId: "1224425747" },
+          { company: "CAM", vimeoId: "1224425748" },
+          { company: "CBA", vimeoId: "1224425775" },
+          { company: "EPI-USE", vimeoId: "1224425784" },
+          { company: "Galderma", vimeoId: "1224425826" },
+          { company: "PepsiCo", vimeoId: "1224425838" },
+          { company: "PortoPet", vimeoId: "1224425872" },
+          { company: "QuintoAndar", vimeoId: "1224425887" },
+          { company: "Realcafé", vimeoId: "1224425894" },
+          { company: "Senac", vimeoId: "1224425928" },
+          { company: "Thermo Fisher", vimeoId: "1224425935" },
+          { company: "Unidas", vimeoId: "1224425941" },
+          { company: "Whirlpool", vimeoId: "1224425947" },
+          { company: "Wire", vimeoId: "1224425962" }
         ]
       },
       'banco-imagem': {
@@ -829,8 +820,8 @@
         aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Banco BMG", vimeoId: "76979871" },
-          { company: "Yanmar", vimeoId: "76979871" }
+          { company: "Banco BMG", vimeoId: "1224425299" },
+          { company: "Yanmar", vimeoId: "1224425303" }
         ]
       },
       'ator-horizontal': {
@@ -839,8 +830,8 @@
         aspectType: "16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Senac", vimeoId: "76979871" },
-          { company: "Vai Voando", vimeoId: "76979871" }
+          { company: "Senac", vimeoId: "1224425716" },
+          { company: "Vai Voando", vimeoId: "1224425658" }
         ]
       },
       'ator-vertical': {
@@ -849,14 +840,12 @@
         aspectType: "9-16",
         gridClass: "grid-vertical",
         videos: [
-          { company: "Senac", vimeoId: "76979871" }
+          { company: "Senac", vimeoId: "1224424455" }
         ]
       }
     };
 
-    /* ============================================================
-       CONTROLE DO MODAL DE VÍDEO
-    ============================================================ */
+    /* CONTROLE DO MODAL DE VÍDEO */
     const modal = document.getElementById('video-modal');
     const modalIframe = document.getElementById('modal-iframe');
     const modalBox = document.getElementById('modal-box');
@@ -874,6 +863,7 @@
         modalHeader.style.maxWidth = '1080px';
       }
 
+      // Parâmetros para Vimeo: autoplay automático, sem títulos duplicados
       const separator = vimeoId.includes('?') ? '&' : '?';
       modalIframe.src = `https://player.vimeo.com/video/${vimeoId}${separator}autoplay=1&title=0&byline=0&portrait=0`;
 
@@ -883,25 +873,19 @@
 
     function closeModal() {
       modal.classList.remove('active');
-      modalIframe.src = '';
+      modalIframe.src = ''; // Limpa o iframe para parar o vídeo imediatamente
       document.body.style.overflow = '';
     }
 
     function handleBackdropClick(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
+      if (e.target === modal) closeModal();
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 
-    /* ============================================================
-       NAVEGAÇÃO ENTRE TELAS (SPA)
-    ============================================================ */
+    /* NAVEGAÇÃO SPA */
     function openCategory(key) {
       const data = categoriesData[key];
       if (!data) return;
