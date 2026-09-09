@@ -102,18 +102,41 @@
       font-weight: 400;
     }
 
+    /* Links e Botões de Conversão no Header */
     .social-nav {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       margin-top: 24px;
+      align-items: center;
+    }
+
+    .btn-action-primary {
+      background: #ffffff;
+      color: #000000 !important;
+      border: 1px solid #ffffff;
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-action-primary:hover {
+      background: #e2e2e5;
+      border-color: #e2e2e5;
+      transform: translateY(-2px);
     }
 
     .social-link {
       color: var(--text-main);
       background: transparent;
       border: 1px solid var(--border-subtle);
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: var(--radius);
       text-decoration: none;
       font-size: 0.88rem;
@@ -128,6 +151,7 @@
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
+      transform: translateY(-2px);
     }
 
     /* Seções */
@@ -209,7 +233,7 @@
       transform: translateY(-3px);
     }
 
-    /* ÁREA DE THUMBNAIL COM IMAGEM REAL DO VÍDEO */
+    /* Thumbnails */
     .card-thumb-area {
       position: relative;
       background: #090a0f;
@@ -383,6 +407,100 @@
       font-weight: 600;
       color: #ffffff;
       margin-top: 24px;
+    }
+
+    /* ============================================================
+       SEÇÃO DE CONVERSÃO / CONTATO (CTA DE FECHAMENTO)
+    ============================================================ */
+    .conversion-section {
+      margin: 40px 0 90px;
+      background: linear-gradient(180deg, #090909 0%, #030303 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .conversion-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    }
+
+    .conversion-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .conversion-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .conversion-section p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto 36px;
+    }
+
+    .conversion-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-large {
+      padding: 14px 28px;
+      font-size: 0.95rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    .btn-primary-glow {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+    }
+
+    .btn-primary-glow:hover {
+      background: #e2e2e5;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary-border {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary-border:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-strong);
+      transform: translateY(-3px);
     }
 
     /* Telas SPA */
@@ -573,6 +691,43 @@
       color: #fff;
     }
 
+    /* ============================================================
+       BOTÃO FLUTUANTE DE CONVERSÃO RÁPIDA (WHATSAPP FIXO)
+    ============================================================ */
+    .floating-contact-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      z-index: 990;
+      transition: var(--transition);
+    }
+
+    .floating-contact-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.25);
+    }
+
+    .floating-contact-btn i {
+      font-size: 1.15rem;
+    }
+
     footer {
       margin-top: auto;
       padding: 40px 0;
@@ -592,13 +747,25 @@
       .vertical-item-card .card-thumb-area.aspect-9-16 {
         max-width: 300px;
       }
+      .conversion-section {
+        padding: 40px 20px;
+      }
+      .floating-contact-btn span {
+        display: none; /* Em telas menores, mantém o botão compacto apenas com ícone */
+      }
+      .floating-contact-btn {
+        padding: 14px;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 20px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Header -->
+    <!-- Header com Ações de Conversão -->
     <header>
       <div class="header-top">
         <div>
@@ -608,14 +775,21 @@
         </div>
 
         <div class="social-nav">
-          <a href="https://youtube.com/@Akutsu_TV" target="_blank" class="social-link">
-            <i class="fa-brands fa-youtube"></i> Akutsu_TV
+          <!-- CTA WhatsApp Direto -->
+          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="btn-action-primary">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
           </a>
+          <!-- E-mail -->
+          <a href="mailto:marco.akutsu@gmail.com?subject=Contato%20-%20Projeto%20de%20V%C3%ADdeo%20Corporativo" class="social-link">
+            <i class="fa-solid fa-envelope"></i> E-mail
+          </a>
+          <!-- Behance -->
+          <a href="https://www.behance.net/marcoakutsu" target="_blank" class="social-link">
+            <i class="fa-brands fa-behance"></i> Behance
+          </a>
+          <!-- Instagram -->
           <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-link">
             <i class="fa-brands fa-instagram"></i> Akutsu_TV
-          </a>
-          <a href="mailto:marco.akutsu@gmail.com" class="social-link">
-            <i class="fa-solid fa-envelope"></i> Contato
           </a>
         </div>
       </div>
@@ -691,7 +865,7 @@
 
           <!-- COLUNA DIREITA: VERTICAL (9:16) -->
           <div class="vertical-col">
-            <!-- 4. Senac (Atriz/Ator + Pós Vertical) -->
+            <!-- 4. Senac (Ator/Atriz + Pós Vertical) -->
             <div class="vertical-item-card" onclick="playModal('1224424455', 'Senac — Ator + Pós', '9-16')">
               <div class="card-thumb-area aspect-9-16" data-vimeo-id="1224424455">
                 <img class="card-thumb-img" src="https://vumbnail.com/1224424455.jpg" alt="Senac — Ator + Pós" loading="lazy">
@@ -772,6 +946,25 @@
         </div>
       </section>
 
+      <!-- SEÇÃO DE CONVERSÃO / CONTATO DIRETO -->
+      <section class="conversion-section">
+        <span class="conversion-badge">Disponível para Novos Projetos</span>
+        <h2>Vamos desenvolver o próximo vídeo da sua empresa?</h2>
+        <p>Unindo design instrucional, dinamismo audiovisual e alinhamento estratégico com os objetivos do seu negócio.</p>
+        
+        <div class="conversion-buttons">
+          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="btn-large btn-primary-glow">
+            <i class="fa-brands fa-whatsapp"></i> Iniciar Conversa no WhatsApp
+          </a>
+          <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Proposta%20-%20V%C3%ADdeos%20Corporativos" class="btn-large btn-secondary-border">
+            <i class="fa-solid fa-envelope"></i> Enviar E-mail
+          </a>
+          <a href="https://www.behance.net/marcoakutsu" target="_blank" class="btn-large btn-secondary-border">
+            <i class="fa-brands fa-behance"></i> Behance Completo
+          </a>
+        </div>
+      </section>
+
     </div>
 
     <!-- TELA 2: LISTA DE EMPRESAS POR CATEGORIA -->
@@ -787,9 +980,27 @@
       </div>
 
       <div id="category-videos-grid" class="company-grid"></div>
+
+      <!-- Seção de Contato também na visualização interna -->
+      <section class="conversion-section" style="margin-top: 40px;">
+        <span class="conversion-badge">Pronto para começar?</span>
+        <h2>Gostou dos projetos desta categoria?</h2>
+        <p>Solicite uma proposta personalizada para a comunicação e treinamento da sua equipe.</p>
+        <div class="conversion-buttons">
+          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20estava%20olhando%20seus%20v%C3%ADdeos%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn-large btn-primary-glow">
+            <i class="fa-brands fa-whatsapp"></i> Falar via WhatsApp
+          </a>
+        </div>
+      </section>
     </div>
 
   </div>
+
+  <!-- BOTÃO FLUTUANTE DE CONVERSÃO RÁPIDA (WHATSAPP FIXO) -->
+  <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="floating-contact-btn" title="Falar no WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>Falar no WhatsApp</span>
+  </a>
 
   <!-- POP-UP MODAL -->
   <div id="video-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
@@ -875,7 +1086,7 @@
       }
     };
 
-    /* SISTEMA INTELIGENTE DE CAPTURA DE THUMBNAILS DO VIMEO */
+    /* SISTEMA DE CAPTURA DE THUMBNAILS DO VIMEO */
     function upgradeVimeoThumbnails(context = document) {
       const items = context.querySelectorAll('[data-vimeo-id]');
       items.forEach(el => {
@@ -883,7 +1094,6 @@
         const img = el.querySelector('.card-thumb-img');
         if (!vimeoId || !img) return;
 
-        // Busca a imagem oficial em alta resolução via API do Vimeo
         fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
           .then(res => {
             if (!res.ok) throw new Error('API oEmbed error');
@@ -894,13 +1104,10 @@
               img.src = data.thumbnail_url;
             }
           })
-          .catch(() => {
-            // Em caso de offline, o src inicial (vumbnail) permanece ativo
-          });
+          .catch(() => {});
       });
     }
 
-    // Inicializa as thumbnails nos destaques assim que a página abre
     window.addEventListener('DOMContentLoaded', () => {
       upgradeVimeoThumbnails();
     });
@@ -944,7 +1151,7 @@
       if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 
-    /* NAVEGAÇÃO SPA (CATEGORIAS) */
+    /* NAVEGAÇÃO SPA */
     function openCategory(key) {
       const data = categoriesData[key];
       if (!data) return;
@@ -980,7 +1187,6 @@
         grid.appendChild(card);
       });
 
-      // Atualiza as capas dos vídeos gerados nesta categoria
       upgradeVimeoThumbnails(grid);
 
       document.getElementById('view-home').classList.remove('active');
