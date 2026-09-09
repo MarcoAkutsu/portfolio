@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Akutsu | Produtor Multimídia</title>
+  <title>Marco Akutsu — Produtor Multimídia</title>
   
+  <!-- Fontes & Ícones -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-dark: #08090d;
-      --bg-card: rgba(19, 22, 31, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-hover: rgba(99, 102, 241, 0.4);
-      --accent: #6366f1;
-      --accent-hover: #818cf8;
-      --accent-glow: rgba(99, 102, 241, 0.25);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --radius: 16px;
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg-color: #000000;
+      --bg-card: #080808;
+      --bg-card-hover: #0f0f0f;
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.35);
+      --text-main: #ffffff;
+      --text-muted: #8e8e93;
+      --text-dim: #545458;
+      --radius: 8px;
+      --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
     }
 
     * {
@@ -32,265 +32,329 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-dark);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
       color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 85% 75%, rgba(147, 51, 234, 0.08) 0%, transparent 45%);
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
       width: 100%;
     }
 
+    /* Header Minimalista */
     header {
-      padding: 60px 0 35px;
-      text-align: center;
+      padding: 80px 0 50px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 60px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: var(--accent-hover);
-      padding: 6px 16px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .badge::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
-    }
-
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 14px;
-      background: linear-gradient(135deg, #ffffff 40%, var(--text-muted) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      max-width: 680px;
-      margin: 0 auto 30px;
-    }
-
-    .social-links {
+    .header-top {
       display: flex;
-      justify-content: center;
-      gap: 14px;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
       flex-wrap: wrap;
     }
 
-    .social-btn {
-      color: var(--text-main);
-      background: var(--bg-card);
-      border: 1px solid var(--card-border);
-      padding: 10px 20px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 600;
+    .tag-status {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .tag-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    p.role-desc {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 720px;
+      font-weight: 400;
+    }
+
+    /* Links Sociais Monocromáticos */
+    .social-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .social-link {
+      color: var(--text-main);
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       transition: var(--transition);
     }
 
-    .social-btn i {
-      font-size: 1.1rem;
-      color: var(--accent-hover);
+    .social-link:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }
 
-    .social-btn:hover {
-      border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.12);
-      transform: translateY(-2px);
+    /* Títulos de Seção */
+    .section-header {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
-    /* Views */
-    .view-section {
-      display: none;
-      animation: fadeIn 0.3s ease forwards;
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
-    .view-section.active {
+    .section-header span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* SEÇÃO 1: DESTAQUES (1 DE CADA FORMATO) */
+    .highlights-section {
+      margin-bottom: 80px;
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .highlight-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+    }
+
+    /* Proporções de Vídeo */
+    .video-frame {
+      position: relative;
+      width: 100%;
+      background: #050505;
+    }
+
+    .aspect-16-9 {
+      aspect-ratio: 16 / 9;
+    }
+
+    .aspect-9-16 {
+      aspect-ratio: 9 / 16;
+      max-height: 520px;
+      margin: 0 auto;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+    .card-meta {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    /* Grade das Vitrines */
-    .showcase-grid {
+    .meta-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .card-meta h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .card-meta p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* SEÇÃO 2: VITRINES DE CATEGORIAS */
+    .categories-section {
+      margin-bottom: 90px;
+    }
+
+    .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 24px;
-      margin: 40px 0 70px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
     }
 
-    .showcase-card {
+    .category-box {
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
-      padding: 32px 26px;
+      padding: 30px 24px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 250px;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .showcase-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      opacity: 0;
+      min-height: 220px;
       transition: var(--transition);
     }
 
-    .showcase-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--card-border-hover);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    .category-box:hover {
+      border-color: #ffffff;
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
     }
 
-    .showcase-card:hover::after {
-      opacity: 1;
-    }
-
-    .showcase-card-header {
+    .category-box-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
     }
 
-    .showcase-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(99, 102, 241, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-hover);
-      font-size: 1.3rem;
-    }
-
-    .pill-badge {
+    .category-count {
       font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       color: var(--text-muted);
     }
 
-    .showcase-card h3 {
-      font-size: 1.3rem;
+    .category-box h3 {
+      font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #fff;
     }
 
-    .showcase-card p {
+    .category-box p {
       color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 24px;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
-    .card-footer-action {
+    .category-action {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--accent-hover);
+      color: #ffffff;
+      margin-top: 24px;
     }
 
-    .card-footer-action i {
-      transition: transform 0.2s ease;
+    /* TELA 2: VISUALIZAÇÃO INTERNA DA CATEGORIA */
+    .view-container {
+      display: none;
+      animation: fadeIn 0.2s ease forwards;
     }
 
-    .showcase-card:hover .card-footer-action i {
-      transform: translateX(4px);
+    .view-container.active {
+      display: block;
     }
 
-    /* Tela 2: Detalhes da Vitrine */
-    .category-topbar {
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .detail-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 36px;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
       flex-wrap: wrap;
       gap: 16px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 24px;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--card-border);
+    .back-button {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
       color: var(--text-main);
       padding: 10px 20px;
-      border-radius: 10px;
+      border-radius: var(--radius);
       cursor: pointer;
+      font-size: 0.9rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       transition: var(--transition);
     }
 
-    .back-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent-hover);
+    .back-button:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }
 
-    .category-title-wrap h2 {
+    .detail-title h2 {
       font-size: 1.8rem;
       font-weight: 800;
     }
 
-    .category-title-wrap p {
+    .detail-title p {
       color: var(--text-muted);
       font-size: 0.95rem;
     }
 
-    /* Grade de Vídeos da Empresa */
-    .videos-grid {
+    /* Grade de Empresas dentro da Categoria */
+    .company-grid {
       display: grid;
       gap: 28px;
       margin-bottom: 80px;
@@ -304,241 +368,273 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
-    .company-video-card {
-      background: var(--bg-card);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-    }
-
-    .company-video-card:hover {
-      border-color: var(--card-border-hover);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      background: #000;
-    }
-
-    .video-wrapper.aspect-16-9 {
-      aspect-ratio: 16 / 9;
-    }
-
-    .video-wrapper.aspect-9-16 {
-      aspect-ratio: 9 / 16;
-      max-height: 520px;
-    }
-
-    .video-wrapper iframe,
-    .video-wrapper video {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-      object-fit: cover;
-    }
-
-    .company-card-info {
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .company-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .project-type {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent-hover);
-      font-weight: 600;
-    }
-
     footer {
       margin-top: auto;
       padding: 40px 0;
+      border-top: 1px solid var(--border-subtle);
       text-align: center;
-      border-top: 1px solid var(--card-border);
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      color: var(--text-dim);
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- Header Minimalista -->
     <header>
-      <div class="badge">Educação Corporativa & Treinamentos</div>
-      <h1>Marco Akutsu</h1>
-      <p class="subtitle">Produtor Multimídia focado em vídeos para Educação Corporativa, unindo metodologia instrucional, dinamismo e pós-produção audiovisual de alto impacto.</p>
+      <div class="header-top">
+        <div>
+          <div class="tag-status">Educação Corporativa & Treinamentos</div>
+          <h1>Marco Akutsu</h1>
+          <p class="role-desc">Produtor Multimídia especializado em aprendizagem corporativa, comunicação estratégica e pós-produção audiovisual.</p>
+        </div>
 
-      <div class="social-links">
-        <a href="https://youtube.com/@Akutsu_TV" target="_blank" class="social-btn">
-          <i class="fa-brands fa-youtube"></i> Akutsu_TV
-        </a>
-        <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-btn">
-          <i class="fa-brands fa-instagram"></i> Akutsu_TV
-        </a>
-        <a href="mailto:marco.akutsu@gmail.com" class="social-btn">
-          <i class="fa-solid fa-envelope"></i> marco.akutsu@gmail.com
-        </a>
+        <div class="social-nav">
+          <a href="https://youtube.com/@Akutsu_TV" target="_blank" class="social-link">
+            <i class="fa-brands fa-youtube"></i> Akutsu_TV
+          </a>
+          <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-link">
+            <i class="fa-brands fa-instagram"></i> Akutsu_TV
+          </a>
+          <a href="mailto:marco.akutsu@gmail.com" class="social-link">
+            <i class="fa-solid fa-envelope"></i> Contato
+          </a>
+        </div>
       </div>
     </header>
 
-    <!-- TELA 1: VITRINES PRINCIPAIS -->
-    <section id="view-showcases" class="view-section active">
-      <div class="showcase-grid">
-
-        <!-- Vitrine 1 -->
-        <div class="showcase-card" onclick="openCategory('vyond')">
-          <div>
-            <div class="showcase-card-header">
-              <div class="showcase-icon"><i class="fa-solid fa-film"></i></div>
-              <span class="pill-badge">15 Vídeos • 16:9</span>
-            </div>
-            <h3>Vyond + Pós-Produção</h3>
-            <p>Animações instrutivas em formato horizontal com sound design e pós-produção avançada.</p>
-          </div>
-          <div class="card-footer-action">
-            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
-          </div>
+    <!-- TELA 1: HOME COM DESTAQUES + VITRINES -->
+    <div id="view-home" class="view-container active">
+      
+      <!-- SEÇÃO 1: DESTAQUES (1 de cada modalidade) -->
+      <section class="highlights-section">
+        <div class="section-header">
+          <h2>Destaques Selecionados</h2>
+          <span>1 exemplo de cada formato</span>
         </div>
 
-        <!-- Vitrine 2 -->
-        <div class="showcase-card" onclick="openCategory('banco-imagem')">
-          <div>
-            <div class="showcase-card-header">
-              <div class="showcase-icon"><i class="fa-solid fa-photo-film"></i></div>
-              <span class="pill-badge">2 Vídeos • 16:9</span>
+        <div class="highlights-grid">
+          
+          <!-- Destaque 1: Vyond + Pós (16:9) -->
+          <div class="highlight-card">
+            <div class="video-frame aspect-16-9">
+              <!-- Exemplo de link Vimeo embed -->
+              <iframe 
+                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
             </div>
-            <h3>Banco de Imagem + Pós</h3>
-            <p>Edição conceitual horizontal utilizando recortes, banco de imagens corporativas e motion.</p>
+            <div class="card-meta">
+              <div class="meta-top">
+                <span>Horizontal 16:9</span>
+                <span>Animação</span>
+              </div>
+              <h3>QuintoAndar — Vyond + Pós</h3>
+              <p>Design instrucional com motion e sound design avançado.</p>
+            </div>
           </div>
-          <div class="card-footer-action">
-            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+
+          <!-- Destaque 2: Banco de Imagem + Pós (16:9) -->
+          <div class="highlight-card">
+            <div class="video-frame aspect-16-9">
+              <iframe 
+                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="card-meta">
+              <div class="meta-top">
+                <span>Horizontal 16:9</span>
+                <span>Banco de Imagem</span>
+              </div>
+              <h3>Banco BMG — Imagem + Pós</h3>
+              <p>Edição dinâmica e visual institucional moderno.</p>
+            </div>
           </div>
+
+          <!-- Destaque 3: Ator + Pós Horizontal (16:9) -->
+          <div class="highlight-card">
+            <div class="video-frame aspect-16-9">
+              <iframe 
+                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="card-meta">
+              <div class="meta-top">
+                <span>Horizontal 16:9</span>
+                <span>Apresentador</span>
+              </div>
+              <h3>Senac — Ator + Pós</h3>
+              <p>Captação em estúdio com recursos instrucionais sobrepostos.</p>
+            </div>
+          </div>
+
+          <!-- Destaque 4: Ator + Pós Vertical (9:16) -->
+          <div class="highlight-card">
+            <div class="video-frame aspect-9-16">
+              <iframe 
+                src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="card-meta">
+              <div class="meta-top">
+                <span>Vertical 9:16</span>
+                <span>Mobile Learning</span>
+              </div>
+              <h3>Senac — Atriz + Pós</h3>
+              <p>Pílula rápida vertical voltada para retenção mobile.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2: VITRINES COMPLETAS -->
+      <section class="categories-section">
+        <div class="section-header">
+          <h2>Explorar Categorias</h2>
+          <span>Clique para ver todos os vídeos por empresa</span>
         </div>
 
-        <!-- Vitrine 3 -->
-        <div class="showcase-card" onclick="openCategory('ator-horizontal')">
-          <div>
-            <div class="showcase-card-header">
-              <div class="showcase-icon"><i class="fa-solid fa-clapperboard"></i></div>
-              <span class="pill-badge">2 Vídeos • 16:9</span>
+        <div class="categories-grid">
+          
+          <div class="category-box" onclick="openCategory('vyond')">
+            <div>
+              <div class="category-box-top">
+                <span class="category-count">15 Projetos</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+              <h3>Vyond + Pós</h3>
+              <p>Vídeos corporativos animados com foco em processos, integrações e conformidade.</p>
             </div>
-            <h3>Ator + Pós (Horizontal)</h3>
-            <p>Gravações com atores profissionais, chroma key, lettering dinâmico e ambientação educacional.</p>
+            <div class="category-action">Acessar empresas &rarr;</div>
           </div>
-          <div class="card-footer-action">
-            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
-          </div>
-        </div>
 
-        <!-- Vitrine 4 -->
-        <div class="showcase-card" onclick="openCategory('ator-vertical')">
-          <div>
-            <div class="showcase-card-header">
-              <div class="showcase-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-              <span class="pill-badge">1 Vídeo • 9:16</span>
+          <div class="category-box" onclick="openCategory('banco-imagem')">
+            <div>
+              <div class="category-box-top">
+                <span class="category-count">2 Projetos</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+              <h3>Banco de Imagem + Pós</h3>
+              <p>Edições modernas utilizando acervo de imagem e recortes conceituais.</p>
             </div>
-            <h3>Ator + Pós (Vertical)</h3>
-            <p>Pílulas de aprendizagem e microlearning gravadas em formato vertical com ator e elementos dinâmicos.</p>
+            <div class="category-action">Acessar empresas &rarr;</div>
           </div>
-          <div class="card-footer-action">
-            Ver todas as empresas <i class="fa-solid fa-arrow-right"></i>
+
+          <div class="category-box" onclick="openCategory('ator-horizontal')">
+            <div>
+              <div class="category-box-top">
+                <span class="category-count">2 Projetos</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+              <h3>Ator + Pós (16:9)</h3>
+              <p>Gravação com atores em estúdio, chroma key e motion instrucional.</p>
+            </div>
+            <div class="category-action">Acessar empresas &rarr;</div>
           </div>
+
+          <div class="category-box" onclick="openCategory('ator-vertical')">
+            <div>
+              <div class="category-box-top">
+                <span class="category-count">1 Projeto</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+              <h3>Ator + Pós (9:16)</h3>
+              <p>Formatos verticais ideais para redes corporativas, microlearning e apps.</p>
+            </div>
+            <div class="category-action">Acessar empresas &rarr;</div>
+          </div>
+
         </div>
+      </section>
 
-      </div>
-    </section>
+    </div>
 
-    <!-- TELA 2: LISTAGEM DE EMPRESAS POR CATEGORIA -->
-    <section id="view-details" class="view-section">
-      <div class="category-topbar">
-        <button class="back-btn" onclick="backToShowcases()">
-          <i class="fa-solid fa-arrow-left"></i> Voltar às Vitrines
+    <!-- TELA 2: LISTA DE VÍDEOS DA CATEGORIA SELECIONADA -->
+    <div id="view-category-detail" class="view-container">
+      <div class="detail-nav">
+        <button class="back-button" onclick="backToHome()">
+          <i class="fa-solid fa-arrow-left"></i> Voltar aos Destaques
         </button>
-        <div class="category-title-wrap">
-          <h2 id="current-category-title">Categoria</h2>
-          <p id="current-category-desc">Projetos produzidos para empresas parceiras</p>
+        <div class="detail-title">
+          <h2 id="cat-title">Categoria</h2>
+          <p id="cat-desc">Projetos produzidos por empresa</p>
         </div>
       </div>
 
-      <!-- Grade injetada dinamicamente via JavaScript -->
-      <div id="videos-container" class="videos-grid"></div>
-    </section>
+      <div id="category-videos-grid" class="company-grid"></div>
+    </div>
+
   </div>
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Marco Akutsu. Todos os direitos reservados.</p>
+      <p>&copy; 2026 Marco Akutsu. Portfólio de Educação Corporativa.</p>
     </div>
   </footer>
 
   <script>
-    // DADOS DAS SUAS PASTAS E VÍDEOS
-    // Dica: Substitua o link em 'embedUrl' pelo link de Incorporar (Embed) de cada vídeo no seu YouTube!
+    // DADOS DAS CATEGORIAS COM LINKS VIMEO EMBED
+    // Para atualizar um vídeo, basta substituir a URL em 'vimeoUrl' pelo link de embed do seu vídeo no Vimeo!
     const categoriesData = {
       'vyond': {
-        title: "HORIZONTAL - VYOND + PÓS",
-        desc: "Projetos corporativos desenvolvidos em formato 16:9 com animação e pós-produção.",
+        title: "Vyond + Pós-Produção",
+        desc: "Projetos em formato horizontal (16:9) com animação instrutiva.",
         aspectRatio: "aspect-16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Bombril", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Bunzl", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "CAM", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "CBA", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "EPI-USE", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Galderma", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "PepsiCo", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "PortoPet", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "QuintoAndar", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Realcafé", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Senac", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Thermo Fisher", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Unidas", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Whirlpool", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Wire", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+          { company: "Bombril", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Bunzl", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "CAM", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "CBA", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "EPI-USE", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Galderma", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "PepsiCo", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "PortoPet", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "QuintoAndar", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Realcafé", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Thermo Fisher", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Unidas", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Whirlpool", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Wire", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
         ]
       },
       'banco-imagem': {
-        title: "HORIZONTAL - BANCO DE IMAGEM + PÓS",
-        desc: "Edições dinâmicas utilizando acervo de banco de imagens para comunicação corporativa.",
+        title: "Banco de Imagem + Pós",
+        desc: "Edições conceituais horizontais com acervo de imagem e motion corporativo.",
         aspectRatio: "aspect-16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Banco BMG", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Yanmar", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+          { company: "Banco BMG", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Yanmar", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
         ]
       },
       'ator-horizontal': {
-        title: "HORIZONTAL - ATOR + PÓS",
-        desc: "Captação presencial com apresentadores e inserção de pós-produção instrucional.",
+        title: "Ator + Pós (Horizontal)",
+        desc: "Gravações em estúdio com atores e pós-produção explicativa (16:9).",
         aspectRatio: "aspect-16-9",
         gridClass: "grid-horizontal",
         videos: [
-          { company: "Senac", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" },
-          { company: "Vai Voando", format: "Horizontal", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" },
+          { company: "Vai Voando", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
         ]
       },
       'ator-vertical': {
-        title: "VERTICAL - ATOR + PÓS",
-        desc: "Pílulas em formato 9:16 voltadas para mobile learning corporativo e redes.",
+        title: "Ator + Pós (Vertical)",
+        desc: "Pílulas em formato vertical (9:16) para treinamento ágil e dispositivos móveis.",
         aspectRatio: "aspect-9-16",
         gridClass: "grid-vertical",
         videos: [
-          { company: "Senac", format: "Vertical (9:16)", embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" }
+          { company: "Senac", vimeoUrl: "https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0" }
         ]
       }
     };
@@ -547,43 +643,44 @@
       const data = categoriesData[key];
       if (!data) return;
 
-      document.getElementById('current-category-title').textContent = data.title;
-      document.getElementById('current-category-desc').textContent = data.desc;
+      document.getElementById('cat-title').textContent = data.title;
+      document.getElementById('cat-desc').textContent = data.desc;
 
-      const container = document.getElementById('videos-container');
-      container.className = `videos-grid ${data.gridClass}`;
-      container.innerHTML = '';
+      const grid = document.getElementById('category-videos-grid');
+      grid.className = `company-grid ${data.gridClass}`;
+      grid.innerHTML = '';
 
       data.videos.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'company-video-card';
+        card.className = 'highlight-card';
         card.innerHTML = `
-          <div class="video-wrapper ${data.aspectRatio}">
+          <div class="video-frame ${data.aspectRatio}">
             <iframe 
-              src="${item.embedUrl}" 
-              title="${item.company}"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              src="${item.vimeoUrl}" 
+              allow="autoplay; fullscreen; picture-in-picture" 
               allowfullscreen>
             </iframe>
           </div>
-          <div class="company-card-info">
-            <span class="project-type">${item.format} • Treinamento</span>
-            <div class="company-name">${item.company}</div>
+          <div class="card-meta">
+            <div class="meta-top">
+              <span>Educação Corporativa</span>
+            </div>
+            <h3>${item.company}</h3>
           </div>
         `;
-        container.appendChild(card);
+        grid.appendChild(card);
       });
 
-      document.getElementById('view-showcases').classList.remove('active');
-      document.getElementById('view-details').classList.add('active');
+      document.getElementById('view-home').classList.remove('active');
+      document.getElementById('view-category-detail').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function backToShowcases() {
-      // Pausa os vídeos ao voltar removendo os iframes temporariamente
-      document.getElementById('videos-container').innerHTML = '';
-      document.getElementById('view-details').classList.remove('active');
-      document.getElementById('view-showcases').classList.add('active');
+    function backToHome() {
+      // Limpa os vídeos da categoria para pausar execuções em segundo plano
+      document.getElementById('category-videos-grid').innerHTML = '';
+      document.getElementById('view-category-detail').classList.remove('active');
+      document.getElementById('view-home').classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
