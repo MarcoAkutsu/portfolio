@@ -17,16 +17,14 @@
       --surface: #070709;
       --surface-hover: #101014;
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.3);
+      --border-hover: rgba(255, 255, 255, 0.28);
       --text: #ffffff;
       --text-muted: #8b8b93;
       --text-dim: #4d4d54;
-      --accent: #ffffff;
-      --glow: rgba(255, 255, 255, 0.06);
       --radius-sm: 8px;
       --radius-md: 14px;
-      --radius-lg: 20px;
-      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --radius-lg: 22px;
+      --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -49,16 +47,28 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Fundo com iluminação sutil estilo Vercel */
+    /* Barra de progresso de rolagem */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2), #ffffff);
+      width: 0%;
+      z-index: 99999;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Brilho radial estilo Vercel */
     body::before {
       content: '';
       position: fixed;
-      top: -20%;
+      top: -25%;
       left: 50%;
       transform: translateX(-50%);
-      width: 1000px;
-      height: 600px;
-      background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+      width: 1100px;
+      height: 700px;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.045) 0%, transparent 100%);
       pointer-events: none;
       z-index: 0;
     }
@@ -72,7 +82,32 @@
     }
 
     /* ============================================================
-       FLOATING NAVBAR (CÁPSULA MODERNA)
+       ANIMAÇÕES DE SCROLL (IMPACT EFFECT)
+    ============================================================ */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px) scale(0.97);
+      filter: blur(4px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+
+    .scroll-reveal.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* Cascata (stagger) para múltiplos itens */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       FLOATING NAVBAR
     ============================================================ */
     .nav-wrapper {
       position: sticky;
@@ -85,7 +120,7 @@
     }
 
     .floating-nav {
-      background: rgba(10, 10, 14, 0.7);
+      background: rgba(10, 10, 14, 0.65);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
@@ -93,13 +128,15 @@
       padding: 8px 10px 8px 20px;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 22px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
       transition: var(--transition);
     }
 
-    .floating-nav:hover {
-      border-color: var(--border-hover);
+    .floating-nav.scrolled {
+      background: rgba(6, 6, 8, 0.85);
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
     }
 
     .nav-brand {
@@ -166,12 +203,11 @@
     }
 
     /* ============================================================
-       HERO IMPACTANTE
+       HERO
     ============================================================ */
     .hero {
       text-align: center;
       padding: 60px 0 70px;
-      position: relative;
     }
 
     .hero-badge {
@@ -243,7 +279,7 @@
       transform: translateY(-2px);
     }
 
-    /* Grid de Métricas / Credenciais */
+    /* Métricas */
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -280,7 +316,7 @@
     }
 
     /* ============================================================
-       DESTAQUES EM BENTO (16:9 + 9:16 LADO A LADO)
+       DESTAQUES BENTO (16:9 + 9:16)
     ============================================================ */
     .section-title-wrap {
       display: flex;
@@ -459,7 +495,7 @@
     }
 
     /* ============================================================
-       GALERIA COMPLETA COM FILTROS EM SCROLL
+       CATÁLOGO E FILTROS
     ============================================================ */
     .filter-bar {
       display: flex;
@@ -531,7 +567,7 @@
     }
 
     /* ============================================================
-       CALL TO ACTION FINAL (ESTILO VERCEL DELTA)
+       CTA BANNER
     ============================================================ */
     .cta-banner {
       background: linear-gradient(180deg, #0d0d12 0%, #030304 100%);
@@ -617,7 +653,7 @@
     }
 
     /* ============================================================
-       MODAL DE VÍDEO (LIGHTBOX YOUTUBE)
+       MODAL YOUTUBE
     ============================================================ */
     .video-modal {
       position: fixed;
@@ -735,9 +771,12 @@
 </head>
 <body>
 
+  <!-- Barra de progresso do Scroll -->
+  <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+
   <!-- FLOATING NAVBAR -->
   <div class="nav-wrapper">
-    <nav class="floating-nav">
+    <nav class="floating-nav" id="floatingNav">
       <a href="#" class="nav-brand">
         <span class="status-dot"></span> Marco Akutsu
       </a>
@@ -753,8 +792,8 @@
   </div>
 
   <div class="container">
-    <!-- HERO -->
-    <header class="hero">
+    <!-- HERO COM TRANSIÇÃO -->
+    <header class="hero scroll-reveal">
       <div class="hero-badge">Educação Corporativa & Produção Audiovisual</div>
       <h1>Conteúdo Audiovisual<br><span>com Impacto Real</span></h1>
       <p class="lead">Produção instrucional e edição dinâmica desenhada para retenção, treinamento e comunicação estratégica corporativa.</p>
@@ -776,28 +815,28 @@
 
       <!-- MÉTRICAS -->
       <div class="metrics-grid">
-        <div class="metric-card">
+        <div class="metric-card scroll-reveal delay-1">
           <div class="metric-number">20+</div>
           <div class="metric-label">Projetos corporativos entregues</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card scroll-reveal delay-2">
           <div class="metric-number">16:9 & 9:16</div>
-          <div class="metric-label">Vídeos longos e pílulas mobile</div>
+          <div class="metric-label">Vídeos horizontais e pílulas mobile</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card scroll-reveal delay-3">
           <div class="metric-number">Vyond & Pós</div>
           <div class="metric-label">Animações didáticas com sound design</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card scroll-reveal delay-4">
           <div class="metric-number">Ator & Estúdio</div>
           <div class="metric-label">Captação com chroma e motion instrucional</div>
         </div>
       </div>
     </header>
 
-    <!-- SEÇÃO 1: DESTAQUES SELECIONADOS (BENTO) -->
+    <!-- SEÇÃO 1: DESTAQUES (BENTO GRID COM SEUS VÍDEOS REAIS) -->
     <section id="destaques">
-      <div class="section-title-wrap">
+      <div class="section-title-wrap scroll-reveal">
         <h2>Destaques Selecionados</h2>
         <span>Horizontal (16:9) + Vertical (9:16)</span>
       </div>
@@ -806,9 +845,10 @@
         <!-- Esquerda: 3 Horizontais -->
         <div class="bento-horizontals">
           
-          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Bombril — Vyond + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
-              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Bombril" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+          <!-- 1. BOMBRIL (VÍDEO REAL 1: cChRwfMNR3o) -->
+          <div class="bento-card-h scroll-reveal delay-1" onclick="openModal('cChRwfMNR3o', 'Bombril — Vyond + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9">
+              <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Bombril" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
               <div class="play-btn"><i class="fa-solid fa-play"></i></div>
             </div>
@@ -818,13 +858,14 @@
                 <span>Vyond + Pós</span>
               </div>
               <h3>Bombril</h3>
-              <p>Animação instrutiva voltada para processos internos e conformidade.</p>
+              <p>Animação instrutiva voltada para processos internos e conformidade corporativa.</p>
             </div>
           </div>
 
-          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Yanmar — Banco de Imagem + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
-              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Yanmar" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+          <!-- 2. YANMAR (VÍDEO REAL 2: mH1VpK2i6JU) -->
+          <div class="bento-card-h scroll-reveal delay-2" onclick="openModal('mH1VpK2i6JU', 'Yanmar — Banco de Imagem + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9">
+              <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Yanmar" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
               <div class="play-btn"><i class="fa-solid fa-play"></i></div>
             </div>
@@ -838,9 +879,10 @@
             </div>
           </div>
 
-          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Senac — Ator + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
-              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Senac" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+          <!-- 3. SENAC HORIZONTAL -->
+          <div class="bento-card-h scroll-reveal delay-3" onclick="openModal('cChRwfMNR3o', 'Senac — Ator + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9">
+              <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Senac" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
               <div class="play-btn"><i class="fa-solid fa-play"></i></div>
             </div>
@@ -857,9 +899,9 @@
         </div>
 
         <!-- Direita: 1 Vertical 9:16 -->
-        <div class="bento-card-v" onclick="openModal('dQw4w9WgXcQ', 'Senac — Ator + Pós (Vertical)', '9-16')">
-          <div class="thumb-box ratio-9-16" data-yt="dQw4w9WgXcQ">
-            <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Senac Vertical" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+        <div class="bento-card-v scroll-reveal delay-2" onclick="openModal('mH1VpK2i6JU', 'Senac — Atriz + Pós (Vertical)', '9-16')">
+          <div class="thumb-box ratio-9-16">
+            <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Senac Vertical" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
             <div class="thumb-overlay"></div>
             <div class="play-btn"><i class="fa-solid fa-play"></i></div>
           </div>
@@ -875,15 +917,15 @@
       </div>
     </section>
 
-    <!-- SEÇÃO 2: GALERIA COMPLETA DE VÍDEOS -->
+    <!-- SEÇÃO 2: CATÁLOGO COMPLETO -->
     <section id="galeria">
-      <div class="section-title-wrap">
+      <div class="section-title-wrap scroll-reveal">
         <h2>Catálogo de Projetos</h2>
         <span id="video-count-label">20 vídeos disponíveis</span>
       </div>
 
       <!-- Barra de Filtros -->
-      <div class="filter-bar">
+      <div class="filter-bar scroll-reveal">
         <button class="filter-btn active" data-filter="all">Todos os Projetos</button>
         <button class="filter-btn" data-filter="vyond">Vyond + Pós (15)</button>
         <button class="filter-btn" data-filter="banco">Banco de Imagem (2)</button>
@@ -891,12 +933,12 @@
         <button class="filter-btn" data-filter="ator-v">Ator Vertical (1)</button>
       </div>
 
-      <!-- Grade Dinâmica de Vídeos -->
+      <!-- Grade de Vídeos -->
       <div id="video-grid" class="showcase-grid"></div>
     </section>
 
     <!-- CTA FINAL (IMPACT) -->
-    <section class="cta-banner">
+    <section class="cta-banner scroll-reveal">
       <h2>Pronto para criar o próximo vídeo<br>da sua organização?</h2>
       <p>Desenvolvemos projetos sob medida para treinamento de colaboradores, integrações e comunicação estratégica interna.</p>
       
@@ -940,47 +982,88 @@
   <script>
     // ============================================================
     // BASE DE DADOS DOS VÍDEOS (YOUTUBE)
-    // Basta trocar o 'ytId' pelo ID do respectivo vídeo no YouTube!
-    // Exemplo: se a URL for youtube.com/watch?v=ABC123XYZ, o ytId é "ABC123XYZ"
+    // Onde 'ytId' já conta com os 2 vídeos enviados!
     // ============================================================
     const projects = [
       // 1. HORIZONTAL - VYOND + PÓS
-      { company: "Bombril", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Bunzl", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "CAM", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "CBA", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "EPI-USE", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Galderma", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "PepsiCo", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "PortoPet", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "QuintoAndar", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Realcafé", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Senac", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Thermo Fisher", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Unidas", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Whirlpool", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Wire", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Bombril", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Bunzl", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "CAM", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "CBA", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "EPI-USE", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Galderma", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "PepsiCo", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "PortoPet", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "QuintoAndar", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Realcafé", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Senac", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Thermo Fisher", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Unidas", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Whirlpool", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Wire", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
 
       // 2. HORIZONTAL - BANCO DE IMAGEM + PÓS
-      { company: "Banco BMG", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Yanmar", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Banco BMG", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "mH1VpK2i6JU" },
+      { company: "Yanmar", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "mH1VpK2i6JU" },
 
       // 3. HORIZONTAL - ATOR + PÓS
-      { company: "Senac", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "dQw4w9WgXcQ" },
-      { company: "Vai Voando", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Senac", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "cChRwfMNR3o" },
+      { company: "Vai Voando", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "cChRwfMNR3o" },
 
       // 4. VERTICAL - ATOR + PÓS
-      { company: "Senac", category: "ator-v", aspect: "9-16", categoryName: "Ator + Pós (Vertical)", ytId: "dQw4w9WgXcQ" }
+      { company: "Senac", category: "ator-v", aspect: "9-16", categoryName: "Ator + Pós (Vertical)", ytId: "mH1VpK2i6JU" }
     ];
 
-    // Renderiza a galeria
+    // ============================================================
+    // MOTOR DE TRANSIÇÃO NO SCROLL (INTERSECTION OBSERVER)
+    // ============================================================
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    function observeElements() {
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        scrollObserver.observe(el);
+      });
+    }
+
+    // Scroll Progress & Navbar Glass Intensification
+    const nav = document.getElementById('floatingNav');
+    const progressBar = document.getElementById('scrollProgressBar');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = `${scrollPercent}%`;
+
+      if (scrollTop > 40) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // ============================================================
+    // RENDERIZAÇÃO DA GALERIA
+    // ============================================================
     const grid = document.getElementById('video-grid');
     function renderGallery() {
       grid.innerHTML = '';
-      projects.forEach(p => {
+      projects.forEach((p, idx) => {
         const card = document.createElement('div');
         const isVert = p.aspect === '9-16';
-        card.className = `grid-video-card ${isVert ? 'is-vertical' : ''}`;
+        
+        // Aplica o efeito de scroll com stagger suave nos primeiros
+        const delayClass = idx < 6 ? `delay-${(idx % 4) + 1}` : '';
+        card.className = `grid-video-card scroll-reveal ${delayClass} ${isVert ? 'is-vertical' : ''}`;
         card.dataset.category = p.category;
 
         const ratioClass = isVert ? 'ratio-9-16' : 'ratio-16-9';
@@ -1005,11 +1088,14 @@
         `;
         grid.appendChild(card);
       });
+
+      // Ativa o observador nos cards renderizados
+      observeElements();
     }
 
     renderGallery();
 
-    // Sistema de Filtros
+    // Filtros
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1033,7 +1119,9 @@
       });
     });
 
-    // Modal de Vídeo com YouTube Clean Embed
+    // ============================================================
+    // MODAL YOUTUBE (CLEAN EMBED)
+    // ============================================================
     const modal = document.getElementById('video-modal');
     const ytPlayer = document.getElementById('yt-player');
     const modalBox = document.getElementById('modal-frame-box');
@@ -1051,7 +1139,7 @@
         modalHeadBar.style.maxWidth = '1100px';
       }
 
-      // Parâmetros do YouTube: autoplay ativo, rel=0 (só vídeos do canal), modestbranding=1 (logo discreta)
+      // Parâmetros limpos: autoplay automático, sem vídeos externos recomendados (rel=0)
       ytPlayer.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 
       modal.classList.add('active');
