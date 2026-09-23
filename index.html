@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Akutsu — Produtor Multimídia</title>
+  <title>Marco Akutsu — Produtor Multimídia & Educação Corporativa</title>
   
   <!-- Fontes & Ícones -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-color: #000000;
-      --bg-card: #080808;
-      --bg-card-hover: #111111;
-      --border-subtle: rgba(255, 255, 255, 0.1);
-      --border-strong: rgba(255, 255, 255, 0.35);
-      --text-main: #ffffff;
-      --text-muted: #8e8e93;
-      --text-dim: #545458;
-      --radius: 10px;
-      --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      --bg: #000000;
+      --surface: #070709;
+      --surface-hover: #101014;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.3);
+      --text: #ffffff;
+      --text-muted: #8b8b93;
+      --text-dim: #4d4d54;
+      --accent: #ffffff;
+      --glow: rgba(255, 255, 255, 0.06);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -31,171 +35,290 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      background-color: var(--bg);
+      color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Fundo com iluminação sutil estilo Vercel */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 600px;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .container {
-      max-width: 1240px;
+      max-width: 1260px;
       margin: 0 auto;
-      padding: 0 28px;
-      width: 100%;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Header Minimalista */
-    header {
-      padding: 80px 0 50px;
-      border-bottom: 1px solid var(--border-subtle);
-      margin-bottom: 60px;
-    }
-
-    .header-top {
+    /* ============================================================
+       FLOATING NAVBAR (CÁPSULA MODERNA)
+    ============================================================ */
+    .nav-wrapper {
+      position: sticky;
+      top: 20px;
+      z-index: 100;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 30px;
-      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 50px;
+      padding: 0 16px;
     }
 
-    .tag-status {
+    .floating-nav {
+      background: rgba(10, 10, 14, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 10px 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      transition: var(--transition);
+    }
+
+    .floating-nav:hover {
+      border-color: var(--border-hover);
+    }
+
+    .nav-brand {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      background: #fff;
+      color: #000 !important;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .nav-cta:hover {
+      background: #e5e5e5;
+      transform: scale(1.03);
+    }
+
+    /* ============================================================
+       HERO IMPACTANTE
+    ============================================================ */
+    .hero {
+      text-align: center;
+      padding: 60px 0 70px;
+      position: relative;
+    }
+
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #fff;
-      border: 1px solid var(--border-subtle);
-      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px 16px;
       border-radius: 999px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--text-muted);
       margin-bottom: 24px;
     }
 
-    .tag-status::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: #fff;
-      border-radius: 50%;
-    }
-
-    h1 {
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 800;
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 16px;
+      line-height: 1.05;
+      margin-bottom: 24px;
     }
 
-    p.role-desc {
+    .hero h1 span {
+      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.lead {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
       color: var(--text-muted);
-      font-size: 1.15rem;
       max-width: 720px;
+      margin: 0 auto 36px;
       font-weight: 400;
+      line-height: 1.6;
     }
 
-    /* Links e Botões de Conversão no Header */
-    .social-nav {
+    .hero-socials {
       display: flex;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 24px;
-      align-items: center;
+      margin-bottom: 60px;
     }
 
-    .btn-action-primary {
-      background: #ffffff;
-      color: #000000 !important;
-      border: 1px solid #ffffff;
-      padding: 9px 20px;
-      border-radius: var(--radius);
+    .social-pill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: #fff;
       text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 999px;
       font-size: 0.88rem;
-      font-weight: 700;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: var(--transition);
     }
 
-    .btn-action-primary:hover {
-      background: #e2e2e5;
-      border-color: #e2e2e5;
+    .social-pill:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
       transform: translateY(-2px);
     }
 
-    .social-link {
-      color: var(--text-main);
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      padding: 8px 16px;
-      border-radius: var(--radius);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    /* Grid de Métricas / Credenciais */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      max-width: 980px;
+      margin: 0 auto 80px;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      text-align: left;
       transition: var(--transition);
     }
 
-    .social-link:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      transform: translateY(-2px);
+    .metric-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
     }
 
-    /* Seções */
-    .section-header {
-      margin-bottom: 28px;
+    .metric-number {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       DESTAQUES EM BENTO (16:9 + 9:16 LADO A LADO)
+    ============================================================ */
+    .section-title-wrap {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      margin-bottom: 30px;
     }
 
-    .section-header h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .section-title-wrap h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
-    .section-header span {
-      font-size: 0.85rem;
+    .section-title-wrap span {
       color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
-    /* Layout Destaques */
-    .highlights-section {
-      margin-bottom: 90px;
-    }
-
-    .highlights-layout {
+    .bento-highlights {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
+      grid-template-columns: 1.65fr 1fr;
       gap: 24px;
+      margin-bottom: 90px;
       align-items: stretch;
     }
 
-    .horizontals-col {
+    .bento-horizontals {
       display: flex;
       flex-direction: column;
       gap: 16px;
       justify-content: space-between;
     }
 
-    .horizontal-item-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
+    .bento-card-h {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       overflow: hidden;
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -204,21 +327,16 @@
       min-height: 145px;
     }
 
-    .horizontal-item-card:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-card-hover);
+    .bento-card-h:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
       transform: translateX(4px);
     }
 
-    .vertical-col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .vertical-item-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
+    .bento-card-v {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -227,239 +345,230 @@
       height: 100%;
     }
 
-    .vertical-item-card:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-card-hover);
-      transform: translateY(-3px);
+    .bento-card-v:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
     }
 
-    /* Thumbnails */
-    .card-thumb-area {
+    /* Thumbnails Dinâmicas (YouTube) */
+    .thumb-box {
       position: relative;
-      background: #090a0f;
+      background: #09090c;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
 
-    .card-thumb-img {
+    .thumb-box.ratio-16-9 {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
+    }
+
+    .thumb-box.ratio-9-16 {
+      aspect-ratio: 9 / 16;
+      width: 100%;
+      max-height: 420px;
+      margin: 0 auto;
+    }
+
+    .thumb-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
-      transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
-      opacity: 0.82;
-      z-index: 1;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+      opacity: 0.85;
     }
 
-    .card-thumb-overlay {
+    .thumb-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.65) 100%);
-      z-index: 2;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
       pointer-events: none;
     }
 
-    .card-thumb-area.aspect-16-9 {
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      height: 100%;
-    }
-
-    .card-thumb-area.aspect-9-16 {
-      aspect-ratio: 9 / 16;
-      width: 100%;
-      max-height: 410px;
-      margin: 0 auto;
-    }
-
-    .play-trigger {
-      width: 48px;
-      height: 48px;
+    .play-btn {
+      position: relative;
+      z-index: 2;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 1.05rem;
+      font-size: 1rem;
       padding-left: 3px;
       transition: var(--transition);
-      z-index: 3;
-      position: relative;
     }
 
-    .horizontal-item-card:hover .card-thumb-img,
-    .vertical-item-card:hover .card-thumb-img,
-    .company-item-card:hover .card-thumb-img {
-      transform: scale(1.06);
+    .bento-card-h:hover .thumb-img,
+    .bento-card-v:hover .thumb-img,
+    .grid-video-card:hover .thumb-img {
+      transform: scale(1.08);
       opacity: 1;
     }
 
-    .horizontal-item-card:hover .play-trigger,
-    .vertical-item-card:hover .play-trigger,
-    .company-item-card:hover .play-trigger {
+    .bento-card-h:hover .play-btn,
+    .bento-card-v:hover .play-btn,
+    .grid-video-card:hover .play-btn {
       background: #ffffff;
       color: #000000;
       transform: scale(1.1);
       border-color: #ffffff;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
     }
 
-    .card-meta {
-      padding: 16px 20px;
+    .card-details {
+      padding: 18px 22px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 4px;
+      gap: 6px;
     }
 
-    .meta-top {
+    .card-meta-line {
       display: flex;
       justify-content: space-between;
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--text-muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .card-meta h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
+    .card-details h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
       color: #fff;
     }
 
-    .card-meta p {
-      font-size: 0.82rem;
+    .card-details p {
+      font-size: 0.86rem;
       color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* Vitrines de Categorias */
-    .categories-section {
-      margin-bottom: 90px;
-    }
-
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .category-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 220px;
-      transition: var(--transition);
-    }
-
-    .category-box:hover {
-      border-color: #ffffff;
-      background: var(--bg-card-hover);
-      transform: translateY(-3px);
-    }
-
-    .category-box-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .category-count {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .category-box h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .category-box p {
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .category-action {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-top: 24px;
+      line-height: 1.45;
     }
 
     /* ============================================================
-       SEÇÃO DE CONVERSÃO / CONTATO (CTA DE FECHAMENTO)
+       GALERIA COMPLETA COM FILTROS EM SCROLL
     ============================================================ */
-    .conversion-section {
-      margin: 40px 0 90px;
-      background: linear-gradient(180deg, #090909 0%, #030303 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 60px 40px;
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 36px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      color: #fff;
+      border-color: var(--border-hover);
+    }
+
+    .filter-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 100px;
+    }
+
+    .grid-video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .grid-video-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+    }
+
+    .grid-video-card.is-vertical {
+      grid-column: span 1;
+    }
+
+    .grid-video-card.is-hidden {
+      display: none !important;
+    }
+
+    /* ============================================================
+       CALL TO ACTION FINAL (ESTILO VERCEL DELTA)
+    ============================================================ */
+    .cta-banner {
+      background: linear-gradient(180deg, #0d0d12 0%, #030304 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 70px 40px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      margin-bottom: 100px;
     }
 
-    .conversion-section::before {
+    .cta-banner::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 50%;
+      top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 500px;
-      height: 1px;
+      width: 600px; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     }
 
-    .conversion-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      font-weight: 600;
-    }
-
-    .conversion-section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    .cta-banner h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
       margin-bottom: 16px;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
-    .conversion-section p {
+    .cta-banner p {
       color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 620px;
+      font-size: 1.1rem;
+      max-width: 640px;
       margin: 0 auto 36px;
     }
 
-    .conversion-buttons {
+    .cta-actions {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -467,137 +576,55 @@
       flex-wrap: wrap;
     }
 
-    .btn-large {
-      padding: 14px 28px;
+    .btn-main {
+      background: #fff;
+      color: #000;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-weight: 700;
       font-size: 0.95rem;
-      border-radius: var(--radius);
-      font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       transition: var(--transition);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
     }
 
-    .btn-primary-glow {
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid #ffffff;
+    .btn-main:hover {
+      background: #e6e6e6;
+      transform: scale(1.04);
     }
 
-    .btn-primary-glow:hover {
-      background: #e2e2e5;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-secondary-border {
+    .btn-outline {
+      border: 1px solid var(--border);
       background: transparent;
-      color: #ffffff;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .btn-secondary-border:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--border-strong);
-      transform: translateY(-3px);
-    }
-
-    /* Telas SPA */
-    .view-container {
-      display: none;
-      animation: fadeIn 0.2s ease forwards;
-    }
-
-    .view-container.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .detail-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-subtle);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .back-button {
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      padding: 10px 20px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-size: 0.9rem;
+      color: #fff;
+      padding: 14px 26px;
+      border-radius: 999px;
       font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: var(--transition);
     }
 
-    .back-button:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
     }
 
-    .detail-title h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-
-    .detail-title p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .company-grid {
-      display: grid;
-      gap: 24px;
-      margin-bottom: 80px;
-    }
-
-    .grid-horizontal {
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    }
-
-    .grid-vertical {
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
-
-    .company-item-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
-      overflow: hidden;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-    }
-
-    .company-item-card:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-card-hover);
-      transform: translateY(-3px);
-    }
-
-    /* Modal / Pop-up */
-    .modal-overlay {
+    /* ============================================================
+       MODAL DE VÍDEO (LIGHTBOX YOUTUBE)
+    ============================================================ */
+    .video-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 9999;
       display: none;
       align-items: center;
@@ -607,67 +634,37 @@
       transition: opacity 0.25s ease;
     }
 
-    .modal-overlay.active {
+    .video-modal.active {
       display: flex;
       opacity: 1;
     }
 
-    .modal-content-wrapper {
+    .modal-shell {
       position: relative;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: modalZoom 0.25s cubic-bezier(0.2, 0, 0, 1) forwards;
     }
 
-    @keyframes modalZoom {
-      from { transform: scale(0.96); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-header-actions {
+    .modal-head {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
-      color: var(--text-muted);
+      color: #fff;
     }
 
-    .modal-video-box {
-      position: relative;
-      background: #000;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
-      width: 100%;
+    .modal-title {
+      font-size: 1.05rem;
+      font-weight: 700;
     }
 
-    .modal-video-box.aspect-16-9 {
-      max-width: 1080px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .modal-video-box.aspect-9-16 {
-      max-width: 430px;
-      aspect-ratio: 9 / 16;
-      height: 82vh;
-      max-height: 740px;
-    }
-
-    .modal-video-box iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .modal-close-btn {
+    .modal-close {
       background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border-subtle);
-      color: #ffffff;
+      border: 1px solid var(--border);
+      color: #fff;
       width: 42px;
       height: 42px;
       border-radius: 50%;
@@ -679,344 +676,255 @@
       transition: var(--transition);
     }
 
-    .modal-close-btn:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
+    .modal-close:hover {
+      background: #fff;
+      color: #000;
     }
 
-    .modal-caption {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
+    .modal-frame-box {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      width: 100%;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
     }
 
-    /* ============================================================
-       BOTÃO FLUTUANTE DE CONVERSÃO RÁPIDA (WHATSAPP FIXO)
-    ============================================================ */
-    .floating-contact-btn {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 12px 20px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      z-index: 990;
-      transition: var(--transition);
+    .modal-frame-box.ratio-16-9 {
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
     }
 
-    .floating-contact-btn:hover {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.25);
+    .modal-frame-box.ratio-9-16 {
+      max-width: 420px;
+      aspect-ratio: 9 / 16;
+      height: 82vh;
+      max-height: 720px;
     }
 
-    .floating-contact-btn i {
-      font-size: 1.15rem;
+    .modal-frame-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
     footer {
-      margin-top: auto;
+      border-top: 1px solid var(--border);
       padding: 40px 0;
-      border-top: 1px solid var(--border-subtle);
       text-align: center;
       color: var(--text-dim);
       font-size: 0.85rem;
     }
 
     @media (max-width: 960px) {
-      .highlights-layout {
+      .bento-highlights {
         grid-template-columns: 1fr;
       }
-      .horizontal-item-card {
+      .bento-card-h {
         grid-template-columns: 1fr;
       }
-      .vertical-item-card .card-thumb-area.aspect-9-16 {
-        max-width: 300px;
+      .bento-card-v .thumb-box.ratio-9-16 {
+        max-width: 280px;
       }
-      .conversion-section {
-        padding: 40px 20px;
-      }
-      .floating-contact-btn span {
-        display: none; /* Em telas menores, mantém o botão compacto apenas com ícone */
-      }
-      .floating-contact-btn {
-        padding: 14px;
-        border-radius: 50%;
-        bottom: 20px;
-        right: 20px;
+      .nav-links {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Header com Ações de Conversão -->
-    <header>
-      <div class="header-top">
-        <div>
-          <div class="tag-status">Educação Corporativa & Treinamentos</div>
-          <h1>Marco Akutsu</h1>
-          <p class="role-desc">Produtor Multimídia focado em vídeos para Educação Corporativa, unindo metodologia instrucional, dinamismo e pós-produção audiovisual.</p>
-        </div>
+  <!-- FLOATING NAVBAR -->
+  <div class="nav-wrapper">
+    <nav class="floating-nav">
+      <a href="#" class="nav-brand">
+        <span class="status-dot"></span> Marco Akutsu
+      </a>
+      <div class="nav-links">
+        <a href="#destaques" class="nav-link">Destaques</a>
+        <a href="#galeria" class="nav-link">Projetos</a>
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link">Behance</a>
+      </div>
+      <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta">
+        <i class="fa-brands fa-whatsapp"></i> Falar Agora
+      </a>
+    </nav>
+  </div>
 
-        <div class="social-nav">
-          <!-- CTA WhatsApp Direto -->
-          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="btn-action-primary">
-            <i class="fa-brands fa-whatsapp"></i> WhatsApp
-          </a>
-          <!-- E-mail -->
-          <a href="mailto:marco.akutsu@gmail.com?subject=Contato%20-%20Projeto%20de%20V%C3%ADdeo%20Corporativo" class="social-link">
-            <i class="fa-solid fa-envelope"></i> E-mail
-          </a>
-          <!-- Behance -->
-          <a href="https://www.behance.net/marcoakutsu" target="_blank" class="social-link">
-            <i class="fa-brands fa-behance"></i> Behance
-          </a>
-          <!-- Instagram -->
-          <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-link">
-            <i class="fa-brands fa-instagram"></i> Akutsu_TV
-          </a>
+  <div class="container">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-badge">Educação Corporativa & Produção Audiovisual</div>
+      <h1>Conteúdo Audiovisual<br><span>com Impacto Real</span></h1>
+      <p class="lead">Produção instrucional e edição dinâmica desenhada para retenção, treinamento e comunicação estratégica corporativa.</p>
+
+      <div class="hero-socials">
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20um%20or%C3%A7amento%20para%20minha%20empresa." target="_blank" class="social-pill">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp: (11) 98129-2787
+        </a>
+        <a href="mailto:marco.akutsu@gmail.com" class="social-pill">
+          <i class="fa-solid fa-envelope"></i> marco.akutsu@gmail.com
+        </a>
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="social-pill">
+          <i class="fa-brands fa-behance"></i> Behance
+        </a>
+        <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-pill">
+          <i class="fa-brands fa-instagram"></i> @Akutsu_TV
+        </a>
+      </div>
+
+      <!-- MÉTRICAS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">20+</div>
+          <div class="metric-label">Projetos corporativos entregues</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">16:9 & 9:16</div>
+          <div class="metric-label">Vídeos longos e pílulas mobile</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">Vyond & Pós</div>
+          <div class="metric-label">Animações didáticas com sound design</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">Ator & Estúdio</div>
+          <div class="metric-label">Captação com chroma e motion instrucional</div>
         </div>
       </div>
     </header>
 
-    <!-- TELA 1: HOME -->
-    <div id="view-home" class="view-container active">
-      
-      <!-- SEÇÃO DESTAQUES PROPORCIONAIS -->
-      <section class="highlights-section">
-        <div class="section-header">
-          <h2>Destaques Selecionados</h2>
-          <span>Clique para reproduzir em pop-up</span>
-        </div>
-
-        <div class="highlights-layout">
-          
-          <!-- COLUNA ESQUERDA: HORIZONTAIS (16:9) -->
-          <div class="horizontals-col">
-            
-            <!-- 1. Bombril (Vyond + Pós) -->
-            <div class="horizontal-item-card" onclick="playModal('1224425749', 'Bombril — Vyond + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425749">
-                <img class="card-thumb-img" src="https://vumbnail.com/1224425749.jpg" alt="Bombril — Vyond + Pós" loading="lazy">
-                <div class="card-thumb-overlay"></div>
-                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="card-meta">
-                <div class="meta-top">
-                  <span>Horizontal 16:9</span>
-                  <span>Vyond + Pós</span>
-                </div>
-                <h3>Bombril — Vyond + Pós</h3>
-                <p>Animação instrutiva com sound design e pós-produção avançada.</p>
-              </div>
-            </div>
-
-            <!-- 2. Yanmar (Banco de Imagem + Pós) -->
-            <div class="horizontal-item-card" onclick="playModal('1224425303', 'Yanmar — Banco de Imagem + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425303">
-                <img class="card-thumb-img" src="https://vumbnail.com/1224425303.jpg" alt="Yanmar — Banco de Imagem + Pós" loading="lazy">
-                <div class="card-thumb-overlay"></div>
-                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="card-meta">
-                <div class="meta-top">
-                  <span>Horizontal 16:9</span>
-                  <span>Banco de Imagem + Pós</span>
-                </div>
-                <h3>Yanmar — Banco de Imagem + Pós</h3>
-                <p>Edição dinâmica e comunicação institucional corporativa.</p>
-              </div>
-            </div>
-
-            <!-- 3. Senac (Ator + Pós Horizontal) -->
-            <div class="horizontal-item-card" onclick="playModal('1224425716', 'Senac — Ator + Pós', '16-9')">
-              <div class="card-thumb-area aspect-16-9" data-vimeo-id="1224425716">
-                <img class="card-thumb-img" src="https://vumbnail.com/1224425716.jpg" alt="Senac — Ator + Pós" loading="lazy">
-                <div class="card-thumb-overlay"></div>
-                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="card-meta">
-                <div class="meta-top">
-                  <span>Horizontal 16:9</span>
-                  <span>Ator + Pós</span>
-                </div>
-                <h3>Senac — Ator + Pós</h3>
-                <p>Gravação em estúdio com atores e motion instrucional sobreposto.</p>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- COLUNA DIREITA: VERTICAL (9:16) -->
-          <div class="vertical-col">
-            <!-- 4. Senac (Ator/Atriz + Pós Vertical) -->
-            <div class="vertical-item-card" onclick="playModal('1224424455', 'Senac — Ator + Pós', '9-16')">
-              <div class="card-thumb-area aspect-9-16" data-vimeo-id="1224424455">
-                <img class="card-thumb-img" src="https://vumbnail.com/1224424455.jpg" alt="Senac — Ator + Pós" loading="lazy">
-                <div class="card-thumb-overlay"></div>
-                <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="card-meta">
-                <div class="meta-top">
-                  <span>Vertical 9:16</span>
-                  <span>Ator + Pós</span>
-                </div>
-                <h3>Senac — Ator + Pós</h3>
-                <p>Formato vertical ágil com foco em retenção e consumo mobile.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- SEÇÃO CATEGORIAS -->
-      <section class="categories-section">
-        <div class="section-header">
-          <h2>Explorar por Categoria</h2>
-          <span>Clique para navegar por todas as empresas</span>
-        </div>
-
-        <div class="categories-grid">
-          
-          <div class="category-box" onclick="openCategory('vyond')">
-            <div>
-              <div class="category-box-top">
-                <span class="category-count">15 Projetos</span>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-              <h3>Vyond + Pós</h3>
-              <p>Vídeos corporativos animados com foco em processos, integrações e conformidade.</p>
-            </div>
-            <div class="category-action">Acessar empresas &rarr;</div>
-          </div>
-
-          <div class="category-box" onclick="openCategory('banco-imagem')">
-            <div>
-              <div class="category-box-top">
-                <span class="category-count">2 Projetos</span>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-              <h3>Banco de Imagem + Pós</h3>
-              <p>Edições modernas utilizando acervo de imagem e recortes conceituais.</p>
-            </div>
-            <div class="category-action">Acessar empresas &rarr;</div>
-          </div>
-
-          <div class="category-box" onclick="openCategory('ator-horizontal')">
-            <div>
-              <div class="category-box-top">
-                <span class="category-count">2 Projetos</span>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-              <h3>Ator + Pós (16:9)</h3>
-              <p>Gravação com atores em estúdio, chroma key e motion instrucional.</p>
-            </div>
-            <div class="category-action">Acessar empresas &rarr;</div>
-          </div>
-
-          <div class="category-box" onclick="openCategory('ator-vertical')">
-            <div>
-              <div class="category-box-top">
-                <span class="category-count">1 Projeto</span>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </div>
-              <h3>Ator + Pós (9:16)</h3>
-              <p>Formatos verticais ideais para redes corporativas, microlearning e apps.</p>
-            </div>
-            <div class="category-action">Acessar empresas &rarr;</div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- SEÇÃO DE CONVERSÃO / CONTATO DIRETO -->
-      <section class="conversion-section">
-        <span class="conversion-badge">Disponível para Novos Projetos</span>
-        <h2>Vamos desenvolver o próximo vídeo da sua empresa?</h2>
-        <p>Unindo design instrucional, dinamismo audiovisual e alinhamento estratégico com os objetivos do seu negócio.</p>
-        
-        <div class="conversion-buttons">
-          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="btn-large btn-primary-glow">
-            <i class="fa-brands fa-whatsapp"></i> Iniciar Conversa no WhatsApp
-          </a>
-          <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Proposta%20-%20V%C3%ADdeos%20Corporativos" class="btn-large btn-secondary-border">
-            <i class="fa-solid fa-envelope"></i> Enviar E-mail
-          </a>
-          <a href="https://www.behance.net/marcoakutsu" target="_blank" class="btn-large btn-secondary-border">
-            <i class="fa-brands fa-behance"></i> Behance Completo
-          </a>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- TELA 2: LISTA DE EMPRESAS POR CATEGORIA -->
-    <div id="view-category-detail" class="view-container">
-      <div class="detail-nav">
-        <button class="back-button" onclick="backToHome()">
-          <i class="fa-solid fa-arrow-left"></i> Voltar aos Destaques
-        </button>
-        <div class="detail-title">
-          <h2 id="cat-title">Categoria</h2>
-          <p id="cat-desc">Projetos produzidos por empresa</p>
-        </div>
+    <!-- SEÇÃO 1: DESTAQUES SELECIONADOS (BENTO) -->
+    <section id="destaques">
+      <div class="section-title-wrap">
+        <h2>Destaques Selecionados</h2>
+        <span>Horizontal (16:9) + Vertical (9:16)</span>
       </div>
 
-      <div id="category-videos-grid" class="company-grid"></div>
+      <div class="bento-highlights">
+        <!-- Esquerda: 3 Horizontais -->
+        <div class="bento-horizontals">
+          
+          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Bombril — Vyond + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
+              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Bombril" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+              <div class="thumb-overlay"></div>
+              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="card-details">
+              <div class="card-meta-line">
+                <span>Horizontal 16:9</span>
+                <span>Vyond + Pós</span>
+              </div>
+              <h3>Bombril</h3>
+              <p>Animação instrutiva voltada para processos internos e conformidade.</p>
+            </div>
+          </div>
 
-      <!-- Seção de Contato também na visualização interna -->
-      <section class="conversion-section" style="margin-top: 40px;">
-        <span class="conversion-badge">Pronto para começar?</span>
-        <h2>Gostou dos projetos desta categoria?</h2>
-        <p>Solicite uma proposta personalizada para a comunicação e treinamento da sua equipe.</p>
-        <div class="conversion-buttons">
-          <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20estava%20olhando%20seus%20v%C3%ADdeos%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn-large btn-primary-glow">
-            <i class="fa-brands fa-whatsapp"></i> Falar via WhatsApp
-          </a>
+          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Yanmar — Banco de Imagem + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
+              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Yanmar" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+              <div class="thumb-overlay"></div>
+              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="card-details">
+              <div class="card-meta-line">
+                <span>Horizontal 16:9</span>
+                <span>Banco de Imagem + Pós</span>
+              </div>
+              <h3>Yanmar</h3>
+              <p>Edição dinâmica e comunicação institucional corporativa de alto impacto.</p>
+            </div>
+          </div>
+
+          <div class="bento-card-h" onclick="openModal('dQw4w9WgXcQ', 'Senac — Ator + Pós', '16-9')">
+            <div class="thumb-box ratio-16-9" data-yt="dQw4w9WgXcQ">
+              <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Senac" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+              <div class="thumb-overlay"></div>
+              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+            </div>
+            <div class="card-details">
+              <div class="card-meta-line">
+                <span>Horizontal 16:9</span>
+                <span>Ator + Pós</span>
+              </div>
+              <h3>Senac (Apresentador)</h3>
+              <p>Captação em estúdio profissional com motion design e lettering didático.</p>
+            </div>
+          </div>
+
         </div>
-      </section>
-    </div>
 
+        <!-- Direita: 1 Vertical 9:16 -->
+        <div class="bento-card-v" onclick="openModal('dQw4w9WgXcQ', 'Senac — Ator + Pós (Vertical)', '9-16')">
+          <div class="thumb-box ratio-9-16" data-yt="dQw4w9WgXcQ">
+            <img class="thumb-img" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Senac Vertical" onerror="this.src='https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'">
+            <div class="thumb-overlay"></div>
+            <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="card-details">
+            <div class="card-meta-line">
+              <span>Vertical 9:16</span>
+              <span>Microlearning</span>
+            </div>
+            <h3>Senac (Pílula Mobile)</h3>
+            <p>Formato vertical moderno otimizado para celulares, redes corporativas e engajamento ágil.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: GALERIA COMPLETA DE VÍDEOS -->
+    <section id="galeria">
+      <div class="section-title-wrap">
+        <h2>Catálogo de Projetos</h2>
+        <span id="video-count-label">20 vídeos disponíveis</span>
+      </div>
+
+      <!-- Barra de Filtros -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Todos os Projetos</button>
+        <button class="filter-btn" data-filter="vyond">Vyond + Pós (15)</button>
+        <button class="filter-btn" data-filter="banco">Banco de Imagem (2)</button>
+        <button class="filter-btn" data-filter="ator-h">Ator Horizontal (2)</button>
+        <button class="filter-btn" data-filter="ator-v">Ator Vertical (1)</button>
+      </div>
+
+      <!-- Grade Dinâmica de Vídeos -->
+      <div id="video-grid" class="showcase-grid"></div>
+    </section>
+
+    <!-- CTA FINAL (IMPACT) -->
+    <section class="cta-banner">
+      <h2>Pronto para criar o próximo vídeo<br>da sua organização?</h2>
+      <p>Desenvolvemos projetos sob medida para treinamento de colaboradores, integrações e comunicação estratégica interna.</p>
+      
+      <div class="cta-actions">
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn-main">
+          <i class="fa-brands fa-whatsapp"></i> Iniciar Conversa no WhatsApp
+        </a>
+        <a href="mailto:marco.akutsu@gmail.com" class="btn-outline">
+          <i class="fa-solid fa-envelope"></i> Enviar por E-mail
+        </a>
+      </div>
+    </section>
   </div>
 
-  <!-- BOTÃO FLUTUANTE DE CONVERSÃO RÁPIDA (WHATSAPP FIXO) -->
-  <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="floating-contact-btn" title="Falar no WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-    <span>Falar no WhatsApp</span>
-  </a>
-
-  <!-- POP-UP MODAL -->
-  <div id="video-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
-    <div class="modal-content-wrapper">
-      <div class="modal-header-actions" id="modal-header">
-        <span id="modal-video-title" class="modal-caption">Título do Projeto</span>
-        <button class="modal-close-btn" onclick="closeModal()" title="Fechar (ESC)">
+  <!-- MODAL DE VÍDEO (YOUTUBE EMBED) -->
+  <div id="video-modal" class="video-modal" onclick="onBackdropClick(event)">
+    <div class="modal-shell">
+      <div class="modal-head" id="modal-head-bar">
+        <span id="modal-title-text" class="modal-title">Título</span>
+        <button class="modal-close" onclick="closeModal()" title="Fechar (ESC)">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-
-      <div id="modal-box" class="modal-video-box aspect-16-9">
+      <div id="modal-frame-box" class="modal-frame-box ratio-16-9">
         <iframe 
-          id="modal-iframe" 
+          id="yt-player" 
           src="" 
-          allow="autoplay; fullscreen; picture-in-picture" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowfullscreen>
         </iframe>
       </div>
@@ -1025,113 +933,126 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Marco Akutsu. Portfólio de Educação Corporativa.</p>
+      <p>&copy; 2026 Marco Akutsu. Portfólio de Educação Corporativa & Treinamento Multimídia.</p>
     </div>
   </footer>
 
   <script>
-    // BASE DE DADOS DOS VÍDEOS COM OS IDs DO VIMEO
-    const categoriesData = {
-      'vyond': {
-        title: "Vyond + Pós-Produção",
-        desc: "Projetos em formato horizontal (16:9) com animação instrutiva.",
-        aspectType: "16-9",
-        gridClass: "grid-horizontal",
-        videos: [
-          { company: "Bombril", vimeoId: "1224425749" },
-          { company: "Bunzl", vimeoId: "1224425747" },
-          { company: "CAM", vimeoId: "1224425748" },
-          { company: "CBA", vimeoId: "1224425775" },
-          { company: "EPI-USE", vimeoId: "1224425784" },
-          { company: "Galderma", vimeoId: "1224425826" },
-          { company: "PepsiCo", vimeoId: "1224425838" },
-          { company: "PortoPet", vimeoId: "1224425872" },
-          { company: "QuintoAndar", vimeoId: "1224425887" },
-          { company: "Realcafé", vimeoId: "1224425894" },
-          { company: "Senac", vimeoId: "1224425928" },
-          { company: "Thermo Fisher", vimeoId: "1224425935" },
-          { company: "Unidas", vimeoId: "1224425941" },
-          { company: "Whirlpool", vimeoId: "1224425947" },
-          { company: "Wire", vimeoId: "1224425962" }
-        ]
-      },
-      'banco-imagem': {
-        title: "Banco de Imagem + Pós",
-        desc: "Edições conceituais horizontais com acervo de imagem e motion corporativo.",
-        aspectType: "16-9",
-        gridClass: "grid-horizontal",
-        videos: [
-          { company: "Banco BMG", vimeoId: "1224425299" },
-          { company: "Yanmar", vimeoId: "1224425303" }
-        ]
-      },
-      'ator-horizontal': {
-        title: "Ator + Pós (Horizontal)",
-        desc: "Gravações em estúdio com atores e pós-produção explicativa (16:9).",
-        aspectType: "16-9",
-        gridClass: "grid-horizontal",
-        videos: [
-          { company: "Senac", vimeoId: "1224425716" },
-          { company: "Vai Voando", vimeoId: "1224425658" }
-        ]
-      },
-      'ator-vertical': {
-        title: "Ator + Pós (Vertical)",
-        desc: "Pílulas em formato vertical (9:16) para treinamento ágil e dispositivos móveis.",
-        aspectType: "9-16",
-        gridClass: "grid-vertical",
-        videos: [
-          { company: "Senac", vimeoId: "1224424455" }
-        ]
-      }
-    };
+    // ============================================================
+    // BASE DE DADOS DOS VÍDEOS (YOUTUBE)
+    // Basta trocar o 'ytId' pelo ID do respectivo vídeo no YouTube!
+    // Exemplo: se a URL for youtube.com/watch?v=ABC123XYZ, o ytId é "ABC123XYZ"
+    // ============================================================
+    const projects = [
+      // 1. HORIZONTAL - VYOND + PÓS
+      { company: "Bombril", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Bunzl", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "CAM", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "CBA", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "EPI-USE", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Galderma", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "PepsiCo", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "PortoPet", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "QuintoAndar", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Realcafé", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Senac", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Thermo Fisher", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Unidas", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Whirlpool", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Wire", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "dQw4w9WgXcQ" },
 
-    /* SISTEMA DE CAPTURA DE THUMBNAILS DO VIMEO */
-    function upgradeVimeoThumbnails(context = document) {
-      const items = context.querySelectorAll('[data-vimeo-id]');
-      items.forEach(el => {
-        const vimeoId = el.getAttribute('data-vimeo-id');
-        const img = el.querySelector('.card-thumb-img');
-        if (!vimeoId || !img) return;
+      // 2. HORIZONTAL - BANCO DE IMAGEM + PÓS
+      { company: "Banco BMG", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Yanmar", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "dQw4w9WgXcQ" },
 
-        fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`)
-          .then(res => {
-            if (!res.ok) throw new Error('API oEmbed error');
-            return res.json();
-          })
-          .then(data => {
-            if (data && data.thumbnail_url) {
-              img.src = data.thumbnail_url;
-            }
-          })
-          .catch(() => {});
+      // 3. HORIZONTAL - ATOR + PÓS
+      { company: "Senac", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "dQw4w9WgXcQ" },
+      { company: "Vai Voando", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "dQw4w9WgXcQ" },
+
+      // 4. VERTICAL - ATOR + PÓS
+      { company: "Senac", category: "ator-v", aspect: "9-16", categoryName: "Ator + Pós (Vertical)", ytId: "dQw4w9WgXcQ" }
+    ];
+
+    // Renderiza a galeria
+    const grid = document.getElementById('video-grid');
+    function renderGallery() {
+      grid.innerHTML = '';
+      projects.forEach(p => {
+        const card = document.createElement('div');
+        const isVert = p.aspect === '9-16';
+        card.className = `grid-video-card ${isVert ? 'is-vertical' : ''}`;
+        card.dataset.category = p.category;
+
+        const ratioClass = isVert ? 'ratio-9-16' : 'ratio-16-9';
+        const thumbUrl = `https://img.youtube.com/vi/${p.ytId}/maxresdefault.jpg`;
+        const fallbackUrl = `https://img.youtube.com/vi/${p.ytId}/hqdefault.jpg`;
+
+        card.onclick = () => openModal(p.ytId, `${p.company} — ${p.categoryName}`, p.aspect);
+
+        card.innerHTML = `
+          <div class="thumb-box ${ratioClass}">
+            <img class="thumb-img" src="${thumbUrl}" alt="${p.company}" onerror="this.src='${fallbackUrl}'" loading="lazy">
+            <div class="thumb-overlay"></div>
+            <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+          </div>
+          <div class="card-details">
+            <div class="card-meta-line">
+              <span>${p.categoryName}</span>
+              <span>${isVert ? '9:16 Mobile' : '16:9'}</span>
+            </div>
+            <h3>${p.company}</h3>
+          </div>
+        `;
+        grid.appendChild(card);
       });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      upgradeVimeoThumbnails();
+    renderGallery();
+
+    // Sistema de Filtros
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        const cards = document.querySelectorAll('.grid-video-card');
+
+        let visibleCount = 0;
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.classList.remove('is-hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('is-hidden');
+          }
+        });
+
+        document.getElementById('video-count-label').textContent = `${visibleCount} vídeos exibidos`;
+      });
     });
 
-    /* CONTROLE DO MODAL DE VÍDEO */
+    // Modal de Vídeo com YouTube Clean Embed
     const modal = document.getElementById('video-modal');
-    const modalIframe = document.getElementById('modal-iframe');
-    const modalBox = document.getElementById('modal-box');
-    const modalTitle = document.getElementById('modal-video-title');
-    const modalHeader = document.getElementById('modal-header');
+    const ytPlayer = document.getElementById('yt-player');
+    const modalBox = document.getElementById('modal-frame-box');
+    const modalTitle = document.getElementById('modal-title-text');
+    const modalHeadBar = document.getElementById('modal-head-bar');
 
-    function playModal(vimeoId, title, aspectType) {
+    function openModal(ytId, title, aspect) {
       modalTitle.textContent = title;
 
-      if (aspectType === '9-16') {
-        modalBox.className = 'modal-video-box aspect-9-16';
-        modalHeader.style.maxWidth = '430px';
+      if (aspect === '9-16') {
+        modalBox.className = 'modal-frame-box ratio-9-16';
+        modalHeadBar.style.maxWidth = '420px';
       } else {
-        modalBox.className = 'modal-video-box aspect-16-9';
-        modalHeader.style.maxWidth = '1080px';
+        modalBox.className = 'modal-frame-box ratio-16-9';
+        modalHeadBar.style.maxWidth = '1100px';
       }
 
-      const separator = vimeoId.includes('?') ? '&' : '?';
-      modalIframe.src = `https://player.vimeo.com/video/${vimeoId}${separator}autoplay=1&title=0&byline=0&portrait=0`;
+      // Parâmetros do YouTube: autoplay ativo, rel=0 (só vídeos do canal), modestbranding=1 (logo discreta)
+      ytPlayer.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1139,67 +1060,17 @@
 
     function closeModal() {
       modal.classList.remove('active');
-      modalIframe.src = '';
+      ytPlayer.src = '';
       document.body.style.overflow = '';
     }
 
-    function handleBackdropClick(e) {
+    function onBackdropClick(e) {
       if (e.target === modal) closeModal();
     }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
-
-    /* NAVEGAÇÃO SPA */
-    function openCategory(key) {
-      const data = categoriesData[key];
-      if (!data) return;
-
-      document.getElementById('cat-title').textContent = data.title;
-      document.getElementById('cat-desc').textContent = data.desc;
-
-      const grid = document.getElementById('category-videos-grid');
-      grid.className = `company-grid ${data.gridClass}`;
-      grid.innerHTML = '';
-
-      data.videos.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'company-item-card';
-        card.onclick = () => playModal(item.vimeoId, `${item.company} — ${data.title}`, data.aspectType);
-
-        const aspectClass = data.aspectType === '9-16' ? 'aspect-9-16' : 'aspect-16-9';
-
-        card.innerHTML = `
-          <div class="card-thumb-area ${aspectClass}" data-vimeo-id="${item.vimeoId}">
-            <img class="card-thumb-img" src="https://vumbnail.com/${item.vimeoId}.jpg" alt="${item.company}" loading="lazy">
-            <div class="card-thumb-overlay"></div>
-            <div class="play-trigger"><i class="fa-solid fa-play"></i></div>
-          </div>
-          <div class="card-meta">
-            <div class="meta-top">
-              <span>Educação Corporativa</span>
-              <span>${data.aspectType === '9-16' ? '9:16' : '16:9'}</span>
-            </div>
-            <h3>${item.company}</h3>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      upgradeVimeoThumbnails(grid);
-
-      document.getElementById('view-home').classList.remove('active');
-      document.getElementById('view-category-detail').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function backToHome() {
-      document.getElementById('category-videos-grid').innerHTML = '';
-      document.getElementById('view-category-detail').classList.remove('active');
-      document.getElementById('view-home').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   </script>
 </body>
 </html>
