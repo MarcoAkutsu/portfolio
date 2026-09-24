@@ -3,27 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Akutsu — Produtor Multimídia & Educação Corporativa</title>
+  <title>Marco Akutsu — Produtor Multimídia & Designer Visual</title>
   
-  <!-- Fontes & Ícones -->
+  <!-- Fontes Cinematográficas e Ícones -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Three.js e GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --bg: #000000;
-      --surface: #070709;
-      --surface-hover: #101014;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.28);
+      --bg: #030305;
+      --surface: rgba(12, 12, 16, 0.7);
+      --surface-hover: rgba(22, 22, 30, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(212, 175, 55, 0.5);
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.25);
       --text: #ffffff;
-      --text-muted: #8b8b93;
-      --text-dim: #4d4d54;
+      --text-muted: #8e8e98;
+      --text-dim: #54545d;
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
       --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -38,111 +47,125 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-body);
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      cursor: none; /* Ativa o cursor customizado */
     }
 
-    /* Barra de progresso de rolagem */
-    .scroll-progress-bar {
+    /* CANVAS 3D (THREE.JS) */
+    #webgl-canvas {
       position: fixed;
       top: 0;
       left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.2), #ffffff);
-      width: 0%;
-      z-index: 99999;
-      transition: width 0.1s ease-out;
-    }
-
-    /* Brilho radial estilo Vercel */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -25%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1100px;
-      height: 700px;
-      background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.045) 0%, transparent 100%);
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 0;
+      opacity: 0.85;
     }
 
-    .container {
-      max-width: 1260px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
+    /* Grão de cinema sutil */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
       z-index: 1;
     }
 
-    /* ============================================================
-       ANIMAÇÕES DE SCROLL (IMPACT EFFECT)
-    ============================================================ */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(40px) scale(0.97);
-      filter: blur(4px);
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform, filter;
+    /* CURSOR CUSTOMIZADO ESTILO AWWWARDS */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      background: #ffffff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background-color 0.3s;
+      mix-blend-mode: difference;
     }
 
-    .scroll-reveal.in-view {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
+    .custom-cursor-follower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #000;
     }
 
-    /* Cascata (stagger) para múltiplos itens */
-    .delay-1 { transition-delay: 0.1s; }
-    .delay-2 { transition-delay: 0.2s; }
-    .delay-3 { transition-delay: 0.3s; }
-    .delay-4 { transition-delay: 0.4s; }
+    .custom-cursor-follower.cursor-hover {
+      width: 90px;
+      height: 90px;
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #000000;
+    }
 
-    /* ============================================================
-       FLOATING NAVBAR
-    ============================================================ */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* FLOATING NAVBAR */
     .nav-wrapper {
       position: sticky;
-      top: 20px;
+      top: 24px;
       z-index: 100;
       display: flex;
       justify-content: center;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
       padding: 0 16px;
     }
 
     .floating-nav {
-      background: rgba(10, 10, 14, 0.65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10, 10, 14, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 8px 10px 8px 20px;
+      padding: 8px 12px 8px 24px;
       display: flex;
       align-items: center;
-      gap: 22px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      gap: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
       transition: var(--transition);
     }
 
-    .floating-nav.scrolled {
-      background: rgba(6, 6, 8, 0.85);
-      border-color: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+    .floating-nav:hover {
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .nav-brand {
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: 0.95rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.5px;
       color: #fff;
       text-decoration: none;
       display: flex;
@@ -156,26 +179,19 @@
       background: #22c55e;
       border-radius: 50%;
       box-shadow: 0 0 10px #22c55e;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
     }
 
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.85rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: var(--transition);
     }
 
@@ -184,30 +200,29 @@
     }
 
     .nav-cta {
-      background: #fff;
-      color: #000 !important;
-      padding: 8px 18px;
+      background: #ffffff;
+      color: #000000 !important;
+      padding: 8px 20px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: var(--transition);
     }
 
     .nav-cta:hover {
-      background: #e5e5e5;
-      transform: scale(1.03);
+      background: var(--gold);
+      transform: scale(1.04);
     }
 
-    /* ============================================================
-       HERO
-    ============================================================ */
+    /* HERO SECTION */
     .hero {
       text-align: center;
-      padding: 60px 0 70px;
+      padding: 80px 0 100px;
+      position: relative;
     }
 
     .hero-badge {
@@ -216,143 +231,127 @@
       gap: 8px;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.03);
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 24px;
+      color: var(--gold);
+      margin-bottom: 28px;
     }
 
     .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.4rem);
       font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 24px;
+      line-height: 1.02;
+      margin-bottom: 28px;
+      text-transform: uppercase;
     }
 
-    .hero h1 span {
-      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+    .hero h1 span.gold-text {
+      background: linear-gradient(135deg, #ffffff 30%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p.lead {
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
       color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto 36px;
+      max-width: 780px;
+      margin: 0 auto 40px;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    .hero-socials {
+    .hero-actions {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 60px;
+      margin-bottom: 80px;
     }
 
-    .social-pill {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 20px;
+    .action-btn {
+      padding: 14px 28px;
       border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       transition: var(--transition);
     }
 
-    .social-pill:hover {
-      border-color: var(--border-hover);
-      background: var(--surface-hover);
+    .action-btn.primary {
+      background: #fff;
+      color: #000;
+    }
+
+    .action-btn.primary:hover {
+      background: var(--gold);
+      box-shadow: 0 10px 30px var(--gold-glow);
       transform: translateY(-2px);
     }
 
-    /* Métricas */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-      max-width: 980px;
-      margin: 0 auto 80px;
-    }
-
-    .metric-card {
-      background: var(--surface);
+    .action-btn.secondary {
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 24px 20px;
-      text-align: left;
-      transition: var(--transition);
+      color: #fff;
     }
 
-    .metric-card:hover {
-      border-color: var(--border-hover);
-      background: var(--surface-hover);
+    .action-btn.secondary:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
     }
 
-    .metric-number {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 4px;
-    }
-
-    .metric-label {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    /* ============================================================
-       DESTAQUES BENTO (16:9 + 9:16)
-    ============================================================ */
-    .section-title-wrap {
+    /* SEÇÃO HEADER */
+    .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 30px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
     }
 
-    .section-title-wrap h2 {
-      font-size: 1.6rem;
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
       font-weight: 800;
       letter-spacing: -0.03em;
+      text-transform: uppercase;
     }
 
-    .section-title-wrap span {
-      color: var(--text-muted);
+    .section-head span {
       font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .bento-highlights {
+    /* BENTO SHOWCASE (VÍDEOS) */
+    .bento-wrap {
       display: grid;
-      grid-template-columns: 1.65fr 1fr;
+      grid-template-columns: 1.6fr 1fr;
       gap: 24px;
-      margin-bottom: 90px;
-      align-items: stretch;
+      margin-bottom: 110px;
     }
 
-    .bento-horizontals {
+    .bento-col-left {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      justify-content: space-between;
+      gap: 20px;
     }
 
     .bento-card-h {
       background: var(--surface);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -366,11 +365,12 @@
     .bento-card-h:hover {
       border-color: var(--border-hover);
       background: var(--surface-hover);
-      transform: translateX(4px);
+      transform: translateX(6px);
     }
 
     .bento-card-v {
       background: var(--surface);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -384,29 +384,28 @@
     .bento-card-v:hover {
       border-color: var(--border-hover);
       background: var(--surface-hover);
-      transform: translateY(-4px);
+      transform: translateY(-6px);
     }
 
-    /* Thumbnails Dinâmicas (YouTube) */
-    .thumb-box {
+    .thumb-frame {
       position: relative;
-      background: #09090c;
+      background: #060608;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
 
-    .thumb-box.ratio-16-9 {
+    .thumb-frame.aspect-16-9 {
       aspect-ratio: 16 / 9;
       width: 100%;
       height: 100%;
     }
 
-    .thumb-box.ratio-9-16 {
+    .thumb-frame.aspect-9-16 {
       aspect-ratio: 9 / 16;
       width: 100%;
-      max-height: 420px;
+      max-height: 440px;
       margin: 0 auto;
     }
 
@@ -416,32 +415,30 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transition: transform 0.5s ease, opacity 0.3s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
       opacity: 0.85;
     }
 
     .thumb-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
       pointer-events: none;
     }
 
-    .play-btn {
+    .play-circle {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       width: 46px;
       height: 46px;
       border-radius: 50%;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #fff;
       font-size: 1rem;
       padding-left: 3px;
       transition: var(--transition);
@@ -449,54 +446,210 @@
 
     .bento-card-h:hover .thumb-img,
     .bento-card-v:hover .thumb-img,
-    .grid-video-card:hover .thumb-img {
+    .grid-video-card:hover .thumb-img,
+    .design-card:hover .design-img {
       transform: scale(1.08);
       opacity: 1;
     }
 
-    .bento-card-h:hover .play-btn,
-    .bento-card-v:hover .play-btn,
-    .grid-video-card:hover .play-btn {
+    .bento-card-h:hover .play-circle,
+    .bento-card-v:hover .play-circle,
+    .grid-video-card:hover .play-circle {
       background: #ffffff;
       color: #000000;
-      transform: scale(1.1);
+      transform: scale(1.15);
       border-color: #ffffff;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
     }
 
-    .card-details {
-      padding: 18px 22px;
+    .card-info {
+      padding: 20px 24px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 6px;
     }
 
-    .card-meta-line {
+    .card-meta-tag {
       display: flex;
       justify-content: space-between;
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--text-muted);
+      letter-spacing: 1px;
+      color: var(--gold);
       font-weight: 700;
     }
 
-    .card-details h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
+    .card-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
       color: #fff;
     }
 
-    .card-details p {
-      font-size: 0.86rem;
+    .card-info p {
+      font-size: 0.88rem;
       color: var(--text-muted);
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     /* ============================================================
-       CATÁLOGO E FILTROS
+       NOVA SEÇÃO: PORTFÓLIO DE DESIGN GRÁFICO & BEHANCE
     ============================================================ */
+    .behance-section {
+      margin-bottom: 120px;
+    }
+
+    .behance-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 87, 255, 0.12);
+      border: 1px solid rgba(0, 87, 255, 0.35);
+      color: #3b82f6;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .behance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .design-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .design-card:hover {
+      border-color: #3b82f6;
+      background: var(--surface-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 87, 255, 0.15);
+    }
+
+    .design-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #09090e;
+      overflow: hidden;
+    }
+
+    .design-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .design-tag-pill {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .design-info {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .design-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .design-info p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .design-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-top: 10px;
+    }
+
+    .behance-banner-cta {
+      margin-top: 40px;
+      background: linear-gradient(135deg, rgba(0, 87, 255, 0.08) 0%, rgba(10, 10, 15, 0.9) 100%);
+      border: 1px solid rgba(0, 87, 255, 0.3);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .behance-banner-cta h4 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .behance-banner-cta p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .behance-btn {
+      background: #0057ff;
+      color: #fff;
+      padding: 12px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .behance-btn:hover {
+      background: #1a6aff;
+      box-shadow: 0 10px 25px rgba(0, 87, 255, 0.4);
+      transform: scale(1.04);
+    }
+
+    /* GALERIA COMPLETA DE VÍDEOS COM FILTROS */
     .filter-bar {
       display: flex;
       gap: 10px;
@@ -525,20 +678,21 @@
 
     .filter-btn:hover {
       color: #fff;
-      border-color: var(--border-hover);
+      border-color: rgba(255,255,255,0.4);
     }
 
     .filter-btn.active {
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
+      font-weight: 800;
     }
 
     .showcase-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
-      margin-bottom: 100px;
+      margin-bottom: 120px;
     }
 
     .grid-video-card {
@@ -558,110 +712,54 @@
       transform: translateY(-4px);
     }
 
-    .grid-video-card.is-vertical {
-      grid-column: span 1;
-    }
-
     .grid-video-card.is-hidden {
       display: none !important;
     }
 
-    /* ============================================================
-       CTA BANNER
-    ============================================================ */
+    /* CTA FOOTER BANNER */
     .cta-banner {
-      background: linear-gradient(180deg, #0d0d12 0%, #030304 100%);
+      background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12) 0%, rgba(10, 10, 14, 0.95) 75%);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 70px 40px;
+      padding: 80px 40px;
       text-align: center;
       position: relative;
       overflow: hidden;
       margin-bottom: 100px;
     }
 
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 600px; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    }
-
     .cta-banner h2 {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
       letter-spacing: -0.04em;
-      margin-bottom: 16px;
-      line-height: 1.15;
+      margin-bottom: 18px;
+      line-height: 1.1;
+      text-transform: uppercase;
     }
 
     .cta-banner p {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 640px;
-      margin: 0 auto 36px;
+      font-size: 1.15rem;
+      max-width: 660px;
+      margin: 0 auto 40px;
     }
 
     .cta-actions {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 16px;
       flex-wrap: wrap;
     }
 
-    .btn-main {
-      background: #fff;
-      color: #000;
-      padding: 14px 30px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-main:hover {
-      background: #e6e6e6;
-      transform: scale(1.04);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      background: transparent;
-      color: #fff;
-      padding: 14px 26px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--border-hover);
-    }
-
-    /* ============================================================
-       MODAL YOUTUBE
-    ============================================================ */
+    /* MODAL DE VÍDEO (LIGHTBOX YOUTUBE) */
     .video-modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.94);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 9999;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 999999;
       display: none;
       align-items: center;
       justify-content: center;
@@ -688,27 +786,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       color: #fff;
     }
 
     .modal-title {
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
     }
 
     .modal-close {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--border);
       color: #fff;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       transition: var(--transition);
     }
 
@@ -723,7 +822,7 @@
       border-radius: var(--radius-md);
       overflow: hidden;
       width: 100%;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
     }
 
     .modal-frame-box.ratio-16-9 {
@@ -732,7 +831,7 @@
     }
 
     .modal-frame-box.ratio-9-16 {
-      max-width: 420px;
+      max-width: 430px;
       aspect-ratio: 9 / 16;
       height: 82vh;
       max-height: 720px;
@@ -754,13 +853,19 @@
     }
 
     @media (max-width: 960px) {
-      .bento-highlights {
+      body {
+        cursor: auto;
+      }
+      .custom-cursor, .custom-cursor-follower {
+        display: none;
+      }
+      .bento-wrap {
         grid-template-columns: 1fr;
       }
       .bento-card-h {
         grid-template-columns: 1fr;
       }
-      .bento-card-v .thumb-box.ratio-9-16 {
+      .bento-card-v .thumb-frame.aspect-9-16 {
         max-width: 280px;
       }
       .nav-links {
@@ -771,142 +876,126 @@
 </head>
 <body>
 
-  <!-- Barra de progresso do Scroll -->
-  <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+  <!-- WebGL Three.js Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+  <div class="noise-overlay"></div>
 
-  <!-- FLOATING NAVBAR -->
+  <!-- Custom Cursor Awwwards -->
+  <div class="custom-cursor" id="cursorDot"></div>
+  <div class="custom-cursor-follower" id="cursorFollower"></div>
+
+  <!-- Floating Capsule Navbar -->
   <div class="nav-wrapper">
-    <nav class="floating-nav" id="floatingNav">
-      <a href="#" class="nav-brand">
-        <span class="status-dot"></span> Marco Akutsu
+    <nav class="floating-nav">
+      <a href="#" class="nav-brand" data-cursor-text="HOME">
+        <span class="status-dot"></span> MARCO AKUTSU
       </a>
       <div class="nav-links">
-        <a href="#destaques" class="nav-link">Destaques</a>
-        <a href="#galeria" class="nav-link">Projetos</a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link">Behance</a>
+        <a href="#videos" class="nav-link" data-cursor-text="VÍDEOS">Vídeos</a>
+        <a href="#design" class="nav-link" data-cursor-text="DESIGN">Design Gráfico</a>
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link" data-cursor-text="BEHANCE">Behance</a>
+        <a href="#contato" class="nav-link" data-cursor-text="CONTATO">Contato</a>
       </div>
-      <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta">
+      <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta" data-cursor-text="WHATSAPP">
         <i class="fa-brands fa-whatsapp"></i> Falar Agora
       </a>
     </nav>
   </div>
 
   <div class="container">
-    <!-- HERO COM TRANSIÇÃO -->
-    <header class="hero scroll-reveal">
-      <div class="hero-badge">Educação Corporativa & Produção Audiovisual</div>
-      <h1>Conteúdo Audiovisual<br><span>com Impacto Real</span></h1>
-      <p class="lead">Produção instrucional e edição dinâmica desenhada para retenção, treinamento e comunicação estratégica corporativa.</p>
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <div class="hero-badge">Produtor Multimídia & Diretor de Arte</div>
+      <h1 class="hero-title">
+        Nascido para<br><span class="gold-text">Transformar Ideias</span>
+      </h1>
+      <p class="lead">
+        Unindo educação corporativa instrucional, animação de alta retenção e design visual de impacto editorial para grandes marcas.
+      </p>
 
-      <div class="hero-socials">
-        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20um%20or%C3%A7amento%20para%20minha%20empresa." target="_blank" class="social-pill">
-          <i class="fa-brands fa-whatsapp"></i> WhatsApp: (11) 98129-2787
+      <div class="hero-actions">
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="action-btn primary" data-cursor-text="CONTATO">
+          <i class="fa-brands fa-whatsapp"></i> Iniciar Projeto
         </a>
-        <a href="mailto:marco.akutsu@gmail.com" class="social-pill">
-          <i class="fa-solid fa-envelope"></i> marco.akutsu@gmail.com
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="action-btn secondary" data-cursor-text="BEHANCE">
+          <i class="fa-brands fa-behance"></i> Behance Completo
         </a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="social-pill">
-          <i class="fa-brands fa-behance"></i> Behance
-        </a>
-        <a href="https://instagram.com/Akutsu_TV" target="_blank" class="social-pill">
-          <i class="fa-brands fa-instagram"></i> @Akutsu_TV
-        </a>
-      </div>
-
-      <!-- MÉTRICAS -->
-      <div class="metrics-grid">
-        <div class="metric-card scroll-reveal delay-1">
-          <div class="metric-number">20+</div>
-          <div class="metric-label">Projetos corporativos entregues</div>
-        </div>
-        <div class="metric-card scroll-reveal delay-2">
-          <div class="metric-number">16:9 & 9:16</div>
-          <div class="metric-label">Vídeos horizontais e pílulas mobile</div>
-        </div>
-        <div class="metric-card scroll-reveal delay-3">
-          <div class="metric-number">Vyond & Pós</div>
-          <div class="metric-label">Animações didáticas com sound design</div>
-        </div>
-        <div class="metric-card scroll-reveal delay-4">
-          <div class="metric-number">Ator & Estúdio</div>
-          <div class="metric-label">Captação com chroma e motion instrucional</div>
-        </div>
       </div>
     </header>
 
-    <!-- SEÇÃO 1: DESTAQUES (BENTO GRID COM SEUS VÍDEOS REAIS) -->
-    <section id="destaques">
-      <div class="section-title-wrap scroll-reveal">
-        <h2>Destaques Selecionados</h2>
-        <span>Horizontal (16:9) + Vertical (9:16)</span>
+    <!-- SEÇÃO 1: VÍDEOS DESTAQUE (BENTO GRID 3D) -->
+    <section id="videos">
+      <div class="section-head">
+        <h2>Destaques em Vídeo</h2>
+        <span>Horizontal (16:9) & Vertical (9:16)</span>
       </div>
 
-      <div class="bento-highlights">
-        <!-- Esquerda: 3 Horizontais -->
-        <div class="bento-horizontals">
+      <div class="bento-wrap">
+        <!-- Esquerda: 3 Vídeos Horizontais -->
+        <div class="bento-col-left">
           
-          <!-- 1. BOMBRIL (VÍDEO REAL 1: cChRwfMNR3o) -->
-          <div class="bento-card-h scroll-reveal delay-1" onclick="openModal('cChRwfMNR3o', 'Bombril — Vyond + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9">
+          <!-- 1. Bombril (Vídeo Real YouTube: cChRwfMNR3o) -->
+          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Bombril — Vyond + Pós', '16-9')" data-cursor-text="PLAY">
+            <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Bombril" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
-              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+              <div class="play-circle"><i class="fa-solid fa-play"></i></div>
             </div>
-            <div class="card-details">
-              <div class="card-meta-line">
+            <div class="card-info">
+              <div class="card-meta-tag">
                 <span>Horizontal 16:9</span>
                 <span>Vyond + Pós</span>
               </div>
               <h3>Bombril</h3>
-              <p>Animação instrutiva voltada para processos internos e conformidade corporativa.</p>
+              <p>Animação instrutiva voltada para processos internos, conformidade e integração.</p>
             </div>
           </div>
 
-          <!-- 2. YANMAR (VÍDEO REAL 2: mH1VpK2i6JU) -->
-          <div class="bento-card-h scroll-reveal delay-2" onclick="openModal('mH1VpK2i6JU', 'Yanmar — Banco de Imagem + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9">
+          <!-- 2. Yanmar (Vídeo Real YouTube: mH1VpK2i6JU) -->
+          <div class="bento-card-h" onclick="openModal('mH1VpK2i6JU', 'Yanmar — Banco de Imagem + Pós', '16-9')" data-cursor-text="PLAY">
+            <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Yanmar" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
-              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+              <div class="play-circle"><i class="fa-solid fa-play"></i></div>
             </div>
-            <div class="card-details">
-              <div class="card-meta-line">
+            <div class="card-info">
+              <div class="card-meta-tag">
                 <span>Horizontal 16:9</span>
                 <span>Banco de Imagem + Pós</span>
               </div>
               <h3>Yanmar</h3>
-              <p>Edição dinâmica e comunicação institucional corporativa de alto impacto.</p>
+              <p>Edição dinâmica e comunicação corporativa utilizando acervo audiovisual moderno.</p>
             </div>
           </div>
 
-          <!-- 3. SENAC HORIZONTAL -->
-          <div class="bento-card-h scroll-reveal delay-3" onclick="openModal('cChRwfMNR3o', 'Senac — Ator + Pós', '16-9')">
-            <div class="thumb-box ratio-16-9">
+          <!-- 3. Senac Horizontal -->
+          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Senac — Ator + Pós', '16-9')" data-cursor-text="PLAY">
+            <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Senac" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
-              <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+              <div class="play-circle"><i class="fa-solid fa-play"></i></div>
             </div>
-            <div class="card-details">
-              <div class="card-meta-line">
+            <div class="card-info">
+              <div class="card-meta-tag">
                 <span>Horizontal 16:9</span>
-                <span>Ator + Pós</span>
+                <span>Apresentador em Estúdio</span>
               </div>
-              <h3>Senac (Apresentador)</h3>
-              <p>Captação em estúdio profissional com motion design e lettering didático.</p>
+              <h3>Senac (Horizontal)</h3>
+              <p>Gravação com atores profissionais, chroma key e lettering instrucional didático.</p>
             </div>
           </div>
 
         </div>
 
-        <!-- Direita: 1 Vertical 9:16 -->
-        <div class="bento-card-v scroll-reveal delay-2" onclick="openModal('mH1VpK2i6JU', 'Senac — Atriz + Pós (Vertical)', '9-16')">
-          <div class="thumb-box ratio-9-16">
+        <!-- Direita: 1 Vídeo Vertical 9:16 -->
+        <div class="bento-card-v" onclick="openModal('mH1VpK2i6JU', 'Senac — Ator/Atriz + Pós (Vertical)', '9-16')" data-cursor-text="PLAY">
+          <div class="thumb-frame aspect-9-16">
             <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Senac Vertical" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
             <div class="thumb-overlay"></div>
-            <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="play-circle"><i class="fa-solid fa-play"></i></div>
           </div>
-          <div class="card-details">
-            <div class="card-meta-line">
+          <div class="card-info">
+            <div class="card-meta-tag">
               <span>Vertical 9:16</span>
               <span>Microlearning</span>
             </div>
@@ -915,39 +1004,104 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- SEÇÃO 2: CATÁLOGO COMPLETO -->
-    <section id="galeria">
-      <div class="section-title-wrap scroll-reveal">
-        <h2>Catálogo de Projetos</h2>
-        <span id="video-count-label">20 vídeos disponíveis</span>
+      <!-- Barra de Filtros e Todos os Vídeos -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" data-cursor-text="FILTRAR">Todos os Vídeos</button>
+        <button class="filter-btn" data-filter="vyond" data-cursor-text="FILTRAR">Vyond + Pós (15)</button>
+        <button class="filter-btn" data-filter="banco" data-cursor-text="FILTRAR">Banco de Imagem (2)</button>
+        <button class="filter-btn" data-filter="ator-h" data-cursor-text="FILTRAR">Ator Horizontal (2)</button>
+        <button class="filter-btn" data-filter="ator-v" data-cursor-text="FILTRAR">Ator Vertical (1)</button>
       </div>
 
-      <!-- Barra de Filtros -->
-      <div class="filter-bar scroll-reveal">
-        <button class="filter-btn active" data-filter="all">Todos os Projetos</button>
-        <button class="filter-btn" data-filter="vyond">Vyond + Pós (15)</button>
-        <button class="filter-btn" data-filter="banco">Banco de Imagem (2)</button>
-        <button class="filter-btn" data-filter="ator-h">Ator Horizontal (2)</button>
-        <button class="filter-btn" data-filter="ator-v">Ator Vertical (1)</button>
-      </div>
-
-      <!-- Grade de Vídeos -->
       <div id="video-grid" class="showcase-grid"></div>
     </section>
 
-    <!-- CTA FINAL (IMPACT) -->
-    <section class="cta-banner scroll-reveal">
-      <h2>Pronto para criar o próximo vídeo<br>da sua organização?</h2>
-      <p>Desenvolvemos projetos sob medida para treinamento de colaboradores, integrações e comunicação estratégica interna.</p>
+    <!-- ============================================================
+         SEÇÃO 2: PORTFÓLIO DE DESIGN GRÁFICO & BEHANCE
+    ============================================================ -->
+    <section id="design" class="behance-section">
+      <div class="behance-header-badge">
+        <i class="fa-brands fa-behance"></i> Behance Portfolio
+      </div>
+      
+      <div class="section-head">
+        <h2>Direção de Arte & Design Gráfico</h2>
+        <span>Identidade Visual, Social & Key Visuals</span>
+      </div>
+
+      <div class="behance-grid">
+        
+        <!-- Projeto Gráfico 1 -->
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+          <div class="design-thumb">
+            <span class="design-tag-pill">Branding & KV</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Key Visuals & Identidade" loading="lazy">
+          </div>
+          <div class="design-info">
+            <h3>Key Visuals & Identidade Visual</h3>
+            <p>Conceituação gráfica, sistemas de design, tipografia e diretrizes de marca para marcas corporativas.</p>
+            <div class="design-action">
+              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- Projeto Gráfico 2 -->
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+          <div class="design-thumb">
+            <span class="design-tag-pill">Social Media</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop" alt="Social Media Design" loading="lazy">
+          </div>
+          <div class="design-info">
+            <h3>Peças Publicitárias & Campanhas Digitais</h3>
+            <p>Design de alta conversão para mídias sociais, carrosséis educativos, banners estáticos e dinâmicos.</p>
+            <div class="design-action">
+              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- Projeto Gráfico 3 -->
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+          <div class="design-thumb">
+            <span class="design-tag-pill">UI & Motion</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop" alt="UI & Motion Assets" loading="lazy">
+          </div>
+          <div class="design-info">
+            <h3>Assets Gráficos para Vídeo & Motion</h3>
+            <p>Ilustrações vetoriais sob medida, letterings instrucionais e storyboards conceituais para produção audiovisual.</p>
+            <div class="design-action">
+              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Banner de Acesso Direto ao Behance Oficial -->
+      <div class="behance-banner-cta">
+        <div>
+          <h4>Explore o Acervo Completo no Behance</h4>
+          <p>Conheça os cases detalhados, estudos de caso e projetos gráficos em www.behance.net/marcoakutsu</p>
+        </div>
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="behance-btn" data-cursor-text="VISITAR">
+          <i class="fa-brands fa-behance"></i> Acessar behance.net/marcoakutsu
+        </a>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION (ESTILO BALLON D'OR) -->
+    <section id="contato" class="cta-banner">
+      <h2>Pronto para elevar o patamar<br>da sua marca?</h2>
+      <p>Desenvolvemos soluções completas em audiovisual, treinamentos instrucionais e direção gráfica sob medida para a sua empresa.</p>
       
       <div class="cta-actions">
-        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn-main">
-          <i class="fa-brands fa-whatsapp"></i> Iniciar Conversa no WhatsApp
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="action-btn primary" data-cursor-text="WHATSAPP">
+          <i class="fa-brands fa-whatsapp"></i> Conversar no WhatsApp
         </a>
-        <a href="mailto:marco.akutsu@gmail.com" class="btn-outline">
-          <i class="fa-solid fa-envelope"></i> Enviar por E-mail
+        <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Or%C3%A7amento" class="action-btn secondary" data-cursor-text="EMAIL">
+          <i class="fa-solid fa-envelope"></i> Enviar E-mail
         </a>
       </div>
     </section>
@@ -975,17 +1129,187 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Marco Akutsu. Portfólio de Educação Corporativa & Treinamento Multimídia.</p>
+      <p>&copy; 2026 Marco Akutsu. Portfólio de Produção Audiovisual & Design Gráfico.</p>
     </div>
   </footer>
 
   <script>
     // ============================================================
+    // THREE.JS: ESFERA E VÓRTICE DE PARTÍCULAS 3D (ESTILO DEMBÉLÉ)
+    // ============================================================
+    const canvas = document.getElementById('webgl-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 24;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Geometria de partículas douradas/prateadas
+    const particleCount = 2800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+
+    const goldColor = new THREE.Color(0xd4af37);
+    const silverColor = new THREE.Color(0xffffff);
+
+    for (let i = 0; i < particleCount; i++) {
+      // Distribuição esférica
+      const u = Math.random();
+      const v = Math.random();
+      const theta = u * 2.0 * Math.PI;
+      const phi = Math.acos(2.0 * v - 1.0);
+      const r = 9 + Math.random() * 3.5;
+
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
+
+      // Mescla entre ouro e prata
+      const mixedColor = goldColor.clone().lerp(silverColor, Math.random() * 0.7);
+      colors[i * 3] = mixedColor.r;
+      colors[i * 3 + 1] = mixedColor.g;
+      colors[i * 3 + 2] = mixedColor.b;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.16,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particleSphere = new THREE.Points(geometry, material);
+    scene.add(particleSphere);
+
+    // Mouse interativo para Three.js
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    // Animação e Render do Three.js
+    function animateThree() {
+      requestAnimationFrame(animateThree);
+
+      targetX += (mouseX - targetX) * 0.05;
+      targetY += (mouseY - targetY) * 0.05;
+
+      particleSphere.rotation.y += 0.002;
+      particleSphere.rotation.x += 0.001;
+
+      particleSphere.rotation.y += targetX * 0.01;
+      particleSphere.rotation.x += targetY * 0.01;
+
+      renderer.render(scene, camera);
+    }
+    animateThree();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // ============================================================
+    // GSAP + SCROLLTRIGGER: TRANSIÇÕES CINEMATOGRÁFICAS
+    // ============================================================
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Efeito de rolagem na esfera 3D
+    gsap.to(particleSphere.rotation, {
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5
+      },
+      z: Math.PI * 2,
+      y: Math.PI * 3
+    });
+
+    // Animação de entrada do Hero
+    gsap.from(".hero-badge", { opacity: 0, y: -20, duration: 1, ease: "power3.out" });
+    gsap.from(".hero-title", { opacity: 0, y: 50, duration: 1.2, delay: 0.2, ease: "power4.out" });
+    gsap.from(".hero p.lead", { opacity: 0, y: 30, duration: 1, delay: 0.4, ease: "power3.out" });
+    gsap.from(".hero-actions", { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: "power3.out" });
+
+    // Animações nos blocos Bento e Behance com ScrollTrigger
+    gsap.utils.toArray('.bento-card-h, .bento-card-v, .design-card, .cta-banner').forEach(el => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out"
+      });
+    });
+
+    // ============================================================
+    // CUSTOM CURSOR MAGNÉTICO ESTILO DEMBÉLÉ AWWWARDS
+    // ============================================================
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorFollower = document.getElementById('cursorFollower');
+
+    let curX = window.innerWidth / 2;
+    let curY = window.innerHeight / 2;
+    let folX = curX;
+    let folY = curY;
+
+    window.addEventListener('mousemove', (e) => {
+      curX = e.clientX;
+      curY = e.clientY;
+      cursorDot.style.left = `${curX}px`;
+      cursorDot.style.top = `${curY}px`;
+    });
+
+    function updateCursor() {
+      folX += (curX - folX) * 0.18;
+      folY += (curY - folY) * 0.18;
+      cursorFollower.style.left = `${folX}px`;
+      cursorFollower.style.top = `${folY}px`;
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // Rótulos inteligentes no cursor
+    function bindCursorTriggers() {
+      document.querySelectorAll('[data-cursor-text]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursorFollower.classList.add('cursor-hover');
+          cursorFollower.textContent = el.getAttribute('data-cursor-text');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorFollower.classList.remove('cursor-hover');
+          cursorFollower.textContent = '';
+        });
+      });
+    }
+    bindCursorTriggers();
+
+    // ============================================================
     // BASE DE DADOS DOS VÍDEOS (YOUTUBE)
-    // Onde 'ytId' já conta com os 2 vídeos enviados!
     // ============================================================
     const projects = [
-      // 1. HORIZONTAL - VYOND + PÓS
       { company: "Bombril", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
       { company: "Bunzl", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
       { company: "CAM", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
@@ -1002,84 +1326,39 @@
       { company: "Whirlpool", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
       { company: "Wire", category: "vyond", aspect: "16-9", categoryName: "Vyond + Pós", ytId: "cChRwfMNR3o" },
 
-      // 2. HORIZONTAL - BANCO DE IMAGEM + PÓS
       { company: "Banco BMG", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "mH1VpK2i6JU" },
       { company: "Yanmar", category: "banco", aspect: "16-9", categoryName: "Banco de Imagem + Pós", ytId: "mH1VpK2i6JU" },
 
-      // 3. HORIZONTAL - ATOR + PÓS
       { company: "Senac", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "cChRwfMNR3o" },
       { company: "Vai Voando", category: "ator-h", aspect: "16-9", categoryName: "Ator + Pós", ytId: "cChRwfMNR3o" },
 
-      // 4. VERTICAL - ATOR + PÓS
       { company: "Senac", category: "ator-v", aspect: "9-16", categoryName: "Ator + Pós (Vertical)", ytId: "mH1VpK2i6JU" }
     ];
 
-    // ============================================================
-    // MOTOR DE TRANSIÇÃO NO SCROLL (INTERSECTION OBSERVER)
-    // ============================================================
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
-    function observeElements() {
-      document.querySelectorAll('.scroll-reveal').forEach(el => {
-        scrollObserver.observe(el);
-      });
-    }
-
-    // Scroll Progress & Navbar Glass Intensification
-    const nav = document.getElementById('floatingNav');
-    const progressBar = document.getElementById('scrollProgressBar');
-
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      progressBar.style.width = `${scrollPercent}%`;
-
-      if (scrollTop > 40) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // ============================================================
-    // RENDERIZAÇÃO DA GALERIA
-    // ============================================================
     const grid = document.getElementById('video-grid');
     function renderGallery() {
       grid.innerHTML = '';
-      projects.forEach((p, idx) => {
+      projects.forEach(p => {
         const card = document.createElement('div');
         const isVert = p.aspect === '9-16';
-        
-        // Aplica o efeito de scroll com stagger suave nos primeiros
-        const delayClass = idx < 6 ? `delay-${(idx % 4) + 1}` : '';
-        card.className = `grid-video-card scroll-reveal ${delayClass} ${isVert ? 'is-vertical' : ''}`;
+        card.className = `grid-video-card`;
         card.dataset.category = p.category;
+        card.setAttribute('data-cursor-text', 'PLAY');
 
-        const ratioClass = isVert ? 'ratio-9-16' : 'ratio-16-9';
+        const ratioClass = isVert ? 'aspect-9-16' : 'aspect-16-9';
         const thumbUrl = `https://img.youtube.com/vi/${p.ytId}/maxresdefault.jpg`;
         const fallbackUrl = `https://img.youtube.com/vi/${p.ytId}/hqdefault.jpg`;
 
         card.onclick = () => openModal(p.ytId, `${p.company} — ${p.categoryName}`, p.aspect);
 
         card.innerHTML = `
-          <div class="thumb-box ${ratioClass}">
+          <div class="thumb-frame ${ratioClass}">
             <img class="thumb-img" src="${thumbUrl}" alt="${p.company}" onerror="this.src='${fallbackUrl}'" loading="lazy">
             <div class="thumb-overlay"></div>
-            <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+            <div class="play-circle"><i class="fa-solid fa-play"></i></div>
           </div>
-          <div class="card-details">
-            <div class="card-meta-line">
+          <div class="card-info">
+            <div class="card-meta-tag">
               <span>${p.categoryName}</span>
               <span>${isVert ? '9:16 Mobile' : '16:9'}</span>
             </div>
@@ -1089,13 +1368,11 @@
         grid.appendChild(card);
       });
 
-      // Ativa o observador nos cards renderizados
-      observeElements();
+      bindCursorTriggers();
     }
-
     renderGallery();
 
-    // Filtros
+    // Filtros de Categoria
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1105,23 +1382,17 @@
         const filter = btn.dataset.filter;
         const cards = document.querySelectorAll('.grid-video-card');
 
-        let visibleCount = 0;
         cards.forEach(card => {
           if (filter === 'all' || card.dataset.category === filter) {
             card.classList.remove('is-hidden');
-            visibleCount++;
           } else {
             card.classList.add('is-hidden');
           }
         });
-
-        document.getElementById('video-count-label').textContent = `${visibleCount} vídeos exibidos`;
       });
     });
 
-    // ============================================================
-    // MODAL YOUTUBE (CLEAN EMBED)
-    // ============================================================
+    // Modal de Vídeo (YouTube)
     const modal = document.getElementById('video-modal');
     const ytPlayer = document.getElementById('yt-player');
     const modalBox = document.getElementById('modal-frame-box');
@@ -1133,13 +1404,12 @@
 
       if (aspect === '9-16') {
         modalBox.className = 'modal-frame-box ratio-9-16';
-        modalHeadBar.style.maxWidth = '420px';
+        modalHeadBar.style.maxWidth = '430px';
       } else {
         modalBox.className = 'modal-frame-box ratio-16-9';
         modalHeadBar.style.maxWidth = '1100px';
       }
 
-      // Parâmetros limpos: autoplay automático, sem vídeos externos recomendados (rel=0)
       ytPlayer.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 
       modal.classList.add('active');
