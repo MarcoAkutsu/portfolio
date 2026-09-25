@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Akutsu — Diretor de Arte</title>
+  <title>Marco Akutsu — Produtor Multimídia | Edição de Vídeo</title>
   
-  <!-- Tipografia Gotham / Família Geométrica (Pesos Black 900, ExtraBold 800 e Bold 700) -->
+  <!-- Tipografia Gotham / Família Geométrica (Black 900 e Bold 700) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
@@ -19,12 +19,15 @@
   <style>
     :root {
       --bg: #030305;
-      --surface: rgba(12, 12, 16, 0.75);
-      --surface-hover: rgba(22, 22, 30, 0.9);
+      --surface: rgba(12, 12, 16, 0.78);
+      --surface-hover: rgba(22, 22, 30, 0.92);
       --border: rgba(255, 255, 255, 0.1);
       --border-hover: rgba(212, 175, 55, 0.6);
       --gold: #d4af37;
       --gold-glow: rgba(212, 175, 55, 0.25);
+      --twitch: #9146ff;
+      --twitch-glow: rgba(145, 70, 255, 0.25);
+      --yt-red: #ff0000;
       --text: #ffffff;
       --text-muted: #8e8e98;
       --text-dim: #54545d;
@@ -32,7 +35,6 @@
       --radius-md: 16px;
       --radius-lg: 24px;
       
-      /* Stack da Família Gotham */
       --font-gotham: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -55,10 +57,10 @@
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      cursor: auto; /* Cursor limpo e nativo */
+      cursor: auto;
     }
 
-    /* CANVAS 3D (THREE.JS DE FUNDO) */
+    /* CANVAS 3D FLUTUANTE (THREE.JS DE FUNDO) */
     #webgl-canvas {
       position: fixed;
       top: 0;
@@ -67,7 +69,7 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.85;
+      opacity: 0.75;
     }
 
     .noise-overlay {
@@ -106,7 +108,7 @@
       padding: 8px 12px 8px 24px;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
       transition: var(--transition);
     }
@@ -116,7 +118,7 @@
     }
 
     .nav-brand {
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       font-size: 0.95rem;
       letter-spacing: 0.5px;
       color: #fff;
@@ -138,14 +140,14 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }
 
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.82rem;
-      font-weight: 700; /* Gotham Bold */
+      font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       transition: var(--transition);
@@ -161,7 +163,7 @@
       padding: 8px 20px;
       border-radius: 999px;
       font-size: 0.82rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       text-decoration: none;
@@ -189,22 +191,22 @@
       gap: 8px;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.03);
-      padding: 8px 20px;
+      padding: 8px 22px;
       border-radius: 999px;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       color: var(--gold);
       margin-bottom: 28px;
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 8vw, 6.2rem);
-      font-weight: 900; /* Gotham Black */
+      font-size: clamp(2.8rem, 7.5vw, 5.8rem);
+      font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.0;
-      margin-bottom: 28px;
+      line-height: 1.02;
+      margin-bottom: 26px;
       text-transform: uppercase;
     }
 
@@ -217,7 +219,7 @@
     .hero p.lead {
       font-size: clamp(1.1rem, 2vw, 1.3rem);
       color: var(--text-muted);
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto 40px;
       font-weight: 500;
       line-height: 1.6;
@@ -228,7 +230,7 @@
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 80px;
+      margin-bottom: 70px;
     }
 
     .action-btn {
@@ -236,7 +238,7 @@
       border-radius: 999px;
       text-decoration: none;
       font-size: 0.88rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       display: inline-flex;
@@ -268,19 +270,19 @@
       transform: translateY(-2px);
     }
 
-    /* SEÇÃO HEADER */
+    /* SEÇÃO HEADERS */
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 36px;
+      margin-bottom: 34px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
+      padding-bottom: 18px;
     }
 
     .section-head h2 {
       font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
@@ -288,9 +290,145 @@
     .section-head span {
       font-size: 0.82rem;
       color: var(--text-muted);
-      font-weight: 800; /* Gotham ExtraBold */
+      font-weight: 800;
       letter-spacing: 1.5px;
       text-transform: uppercase;
+    }
+
+    /* ============================================================
+       DESTAQUE STREAMING & GAMES (TWITCH & YOUTUBE)
+    ============================================================ */
+    .streaming-section {
+      margin-bottom: 110px;
+    }
+
+    .streaming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .stream-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stream-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .stream-card.twitch::after {
+      background: var(--twitch);
+    }
+
+    .stream-card.youtube::after {
+      background: var(--yt-red);
+    }
+
+    .stream-card:hover {
+      transform: translateY(-5px);
+      background: var(--surface-hover);
+    }
+
+    .stream-card.twitch:hover {
+      border-color: var(--twitch);
+      box-shadow: 0 16px 36px var(--twitch-glow);
+    }
+
+    .stream-card.youtube:hover {
+      border-color: var(--yt-red);
+      box-shadow: 0 16px 36px rgba(255, 0, 0, 0.2);
+    }
+
+    .stream-card:hover::after {
+      opacity: 1;
+    }
+
+    .stream-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .stream-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .stream-badge.twitch-badge {
+      background: rgba(145, 70, 255, 0.15);
+      border: 1px solid rgba(145, 70, 255, 0.4);
+      color: #bf94ff;
+    }
+
+    .stream-badge.yt-badge {
+      background: rgba(255, 0, 0, 0.15);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ff6666;
+    }
+
+    .stream-card-icon {
+      font-size: 1.8rem;
+    }
+
+    .stream-card.twitch .stream-card-icon {
+      color: #bf94ff;
+    }
+
+    .stream-card.youtube .stream-card-icon {
+      color: #ff4d4d;
+    }
+
+    .stream-content h3 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .stream-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .stream-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
     }
 
     /* BENTO SHOWCASE (VÍDEOS) */
@@ -435,12 +573,12 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--gold);
-      font-weight: 800; /* Gotham ExtraBold */
+      font-weight: 800;
     }
 
     .card-info h3 {
       font-size: 1.2rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       color: #fff;
     }
 
@@ -451,7 +589,9 @@
       font-weight: 400;
     }
 
-    /* SEÇÃO DE DESIGN GRÁFICO & BEHANCE */
+    /* ============================================================
+       PARTE GRÁFICA: BEHANCE SELECIONADOS
+    ============================================================ */
     .behance-section {
       margin-bottom: 120px;
     }
@@ -466,7 +606,7 @@
       padding: 6px 16px;
       border-radius: 999px;
       font-size: 0.75rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 16px;
@@ -525,7 +665,7 @@
       padding: 4px 12px;
       border-radius: 999px;
       font-size: 0.72rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       z-index: 2;
@@ -540,7 +680,7 @@
 
     .design-info h3 {
       font-size: 1.25rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       color: #fff;
     }
 
@@ -555,7 +695,7 @@
       align-items: center;
       gap: 8px;
       font-size: 0.82rem;
-      font-weight: 800; /* Gotham ExtraBold */
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: #3b82f6;
@@ -577,7 +717,7 @@
 
     .behance-banner-cta h4 {
       font-size: 1.35rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       text-transform: uppercase;
     }
 
@@ -593,7 +733,7 @@
       padding: 12px 26px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       font-size: 0.82rem;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -631,7 +771,7 @@
       border-radius: 999px;
       cursor: pointer;
       font-size: 0.82rem;
-      font-weight: 800; /* Gotham ExtraBold */
+      font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       white-space: nowrap;
@@ -647,7 +787,7 @@
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
     }
 
     .showcase-grid {
@@ -692,7 +832,7 @@
 
     .cta-banner h2 {
       font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       letter-spacing: -0.04em;
       margin-bottom: 18px;
       line-height: 1.1;
@@ -754,7 +894,7 @@
 
     .modal-title {
       font-size: 1.15rem;
-      font-weight: 900; /* Gotham Black */
+      font-weight: 900;
       text-transform: uppercase;
     }
 
@@ -844,9 +984,9 @@
         <span class="status-dot"></span> MARCO AKUTSU
       </a>
       <div class="nav-links">
-        <a href="#videos" class="nav-link">Vídeos</a>
+        <a href="#streaming" class="nav-link">Streaming</a>
+        <a href="#videos" class="nav-link">Edição de Vídeo</a>
         <a href="#design" class="nav-link">Design Gráfico</a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link">Behance</a>
         <a href="#contato" class="nav-link">Contato</a>
       </div>
       <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta">
@@ -858,28 +998,72 @@
   <div class="container">
     <!-- HERO -->
     <header class="hero">
-      <div class="hero-badge">DIREÇÃO DE ARTE & CRIAÇÃO VISUAL</div>
+      <div class="hero-badge">PRODUTOR MULTIMÍDIA • EDIÇÃO DE VÍDEO</div>
       <h1 class="hero-title">
-        DIRETOR DE ARTE<br><span class="gold-text">VISÃO & IMPACTO</span>
+        PRODUÇÃO & EDIÇÃO<br><span class="gold-text">DE ALTA RETENÇÃO</span>
       </h1>
       <p class="lead">
-        Conceituação visual de alto impacto, direção criativa audiovisual, identidade de marca e narrativa gráfica estratégica para projetos corporativos e publicitários.
+        Edição de vídeo dinâmica, storytelling instrucional para treinamentos corporativos, sound design imersivo e criação de conteúdo audiovisual para marcas e criadores.
       </p>
 
       <div class="hero-actions">
-        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="action-btn primary">
-          <i class="fa-brands fa-whatsapp"></i> Iniciar Projeto
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20solicitar%20uma%20proposta%20para%20edi%C3%A7%C3%A3o%20de%20v%C3%ADdeos." target="_blank" class="action-btn primary">
+          <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
         </a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="action-btn secondary">
-          <i class="fa-brands fa-behance"></i> Behance Completo
+        <a href="#videos" class="action-btn secondary">
+          <i class="fa-solid fa-play"></i> Ver Vídeos de Portfólio
         </a>
       </div>
     </header>
 
-    <!-- SEÇÃO 1: VÍDEOS DESTAQUE (DIREÇÃO VISUAL & AUDIOVISUAL) -->
+    <!-- SEÇÃO: CANAIS DE STREAMING & GAMES -->
+    <section id="streaming" class="streaming-section">
+      <div class="section-head">
+        <h2>LIVESTREAMING & GAMES</h2>
+        <span>CANAL OFICIAL • TWITCH & YOUTUBE</span>
+      </div>
+
+      <div class="streaming-grid">
+        <!-- Card Twitch -->
+        <a href="https://www.twitch.tv/akutsu_tv" target="_blank" class="stream-card twitch">
+          <div>
+            <div class="stream-topbar">
+              <span class="stream-badge twitch-badge"><i class="fa-brands fa-twitch"></i> TWITCH LIVE</span>
+              <div class="stream-card-icon"><i class="fa-brands fa-twitch"></i></div>
+            </div>
+            <div class="stream-content">
+              <h3>TWITCH.TV / AKUTSU_TV</h3>
+              <p>Lives diárias de gameplay, interação em tempo real com a comunidade, transmissões e entretenimento gamer ao vivo.</p>
+            </div>
+          </div>
+          <div class="stream-action">
+            Acessar canal na Twitch <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+
+        <!-- Card YouTube Gaming -->
+        <a href="https://www.youtube.com/@Akutsu_TV" target="_blank" class="stream-card youtube">
+          <div>
+            <div class="stream-topbar">
+              <span class="stream-badge yt-badge"><i class="fa-brands fa-youtube"></i> YOUTUBE GAMES</span>
+              <div class="stream-card-icon"><i class="fa-brands fa-youtube"></i></div>
+            </div>
+            <div class="stream-content">
+              <h3>YOUTUBE / @AKUTSU_TV</h3>
+              <p>Cortes dinâmicos de gameplay, melhores momentos, Shorts e produções em vídeo editadas com ritmo acelerado para o YouTube.</p>
+            </div>
+          </div>
+          <div class="stream-action">
+            Inscrever-se no YouTube <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- SEÇÃO: VÍDEOS DESTAQUE (EDIÇÃO MULTIMÍDIA) -->
     <section id="videos">
       <div class="section-head">
-        <h2>DESTAQUES EM VÍDEO</h2>
+        <h2>DESTAQUES EM EDIÇÃO DE VÍDEO</h2>
         <span>HORIZONTAL (16:9) & VERTICAL (9:16)</span>
       </div>
 
@@ -897,10 +1081,10 @@
             <div class="card-info">
               <div class="card-meta-tag">
                 <span>Horizontal 16:9</span>
-                <span>Vyond + Pós</span>
+                <span>Vyond + Pós-Produção</span>
               </div>
               <h3>BOMBRIL</h3>
-              <p>Direção visual e animação instrutiva voltada para processos internos, conformidade e integração.</p>
+              <p>Animação instrutiva voltada para processos internos, conformidade, segurança e integração.</p>
             </div>
           </div>
 
@@ -917,7 +1101,7 @@
                 <span>Banco de Imagem + Pós</span>
               </div>
               <h3>YANMAR</h3>
-              <p>Concepção estética, edição dinâmica e comunicação corporativa utilizando acervo audiovisual moderno.</p>
+              <p>Edição dinâmica institucional corporativa com cortes rítmicos e acervo audiovisual moderno.</p>
             </div>
           </div>
 
@@ -931,10 +1115,10 @@
             <div class="card-info">
               <div class="card-meta-tag">
                 <span>Horizontal 16:9</span>
-                <span>Apresentador em Estúdio</span>
+                <span>Ator em Estúdio</span>
               </div>
               <h3>SENAC (HORIZONTAL)</h3>
-              <p>Supervisão de set com apresentadores, chroma key e lettering instrucional didático.</p>
+              <p>Gravação com atores profissionais, chroma key e lettering instrucional didático sobreposto.</p>
             </div>
           </div>
 
@@ -950,10 +1134,10 @@
           <div class="card-info">
             <div class="card-meta-tag">
               <span>Vertical 9:16</span>
-              <span>Microlearning</span>
+              <span>Microlearning / Reels</span>
             </div>
             <h3>SENAC (PÍLULA MOBILE)</h3>
-            <p>Direção para consumo vertical moderno, otimizado para retenção em smartphones e redes corporativas.</p>
+            <p>Formato vertical moderno otimizado para celulares, treinamento ágil e engajamento dinâmico em telas verticais.</p>
           </div>
         </div>
       </div>
@@ -970,58 +1154,58 @@
       <div id="video-grid" class="showcase-grid"></div>
     </section>
 
-    <!-- SEÇÃO 2: PORTFÓLIO DE DESIGN GRÁFICO (BEHANCE) -->
+    <!-- SEÇÃO: PORTFÓLIO DE DESIGN GRÁFICO (BEHANCE ESPECÍFICO) -->
     <section id="design" class="behance-section">
       <div class="behance-header-badge">
-        <i class="fa-brands fa-behance"></i> BEHANCE PORTFOLIO
+        <i class="fa-brands fa-behance"></i> PROJETOS NO BEHANCE
       </div>
       
       <div class="section-head">
-        <h2>DIREÇÃO DE ARTE & DESIGN GRÁFICO</h2>
-        <span>IDENTIDADE VISUAL, SOCIAL & KEY VISUALS</span>
+        <h2>DESIGN GRÁFICO & IDENTIDADE VISUAL</h2>
+        <span>SELEÇÃO DE TRABALHOS • BEHANCE</span>
       </div>
 
       <div class="behance-grid">
         
-        <!-- Projeto Gráfico 1 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
+        <!-- PROJETO 1: Keep Movin' -->
+        <a href="https://www.behance.net/gallery/255334325/Keep-Movin-Paes-e-Alimentacao-Saudavel" target="_blank" class="design-card">
           <div class="design-thumb">
-            <span class="design-tag-pill">Branding & KV</span>
-            <img class="design-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Key Visuals & Identidade" loading="lazy">
+            <span class="design-tag-pill">Branding & Food</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000&auto=format&fit=crop" alt="Keep Movin' — Pães e Alimentação Saudável" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>KEY VISUALS & IDENTIDADE VISUAL</h3>
-            <p>Conceituação gráfica, sistemas de design, tipografia e diretrizes de marca para posicionamento corporativo.</p>
+            <h3>KEEP MOVIN' — PÃES E ALIMENTAÇÃO SAUDÁVEL</h3>
+            <p>Projeto completo de identidade de marca, embalagens e comunicação visual para alimentação saudável e panificação artesanal.</p>
             <div class="design-action">
               Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
           </div>
         </a>
 
-        <!-- Projeto Gráfico 2 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
+        <!-- PROJETO 2: OnePlace -->
+        <a href="https://www.behance.net/gallery/116961431/OnePlace-Projeto-para-identidade-visual-de-Mall" target="_blank" class="design-card">
           <div class="design-thumb">
-            <span class="design-tag-pill">Social Media</span>
-            <img class="design-img" src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop" alt="Social Media Design" loading="lazy">
+            <span class="design-tag-pill">Visual Identity</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=1000&auto=format&fit=crop" alt="OnePlace — Identidade Visual de Mall" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>CAMPANHAS DIGITAIS & PUBLICIDADE</h3>
-            <p>Design visual com foco em engajamento, carrosséis editoriais e peças gráficas de alta conversão.</p>
+            <h3>ONEPLACE — IDENTIDADE VISUAL DE MALL</h3>
+            <p>Conceito e sistema de design visual corporativo para centro comercial/mall, unindo sinalização, arquitetura de marca e materiais institucionais.</p>
             <div class="design-action">
               Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
           </div>
         </a>
 
-        <!-- Projeto Gráfico 3 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
+        <!-- PROJETO 3: Layout Italean Twitch -->
+        <a href="https://www.behance.net/gallery/116972527/Layout-Italean-Twitch" target="_blank" class="design-card">
           <div class="design-thumb">
-            <span class="design-tag-pill">UI & Motion</span>
-            <img class="design-img" src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop" alt="UI & Motion Assets" loading="lazy">
+            <span class="design-tag-pill">Streaming & Twitch</span>
+            <img class="design-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop" alt="Layout Italean Twitch" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>ASSETS VISUAIS & MOTION DESIGN</h3>
-            <p>Letterings exclusivos, ilustrações conceituais e storyboards desenvolvidos sob medida para marcas.</p>
+            <h3>LAYOUT ITALEAN — TWITCH & STREAM ASSETS</h3>
+            <p>Design de transmissão completo para lives: overlays, painéis de stream, alertas animados e identidade visual para canal de streaming.</p>
             <div class="design-action">
               Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
@@ -1033,25 +1217,25 @@
       <!-- Banner Behance -->
       <div class="behance-banner-cta">
         <div>
-          <h4>EXPLORE O ACERVO COMPLETO NO BEHANCE</h4>
-          <p>Conheça os cases detalhados e estudos conceituais em www.behance.net/marcoakutsu</p>
+          <h4>PERFIL COMPLETO NO BEHANCE</h4>
+          <p>Confira todos os estudos de caso, identidades e peças gráficas em www.behance.net/marcoakutsu</p>
         </div>
         <a href="https://www.behance.net/marcoakutsu" target="_blank" class="behance-btn">
-          <i class="fa-brands fa-behance"></i> ACESSAR BEHANCE.NET/MARCOAKUTSU
+          <i class="fa-brands fa-behance"></i> VISITAR BEHANCE.NET/MARCOAKUTSU
         </a>
       </div>
     </section>
 
     <!-- CALL TO ACTION FINAL -->
     <section id="contato" class="cta-banner">
-      <h2>VAMOS DESENVOLVER O PRÓXIMO<br>PROJETO DA SUA MARCA?</h2>
-      <p>Direção de arte, concepção audiovisual e design estratégico com entrega precisa para a sua organização.</p>
+      <h2>VAMOS PRODUZIR O PRÓXIMO<br>VÍDEO DA SUA EMPRESA?</h2>
+      <p>Edição de alto impacto, retenção instrucional e criação audiovisual estratégica para os objetivos do seu negócio.</p>
       
       <div class="cta-actions">
         <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="action-btn primary">
           <i class="fa-brands fa-whatsapp"></i> CONVERSAR NO WHATSAPP
         </a>
-        <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Or%C3%A7amento" class="action-btn secondary">
+        <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Or%C3%A7amento%20para%20V%C3%ADdeos" class="action-btn secondary">
           <i class="fa-solid fa-envelope"></i> ENVIAR E-MAIL
         </a>
       </div>
@@ -1080,13 +1264,14 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Marco Akutsu — Diretor de Arte. Todos os direitos reservados.</p>
+      <p>&copy; 2026 Marco Akutsu — Produtor Multimídia & Edição de Vídeo. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <script>
     // ============================================================
-    // THREE.JS: ESFERA DE PARTÍCULAS 3D
+    // THREE.JS: ESFERA DE PARTÍCULAS EM ROTAÇÃO SUAVE CONTÍNUA
+    // (Rotação por scroll removida: agora ela flutua de forma calma e estável)
     // ============================================================
     const canvas = document.getElementById('webgl-canvas');
     const scene = new THREE.Scene();
@@ -1130,16 +1315,17 @@
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 0.16,
+      size: 0.15,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.75,
       blending: THREE.AdditiveBlending
     });
 
     const particleSphere = new THREE.Points(geometry, material);
     scene.add(particleSphere);
 
+    // Efeito suave de mouse
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -1153,14 +1339,15 @@
     function animateThree() {
       requestAnimationFrame(animateThree);
 
-      targetX += (mouseX - targetX) * 0.05;
-      targetY += (mouseY - targetY) * 0.05;
+      targetX += (mouseX - targetX) * 0.03;
+      targetY += (mouseY - targetY) * 0.03;
 
-      particleSphere.rotation.y += 0.002;
-      particleSphere.rotation.x += 0.001;
+      // Rotação suave contínua e natural (sem giros no scroll)
+      particleSphere.rotation.y += 0.0015;
+      particleSphere.rotation.x += 0.0008;
 
-      particleSphere.rotation.y += targetX * 0.01;
-      particleSphere.rotation.x += targetY * 0.01;
+      particleSphere.rotation.y += targetX * 0.005;
+      particleSphere.rotation.x += targetY * 0.005;
 
       renderer.render(scene, camera);
     }
@@ -1173,27 +1360,16 @@
     });
 
     // ============================================================
-    // GSAP + SCROLLTRIGGER
+    // GSAP TRANSIÇÕES SUAVES DE ENTRADA
     // ============================================================
     gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to(particleSphere.rotation, {
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.5
-      },
-      z: Math.PI * 2,
-      y: Math.PI * 3
-    });
 
     gsap.from(".hero-badge", { opacity: 0, y: -20, duration: 1, ease: "power3.out" });
     gsap.from(".hero-title", { opacity: 0, y: 50, duration: 1.2, delay: 0.2, ease: "power4.out" });
     gsap.from(".hero p.lead", { opacity: 0, y: 30, duration: 1, delay: 0.4, ease: "power3.out" });
     gsap.from(".hero-actions", { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: "power3.out" });
 
-    gsap.utils.toArray('.bento-card-h, .bento-card-v, .design-card, .cta-banner').forEach(el => {
+    gsap.utils.toArray('.stream-card, .bento-card-h, .bento-card-v, .design-card, .cta-banner').forEach(el => {
       gsap.from(el, {
         scrollTrigger: {
           trigger: el,
@@ -1201,8 +1377,8 @@
           toggleActions: "play none none none"
         },
         opacity: 0,
-        y: 40,
-        duration: 0.9,
+        y: 35,
+        duration: 0.85,
         ease: "power3.out"
       });
     });
