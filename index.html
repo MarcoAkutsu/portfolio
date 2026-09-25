@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marco Akutsu — Produtor Multimídia & Designer Visual</title>
+  <title>Marco Akutsu — Diretor de Arte</title>
   
-  <!-- Fontes Cinematográficas e Ícones -->
+  <!-- Tipografia Gotham / Família Geométrica (Pesos Black 900, ExtraBold 800 e Bold 700) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Three.js e GSAP CDN -->
@@ -19,10 +19,10 @@
   <style>
     :root {
       --bg: #030305;
-      --surface: rgba(12, 12, 16, 0.7);
-      --surface-hover: rgba(22, 22, 30, 0.85);
+      --surface: rgba(12, 12, 16, 0.75);
+      --surface-hover: rgba(22, 22, 30, 0.9);
       --border: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(212, 175, 55, 0.5);
+      --border-hover: rgba(212, 175, 55, 0.6);
       --gold: #d4af37;
       --gold-glow: rgba(212, 175, 55, 0.25);
       --text: #ffffff;
@@ -31,8 +31,9 @@
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 24px;
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      
+      /* Stack da Família Gotham */
+      --font-gotham: 'Gotham', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -47,17 +48,17 @@
     }
 
     body {
-      font-family: var(--font-body);
+      font-family: var(--font-gotham);
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      cursor: none; /* Ativa o cursor customizado */
+      cursor: auto; /* Cursor limpo e nativo */
     }
 
-    /* CANVAS 3D (THREE.JS) */
+    /* CANVAS 3D (THREE.JS DE FUNDO) */
     #webgl-canvas {
       position: fixed;
       top: 0;
@@ -69,59 +70,12 @@
       opacity: 0.85;
     }
 
-    /* Grão de cinema sutil */
     .noise-overlay {
       position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1;
-    }
-
-    /* CURSOR CUSTOMIZADO ESTILO AWWWARDS */
-    .custom-cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 12px;
-      height: 12px;
-      background: #ffffff;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, background-color 0.3s;
-      mix-blend-mode: difference;
-    }
-
-    .custom-cursor-follower {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #000;
-    }
-
-    .custom-cursor-follower.cursor-hover {
-      width: 90px;
-      height: 90px;
-      background: #ffffff;
-      border-color: #ffffff;
-      color: #000000;
     }
 
     .container {
@@ -144,7 +98,7 @@
     }
 
     .floating-nav {
-      background: rgba(10, 10, 14, 0.7);
+      background: rgba(10, 10, 14, 0.75);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
@@ -162,8 +116,7 @@
     }
 
     .nav-brand {
-      font-family: var(--font-display);
-      font-weight: 800;
+      font-weight: 900; /* Gotham Black */
       font-size: 0.95rem;
       letter-spacing: 0.5px;
       color: #fff;
@@ -171,6 +124,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      text-transform: uppercase;
     }
 
     .status-dot {
@@ -190,8 +144,10 @@
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 700; /* Gotham Bold */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       transition: var(--transition);
     }
 
@@ -204,8 +160,10 @@
       color: #000000 !important;
       padding: 8px 20px;
       border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 900; /* Gotham Black */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -221,7 +179,7 @@
     /* HERO SECTION */
     .hero {
       text-align: center;
-      padding: 80px 0 100px;
+      padding: 80px 0 90px;
       position: relative;
     }
 
@@ -231,39 +189,38 @@
       gap: 8px;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.03);
-      padding: 6px 18px;
+      padding: 8px 20px;
       border-radius: 999px;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      font-weight: 700;
+      font-weight: 900; /* Gotham Black */
       color: var(--gold);
       margin-bottom: 28px;
     }
 
     .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6.4rem);
-      font-weight: 900;
+      font-size: clamp(3rem, 8vw, 6.2rem);
+      font-weight: 900; /* Gotham Black */
       letter-spacing: -0.04em;
-      line-height: 1.02;
+      line-height: 1.0;
       margin-bottom: 28px;
       text-transform: uppercase;
     }
 
     .hero h1 span.gold-text {
-      background: linear-gradient(135deg, #ffffff 30%, var(--gold) 100%);
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p.lead {
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
       color: var(--text-muted);
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto 40px;
-      font-weight: 400;
-      line-height: 1.65;
+      font-weight: 500;
+      line-height: 1.6;
     }
 
     .hero-actions {
@@ -278,8 +235,10 @@
       padding: 14px 28px;
       border-radius: 999px;
       text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 700;
+      font-size: 0.88rem;
+      font-weight: 900; /* Gotham Black */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -320,18 +279,17 @@
     }
 
     .section-head h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 900; /* Gotham Black */
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
 
     .section-head span {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-weight: 800; /* Gotham ExtraBold */
+      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
 
@@ -477,13 +435,12 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--gold);
-      font-weight: 700;
+      font-weight: 800; /* Gotham ExtraBold */
     }
 
     .card-info h3 {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 800;
+      font-size: 1.2rem;
+      font-weight: 900; /* Gotham Black */
       color: #fff;
     }
 
@@ -491,11 +448,10 @@
       font-size: 0.88rem;
       color: var(--text-muted);
       line-height: 1.5;
+      font-weight: 400;
     }
 
-    /* ============================================================
-       NOVA SEÇÃO: PORTFÓLIO DE DESIGN GRÁFICO & BEHANCE
-    ============================================================ */
+    /* SEÇÃO DE DESIGN GRÁFICO & BEHANCE */
     .behance-section {
       margin-bottom: 120px;
     }
@@ -509,8 +465,8 @@
       color: #3b82f6;
       padding: 6px 16px;
       border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 900; /* Gotham Black */
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 16px;
@@ -569,7 +525,7 @@
       padding: 4px 12px;
       border-radius: 999px;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 900; /* Gotham Black */
       letter-spacing: 0.5px;
       text-transform: uppercase;
       z-index: 2;
@@ -583,9 +539,8 @@
     }
 
     .design-info h3 {
-      font-family: var(--font-display);
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 900; /* Gotham Black */
       color: #fff;
     }
 
@@ -599,8 +554,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800; /* Gotham ExtraBold */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: #3b82f6;
       margin-top: 10px;
     }
@@ -619,14 +576,15 @@
     }
 
     .behance-banner-cta h4 {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 800;
+      font-size: 1.35rem;
+      font-weight: 900; /* Gotham Black */
+      text-transform: uppercase;
     }
 
     .behance-banner-cta p {
       color: var(--text-muted);
       font-size: 0.92rem;
+      font-weight: 500;
     }
 
     .behance-btn {
@@ -635,8 +593,10 @@
       padding: 12px 26px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 900; /* Gotham Black */
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -649,7 +609,7 @@
       transform: scale(1.04);
     }
 
-    /* GALERIA COMPLETA DE VÍDEOS COM FILTROS */
+    /* FILTROS E GALERIA */
     .filter-bar {
       display: flex;
       gap: 10px;
@@ -670,8 +630,10 @@
       padding: 10px 22px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.82rem;
+      font-weight: 800; /* Gotham ExtraBold */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       white-space: nowrap;
       transition: var(--transition);
     }
@@ -685,7 +647,7 @@
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      font-weight: 800;
+      font-weight: 900; /* Gotham Black */
     }
 
     .showcase-grid {
@@ -729,9 +691,8 @@
     }
 
     .cta-banner h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900; /* Gotham Black */
       letter-spacing: -0.04em;
       margin-bottom: 18px;
       line-height: 1.1;
@@ -743,6 +704,7 @@
       font-size: 1.15rem;
       max-width: 660px;
       margin: 0 auto 40px;
+      font-weight: 500;
     }
 
     .cta-actions {
@@ -752,7 +714,7 @@
       flex-wrap: wrap;
     }
 
-    /* MODAL DE VÍDEO (LIGHTBOX YOUTUBE) */
+    /* MODAL DE VÍDEO */
     .video-modal {
       position: fixed;
       inset: 0;
@@ -791,9 +753,9 @@
     }
 
     .modal-title {
-      font-family: var(--font-display);
       font-size: 1.15rem;
-      font-weight: 800;
+      font-weight: 900; /* Gotham Black */
+      text-transform: uppercase;
     }
 
     .modal-close {
@@ -850,15 +812,10 @@
       text-align: center;
       color: var(--text-dim);
       font-size: 0.85rem;
+      font-weight: 600;
     }
 
     @media (max-width: 960px) {
-      body {
-        cursor: auto;
-      }
-      .custom-cursor, .custom-cursor-follower {
-        display: none;
-      }
       .bento-wrap {
         grid-template-columns: 1fr;
       }
@@ -880,54 +837,50 @@
   <canvas id="webgl-canvas"></canvas>
   <div class="noise-overlay"></div>
 
-  <!-- Custom Cursor Awwwards -->
-  <div class="custom-cursor" id="cursorDot"></div>
-  <div class="custom-cursor-follower" id="cursorFollower"></div>
-
-  <!-- Floating Capsule Navbar -->
+  <!-- Floating Navbar -->
   <div class="nav-wrapper">
     <nav class="floating-nav">
-      <a href="#" class="nav-brand" data-cursor-text="HOME">
+      <a href="#" class="nav-brand">
         <span class="status-dot"></span> MARCO AKUTSU
       </a>
       <div class="nav-links">
-        <a href="#videos" class="nav-link" data-cursor-text="VÍDEOS">Vídeos</a>
-        <a href="#design" class="nav-link" data-cursor-text="DESIGN">Design Gráfico</a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link" data-cursor-text="BEHANCE">Behance</a>
-        <a href="#contato" class="nav-link" data-cursor-text="CONTATO">Contato</a>
+        <a href="#videos" class="nav-link">Vídeos</a>
+        <a href="#design" class="nav-link">Design Gráfico</a>
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="nav-link">Behance</a>
+        <a href="#contato" class="nav-link">Contato</a>
       </div>
-      <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta" data-cursor-text="WHATSAPP">
+      <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta">
         <i class="fa-brands fa-whatsapp"></i> Falar Agora
       </a>
     </nav>
   </div>
 
   <div class="container">
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <header class="hero">
-      <div class="hero-badge">Produtor Multimídia & Diretor de Arte</div>
+      <div class="hero-badge">DIREÇÃO DE ARTE & CRIAÇÃO VISUAL</div>
       <h1 class="hero-title">
-        Nascido para<br><span class="gold-text">Transformar Ideias</span>
+        DIRETOR DE ARTE<br><span class="gold-text">VISÃO & IMPACTO</span>
       </h1>
       <p class="lead">
-        Unindo educação corporativa instrucional, animação de alta retenção e design visual de impacto editorial para grandes marcas.
+        Conceituação visual de alto impacto, direção criativa audiovisual, identidade de marca e narrativa gráfica estratégica para projetos corporativos e publicitários.
       </p>
 
       <div class="hero-actions">
-        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="action-btn primary" data-cursor-text="CONTATO">
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20gostaria%20de%20solicitar%20uma%20proposta." target="_blank" class="action-btn primary">
           <i class="fa-brands fa-whatsapp"></i> Iniciar Projeto
         </a>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="action-btn secondary" data-cursor-text="BEHANCE">
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="action-btn secondary">
           <i class="fa-brands fa-behance"></i> Behance Completo
         </a>
       </div>
     </header>
 
-    <!-- SEÇÃO 1: VÍDEOS DESTAQUE (BENTO GRID 3D) -->
+    <!-- SEÇÃO 1: VÍDEOS DESTAQUE (DIREÇÃO VISUAL & AUDIOVISUAL) -->
     <section id="videos">
       <div class="section-head">
-        <h2>Destaques em Vídeo</h2>
-        <span>Horizontal (16:9) & Vertical (9:16)</span>
+        <h2>DESTAQUES EM VÍDEO</h2>
+        <span>HORIZONTAL (16:9) & VERTICAL (9:16)</span>
       </div>
 
       <div class="bento-wrap">
@@ -935,7 +888,7 @@
         <div class="bento-col-left">
           
           <!-- 1. Bombril (Vídeo Real YouTube: cChRwfMNR3o) -->
-          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Bombril — Vyond + Pós', '16-9')" data-cursor-text="PLAY">
+          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Bombril — Vyond + Pós', '16-9')">
             <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Bombril" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
@@ -946,13 +899,13 @@
                 <span>Horizontal 16:9</span>
                 <span>Vyond + Pós</span>
               </div>
-              <h3>Bombril</h3>
-              <p>Animação instrutiva voltada para processos internos, conformidade e integração.</p>
+              <h3>BOMBRIL</h3>
+              <p>Direção visual e animação instrutiva voltada para processos internos, conformidade e integração.</p>
             </div>
           </div>
 
           <!-- 2. Yanmar (Vídeo Real YouTube: mH1VpK2i6JU) -->
-          <div class="bento-card-h" onclick="openModal('mH1VpK2i6JU', 'Yanmar — Banco de Imagem + Pós', '16-9')" data-cursor-text="PLAY">
+          <div class="bento-card-h" onclick="openModal('mH1VpK2i6JU', 'Yanmar — Banco de Imagem + Pós', '16-9')">
             <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Yanmar" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
@@ -963,13 +916,13 @@
                 <span>Horizontal 16:9</span>
                 <span>Banco de Imagem + Pós</span>
               </div>
-              <h3>Yanmar</h3>
-              <p>Edição dinâmica e comunicação corporativa utilizando acervo audiovisual moderno.</p>
+              <h3>YANMAR</h3>
+              <p>Concepção estética, edição dinâmica e comunicação corporativa utilizando acervo audiovisual moderno.</p>
             </div>
           </div>
 
           <!-- 3. Senac Horizontal -->
-          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Senac — Ator + Pós', '16-9')" data-cursor-text="PLAY">
+          <div class="bento-card-h" onclick="openModal('cChRwfMNR3o', 'Senac — Ator + Pós', '16-9')">
             <div class="thumb-frame aspect-16-9">
               <img class="thumb-img" src="https://img.youtube.com/vi/cChRwfMNR3o/maxresdefault.jpg" alt="Senac" onerror="this.src='https://img.youtube.com/vi/cChRwfMNR3o/hqdefault.jpg'" loading="lazy">
               <div class="thumb-overlay"></div>
@@ -980,15 +933,15 @@
                 <span>Horizontal 16:9</span>
                 <span>Apresentador em Estúdio</span>
               </div>
-              <h3>Senac (Horizontal)</h3>
-              <p>Gravação com atores profissionais, chroma key e lettering instrucional didático.</p>
+              <h3>SENAC (HORIZONTAL)</h3>
+              <p>Supervisão de set com apresentadores, chroma key e lettering instrucional didático.</p>
             </div>
           </div>
 
         </div>
 
         <!-- Direita: 1 Vídeo Vertical 9:16 -->
-        <div class="bento-card-v" onclick="openModal('mH1VpK2i6JU', 'Senac — Ator/Atriz + Pós (Vertical)', '9-16')" data-cursor-text="PLAY">
+        <div class="bento-card-v" onclick="openModal('mH1VpK2i6JU', 'Senac — Ator/Atriz + Pós (Vertical)', '9-16')">
           <div class="thumb-frame aspect-9-16">
             <img class="thumb-img" src="https://img.youtube.com/vi/mH1VpK2i6JU/maxresdefault.jpg" alt="Senac Vertical" onerror="this.src='https://img.youtube.com/vi/mH1VpK2i6JU/hqdefault.jpg'" loading="lazy">
             <div class="thumb-overlay"></div>
@@ -999,109 +952,107 @@
               <span>Vertical 9:16</span>
               <span>Microlearning</span>
             </div>
-            <h3>Senac (Pílula Mobile)</h3>
-            <p>Formato vertical moderno otimizado para celulares, redes corporativas e engajamento ágil.</p>
+            <h3>SENAC (PÍLULA MOBILE)</h3>
+            <p>Direção para consumo vertical moderno, otimizado para retenção em smartphones e redes corporativas.</p>
           </div>
         </div>
       </div>
 
-      <!-- Barra de Filtros e Todos os Vídeos -->
+      <!-- Barra de Filtros e Catálogo -->
       <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all" data-cursor-text="FILTRAR">Todos os Vídeos</button>
-        <button class="filter-btn" data-filter="vyond" data-cursor-text="FILTRAR">Vyond + Pós (15)</button>
-        <button class="filter-btn" data-filter="banco" data-cursor-text="FILTRAR">Banco de Imagem (2)</button>
-        <button class="filter-btn" data-filter="ator-h" data-cursor-text="FILTRAR">Ator Horizontal (2)</button>
-        <button class="filter-btn" data-filter="ator-v" data-cursor-text="FILTRAR">Ator Vertical (1)</button>
+        <button class="filter-btn active" data-filter="all">TODOS OS VÍDEOS</button>
+        <button class="filter-btn" data-filter="vyond">VYOND + PÓS (15)</button>
+        <button class="filter-btn" data-filter="banco">BANCO DE IMAGEM (2)</button>
+        <button class="filter-btn" data-filter="ator-h">ATOR HORIZONTAL (2)</button>
+        <button class="filter-btn" data-filter="ator-v">ATOR VERTICAL (1)</button>
       </div>
 
       <div id="video-grid" class="showcase-grid"></div>
     </section>
 
-    <!-- ============================================================
-         SEÇÃO 2: PORTFÓLIO DE DESIGN GRÁFICO & BEHANCE
-    ============================================================ -->
+    <!-- SEÇÃO 2: PORTFÓLIO DE DESIGN GRÁFICO (BEHANCE) -->
     <section id="design" class="behance-section">
       <div class="behance-header-badge">
-        <i class="fa-brands fa-behance"></i> Behance Portfolio
+        <i class="fa-brands fa-behance"></i> BEHANCE PORTFOLIO
       </div>
       
       <div class="section-head">
-        <h2>Direção de Arte & Design Gráfico</h2>
-        <span>Identidade Visual, Social & Key Visuals</span>
+        <h2>DIREÇÃO DE ARTE & DESIGN GRÁFICO</h2>
+        <span>IDENTIDADE VISUAL, SOCIAL & KEY VISUALS</span>
       </div>
 
       <div class="behance-grid">
         
         <!-- Projeto Gráfico 1 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
           <div class="design-thumb">
             <span class="design-tag-pill">Branding & KV</span>
             <img class="design-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Key Visuals & Identidade" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>Key Visuals & Identidade Visual</h3>
-            <p>Conceituação gráfica, sistemas de design, tipografia e diretrizes de marca para marcas corporativas.</p>
+            <h3>KEY VISUALS & IDENTIDADE VISUAL</h3>
+            <p>Conceituação gráfica, sistemas de design, tipografia e diretrizes de marca para posicionamento corporativo.</p>
             <div class="design-action">
-              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
           </div>
         </a>
 
         <!-- Projeto Gráfico 2 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
           <div class="design-thumb">
             <span class="design-tag-pill">Social Media</span>
             <img class="design-img" src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop" alt="Social Media Design" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>Peças Publicitárias & Campanhas Digitais</h3>
-            <p>Design de alta conversão para mídias sociais, carrosséis educativos, banners estáticos e dinâmicos.</p>
+            <h3>CAMPANHAS DIGITAIS & PUBLICIDADE</h3>
+            <p>Design visual com foco em engajamento, carrosséis editoriais e peças gráficas de alta conversão.</p>
             <div class="design-action">
-              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
           </div>
         </a>
 
         <!-- Projeto Gráfico 3 -->
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card" data-cursor-text="BEHANCE">
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="design-card">
           <div class="design-thumb">
             <span class="design-tag-pill">UI & Motion</span>
             <img class="design-img" src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop" alt="UI & Motion Assets" loading="lazy">
           </div>
           <div class="design-info">
-            <h3>Assets Gráficos para Vídeo & Motion</h3>
-            <p>Ilustrações vetoriais sob medida, letterings instrucionais e storyboards conceituais para produção audiovisual.</p>
+            <h3>ASSETS VISUAIS & MOTION DESIGN</h3>
+            <p>Letterings exclusivos, ilustrações conceituais e storyboards desenvolvidos sob medida para marcas.</p>
             <div class="design-action">
-              Ver projeto completo no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Ver projeto no Behance <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
           </div>
         </a>
 
       </div>
 
-      <!-- Banner de Acesso Direto ao Behance Oficial -->
+      <!-- Banner Behance -->
       <div class="behance-banner-cta">
         <div>
-          <h4>Explore o Acervo Completo no Behance</h4>
-          <p>Conheça os cases detalhados, estudos de caso e projetos gráficos em www.behance.net/marcoakutsu</p>
+          <h4>EXPLORE O ACERVO COMPLETO NO BEHANCE</h4>
+          <p>Conheça os cases detalhados e estudos conceituais em www.behance.net/marcoakutsu</p>
         </div>
-        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="behance-btn" data-cursor-text="VISITAR">
-          <i class="fa-brands fa-behance"></i> Acessar behance.net/marcoakutsu
+        <a href="https://www.behance.net/marcoakutsu" target="_blank" class="behance-btn">
+          <i class="fa-brands fa-behance"></i> ACESSAR BEHANCE.NET/MARCOAKUTSU
         </a>
       </div>
     </section>
 
-    <!-- CALL TO ACTION (ESTILO BALLON D'OR) -->
+    <!-- CALL TO ACTION FINAL -->
     <section id="contato" class="cta-banner">
-      <h2>Pronto para elevar o patamar<br>da sua marca?</h2>
-      <p>Desenvolvemos soluções completas em audiovisual, treinamentos instrucionais e direção gráfica sob medida para a sua empresa.</p>
+      <h2>VAMOS DESENVOLVER O PRÓXIMO<br>PROJETO DA SUA MARCA?</h2>
+      <p>Direção de arte, concepção audiovisual e design estratégico com entrega precisa para a sua organização.</p>
       
       <div class="cta-actions">
-        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="action-btn primary" data-cursor-text="WHATSAPP">
-          <i class="fa-brands fa-whatsapp"></i> Conversar no WhatsApp
+        <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="action-btn primary">
+          <i class="fa-brands fa-whatsapp"></i> CONVERSAR NO WHATSAPP
         </a>
-        <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Or%C3%A7amento" class="action-btn secondary" data-cursor-text="EMAIL">
-          <i class="fa-solid fa-envelope"></i> Enviar E-mail
+        <a href="mailto:marco.akutsu@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Or%C3%A7amento" class="action-btn secondary">
+          <i class="fa-solid fa-envelope"></i> ENVIAR E-MAIL
         </a>
       </div>
     </section>
@@ -1129,13 +1080,13 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Marco Akutsu. Portfólio de Produção Audiovisual & Design Gráfico.</p>
+      <p>&copy; 2026 Marco Akutsu — Diretor de Arte. Todos os direitos reservados.</p>
     </div>
   </footer>
 
   <script>
     // ============================================================
-    // THREE.JS: ESFERA E VÓRTICE DE PARTÍCULAS 3D (ESTILO DEMBÉLÉ)
+    // THREE.JS: ESFERA DE PARTÍCULAS 3D
     // ============================================================
     const canvas = document.getElementById('webgl-canvas');
     const scene = new THREE.Scene();
@@ -1146,7 +1097,6 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Geometria de partículas douradas/prateadas
     const particleCount = 2800;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
@@ -1156,7 +1106,6 @@
     const silverColor = new THREE.Color(0xffffff);
 
     for (let i = 0; i < particleCount; i++) {
-      // Distribuição esférica
       const u = Math.random();
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
@@ -1171,7 +1120,6 @@
       positions[i * 3 + 1] = y;
       positions[i * 3 + 2] = z;
 
-      // Mescla entre ouro e prata
       const mixedColor = goldColor.clone().lerp(silverColor, Math.random() * 0.7);
       colors[i * 3] = mixedColor.r;
       colors[i * 3 + 1] = mixedColor.g;
@@ -1192,7 +1140,6 @@
     const particleSphere = new THREE.Points(geometry, material);
     scene.add(particleSphere);
 
-    // Mouse interativo para Three.js
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -1203,7 +1150,6 @@
       mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     });
 
-    // Animação e Render do Three.js
     function animateThree() {
       requestAnimationFrame(animateThree);
 
@@ -1227,11 +1173,10 @@
     });
 
     // ============================================================
-    // GSAP + SCROLLTRIGGER: TRANSIÇÕES CINEMATOGRÁFICAS
+    // GSAP + SCROLLTRIGGER
     // ============================================================
     gsap.registerPlugin(ScrollTrigger);
 
-    // Efeito de rolagem na esfera 3D
     gsap.to(particleSphere.rotation, {
       scrollTrigger: {
         trigger: "body",
@@ -1243,13 +1188,11 @@
       y: Math.PI * 3
     });
 
-    // Animação de entrada do Hero
     gsap.from(".hero-badge", { opacity: 0, y: -20, duration: 1, ease: "power3.out" });
     gsap.from(".hero-title", { opacity: 0, y: 50, duration: 1.2, delay: 0.2, ease: "power4.out" });
     gsap.from(".hero p.lead", { opacity: 0, y: 30, duration: 1, delay: 0.4, ease: "power3.out" });
     gsap.from(".hero-actions", { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: "power3.out" });
 
-    // Animações nos blocos Bento e Behance com ScrollTrigger
     gsap.utils.toArray('.bento-card-h, .bento-card-v, .design-card, .cta-banner').forEach(el => {
       gsap.from(el, {
         scrollTrigger: {
@@ -1263,48 +1206,6 @@
         ease: "power3.out"
       });
     });
-
-    // ============================================================
-    // CUSTOM CURSOR MAGNÉTICO ESTILO DEMBÉLÉ AWWWARDS
-    // ============================================================
-    const cursorDot = document.getElementById('cursorDot');
-    const cursorFollower = document.getElementById('cursorFollower');
-
-    let curX = window.innerWidth / 2;
-    let curY = window.innerHeight / 2;
-    let folX = curX;
-    let folY = curY;
-
-    window.addEventListener('mousemove', (e) => {
-      curX = e.clientX;
-      curY = e.clientY;
-      cursorDot.style.left = `${curX}px`;
-      cursorDot.style.top = `${curY}px`;
-    });
-
-    function updateCursor() {
-      folX += (curX - folX) * 0.18;
-      folY += (curY - folY) * 0.18;
-      cursorFollower.style.left = `${folX}px`;
-      cursorFollower.style.top = `${folY}px`;
-      requestAnimationFrame(updateCursor);
-    }
-    updateCursor();
-
-    // Rótulos inteligentes no cursor
-    function bindCursorTriggers() {
-      document.querySelectorAll('[data-cursor-text]').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          cursorFollower.classList.add('cursor-hover');
-          cursorFollower.textContent = el.getAttribute('data-cursor-text');
-        });
-        el.addEventListener('mouseleave', () => {
-          cursorFollower.classList.remove('cursor-hover');
-          cursorFollower.textContent = '';
-        });
-      });
-    }
-    bindCursorTriggers();
 
     // ============================================================
     // BASE DE DADOS DOS VÍDEOS (YOUTUBE)
@@ -1343,7 +1244,6 @@
         const isVert = p.aspect === '9-16';
         card.className = `grid-video-card`;
         card.dataset.category = p.category;
-        card.setAttribute('data-cursor-text', 'PLAY');
 
         const ratioClass = isVert ? 'aspect-9-16' : 'aspect-16-9';
         const thumbUrl = `https://img.youtube.com/vi/${p.ytId}/maxresdefault.jpg`;
@@ -1362,17 +1262,15 @@
               <span>${p.categoryName}</span>
               <span>${isVert ? '9:16 Mobile' : '16:9'}</span>
             </div>
-            <h3>${p.company}</h3>
+            <h3>${p.company.toUpperCase()}</h3>
           </div>
         `;
         grid.appendChild(card);
       });
-
-      bindCursorTriggers();
     }
     renderGallery();
 
-    // Filtros de Categoria
+    // Filtros
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1392,7 +1290,7 @@
       });
     });
 
-    // Modal de Vídeo (YouTube)
+    // Modal
     const modal = document.getElementById('video-modal');
     const ytPlayer = document.getElementById('yt-player');
     const modalBox = document.getElementById('modal-frame-box');
