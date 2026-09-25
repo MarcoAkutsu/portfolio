@@ -60,7 +60,7 @@
       cursor: auto;
     }
 
-    /* CANVAS 3D FLUTUANTE (THREE.JS DE FUNDO) */
+    /* CANVAS 3D: OPACIDADE EM EXATAMENTE 5% */
     #webgl-canvas {
       position: fixed;
       top: 0;
@@ -69,7 +69,8 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.75;
+      opacity: 0.05; /* 5% de opacidade para não roubar o detalhe das letras */
+      transition: opacity 0.5s ease;
     }
 
     .noise-overlay {
@@ -295,9 +296,7 @@
       text-transform: uppercase;
     }
 
-    /* ============================================================
-       DESTAQUE STREAMING & GAMES (TWITCH & YOUTUBE)
-    ============================================================ */
+    /* STREAMING & GAMES */
     .streaming-section {
       margin-bottom: 110px;
     }
@@ -431,7 +430,7 @@
       color: #fff;
     }
 
-    /* BENTO SHOWCASE (VÍDEOS) */
+    /* BENTO SHOWCASE */
     .bento-wrap {
       display: grid;
       grid-template-columns: 1.6fr 1fr;
@@ -589,9 +588,7 @@
       font-weight: 400;
     }
 
-    /* ============================================================
-       PARTE GRÁFICA: BEHANCE SELECIONADOS
-    ============================================================ */
+    /* BEHANCE SHOWCASE */
     .behance-section {
       margin-bottom: 120px;
     }
@@ -973,7 +970,7 @@
 </head>
 <body>
 
-  <!-- WebGL Three.js Canvas -->
+  <!-- WebGL Three.js Canvas (Opacidade 5%) -->
   <canvas id="webgl-canvas"></canvas>
   <div class="noise-overlay"></div>
 
@@ -1270,8 +1267,7 @@
 
   <script>
     // ============================================================
-    // THREE.JS: ESFERA DE PARTÍCULAS EM ROTAÇÃO SUAVE CONTÍNUA
-    // (Rotação por scroll removida: agora ela flutua de forma calma e estável)
+    // THREE.JS: ESFERA FLUTUANTE EM ÓRBITA SUAVE
     // ============================================================
     const canvas = document.getElementById('webgl-canvas');
     const scene = new THREE.Scene();
@@ -1325,7 +1321,6 @@
     const particleSphere = new THREE.Points(geometry, material);
     scene.add(particleSphere);
 
-    // Efeito suave de mouse
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -1342,7 +1337,7 @@
       targetX += (mouseX - targetX) * 0.03;
       targetY += (mouseY - targetY) * 0.03;
 
-      // Rotação suave contínua e natural (sem giros no scroll)
+      // Rotação suave contínua e natural
       particleSphere.rotation.y += 0.0015;
       particleSphere.rotation.x += 0.0008;
 
