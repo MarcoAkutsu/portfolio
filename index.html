@@ -69,7 +69,7 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.10; /* Ajustado para 10% */
+      opacity: 0.10;
       transition: opacity 0.5s ease;
     }
 
@@ -296,141 +296,7 @@
       text-transform: uppercase;
     }
 
-    /* STREAMING & GAMES */
-    .streaming-section {
-      margin-bottom: 110px;
-    }
-
-    .streaming-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-    }
-
-    .stream-card {
-      background: var(--surface);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 32px 28px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stream-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      opacity: 0;
-      transition: var(--transition);
-    }
-
-    .stream-card.twitch::after {
-      background: var(--twitch);
-    }
-
-    .stream-card.youtube::after {
-      background: var(--yt-red);
-    }
-
-    .stream-card:hover {
-      transform: translateY(-5px);
-      background: var(--surface-hover);
-    }
-
-    .stream-card.twitch:hover {
-      border-color: var(--twitch);
-      box-shadow: 0 16px 36px var(--twitch-glow);
-    }
-
-    .stream-card.youtube:hover {
-      border-color: var(--yt-red);
-      box-shadow: 0 16px 36px rgba(255, 0, 0, 0.2);
-    }
-
-    .stream-card:hover::after {
-      opacity: 1;
-    }
-
-    .stream-topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .stream-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 4px 12px;
-      border-radius: 999px;
-    }
-
-    .stream-badge.twitch-badge {
-      background: rgba(145, 70, 255, 0.15);
-      border: 1px solid rgba(145, 70, 255, 0.4);
-      color: #bf94ff;
-    }
-
-    .stream-badge.yt-badge {
-      background: rgba(255, 0, 0, 0.15);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      color: #ff6666;
-    }
-
-    .stream-card-icon {
-      font-size: 1.8rem;
-    }
-
-    .stream-card.twitch .stream-card-icon {
-      color: #bf94ff;
-    }
-
-    .stream-card.youtube .stream-card-icon {
-      color: #ff4d4d;
-    }
-
-    .stream-content h3 {
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-
-    .stream-content p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .stream-action {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-
-    /* BENTO SHOWCASE */
+    /* BENTO SHOWCASE (VÍDEOS) */
     .bento-wrap {
       display: grid;
       grid-template-columns: 1.6fr 1fr;
@@ -588,7 +454,76 @@
       font-weight: 400;
     }
 
-    /* BEHANCE SHOWCASE */
+    /* FILTROS E GALERIA DE VÍDEOS */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 36px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 22px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .filter-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 900;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 120px;
+    }
+
+    .grid-video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .grid-video-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+    }
+
+    .grid-video-card.is-hidden {
+      display: none !important;
+    }
+
+    /* BEHANCE SHOWCASE (DESIGN GRÁFICO) */
     .behance-section {
       margin-bottom: 120px;
     }
@@ -746,73 +681,138 @@
       transform: scale(1.04);
     }
 
-    /* FILTROS E GALERIA */
-    .filter-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 36px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      scrollbar-width: none;
-    }
-
-    .filter-bar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .filter-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 10px 22px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      transition: var(--transition);
-    }
-
-    .filter-btn:hover {
-      color: #fff;
-      border-color: rgba(255,255,255,0.4);
-    }
-
-    .filter-btn.active {
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-      font-weight: 900;
-    }
-
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
+    /* STREAMING & GAMES (AGORA ANTES DO CTA) */
+    .streaming-section {
       margin-bottom: 120px;
     }
 
-    .grid-video-card {
+    .streaming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .stream-card {
       background: var(--surface);
+      backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      overflow: hidden;
-      cursor: pointer;
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stream-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      opacity: 0;
       transition: var(--transition);
     }
 
-    .grid-video-card:hover {
-      border-color: var(--border-hover);
-      background: var(--surface-hover);
-      transform: translateY(-4px);
+    .stream-card.twitch::after {
+      background: var(--twitch);
     }
 
-    .grid-video-card.is-hidden {
-      display: none !important;
+    .stream-card.youtube::after {
+      background: var(--yt-red);
+    }
+
+    .stream-card:hover {
+      transform: translateY(-5px);
+      background: var(--surface-hover);
+    }
+
+    .stream-card.twitch:hover {
+      border-color: var(--twitch);
+      box-shadow: 0 16px 36px var(--twitch-glow);
+    }
+
+    .stream-card.youtube:hover {
+      border-color: var(--yt-red);
+      box-shadow: 0 16px 36px rgba(255, 0, 0, 0.2);
+    }
+
+    .stream-card:hover::after {
+      opacity: 1;
+    }
+
+    .stream-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .stream-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .stream-badge.twitch-badge {
+      background: rgba(145, 70, 255, 0.15);
+      border: 1px solid rgba(145, 70, 255, 0.4);
+      color: #bf94ff;
+    }
+
+    .stream-badge.yt-badge {
+      background: rgba(255, 0, 0, 0.15);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #ff6666;
+    }
+
+    .stream-card-icon {
+      font-size: 1.8rem;
+    }
+
+    .stream-card.twitch .stream-card-icon {
+      color: #bf94ff;
+    }
+
+    .stream-card.youtube .stream-card-icon {
+      color: #ff4d4d;
+    }
+
+    .stream-content h3 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .stream-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .stream-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
     }
 
     /* CTA FOOTER BANNER */
@@ -974,16 +974,16 @@
   <canvas id="webgl-canvas"></canvas>
   <div class="noise-overlay"></div>
 
-  <!-- Floating Navbar -->
+  <!-- Floating Navbar (Ordem Atualizada: Vídeos > Design > Streaming > Contato) -->
   <div class="nav-wrapper">
     <nav class="floating-nav">
       <a href="#" class="nav-brand">
         <span class="status-dot"></span> MARCO AKUTSU
       </a>
       <div class="nav-links">
-        <a href="#streaming" class="nav-link">Streaming</a>
         <a href="#videos" class="nav-link">Edição de Vídeo</a>
         <a href="#design" class="nav-link">Design Gráfico</a>
+        <a href="#streaming" class="nav-link">Streaming</a>
         <a href="#contato" class="nav-link">Contato</a>
       </div>
       <a href="https://wa.me/5511981292787?text=Ol%C3%A1%20Marco,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-cta">
@@ -1013,51 +1013,9 @@
       </div>
     </header>
 
-    <!-- SEÇÃO: CANAIS DE STREAMING & GAMES -->
-    <section id="streaming" class="streaming-section">
-      <div class="section-head">
-        <h2>LIVESTREAMING & GAMES</h2>
-        <span>CANAL OFICIAL • TWITCH & YOUTUBE</span>
-      </div>
-
-      <div class="streaming-grid">
-        <!-- Card Twitch -->
-        <a href="https://www.twitch.tv/akutsu_tv" target="_blank" class="stream-card twitch">
-          <div>
-            <div class="stream-topbar">
-              <span class="stream-badge twitch-badge"><i class="fa-brands fa-twitch"></i> TWITCH LIVE</span>
-              <div class="stream-card-icon"><i class="fa-brands fa-twitch"></i></div>
-            </div>
-            <div class="stream-content">
-              <h3>TWITCH.TV / AKUTSU_TV</h3>
-              <p>Lives diárias de gameplay, interação em tempo real com a comunidade, transmissões e entretenimento gamer ao vivo.</p>
-            </div>
-          </div>
-          <div class="stream-action">
-            Acessar canal na Twitch <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </div>
-        </a>
-
-        <!-- Card YouTube Gaming -->
-        <a href="https://www.youtube.com/@Akutsu_TV" target="_blank" class="stream-card youtube">
-          <div>
-            <div class="stream-topbar">
-              <span class="stream-badge yt-badge"><i class="fa-brands fa-youtube"></i> YOUTUBE GAMES</span>
-              <div class="stream-card-icon"><i class="fa-brands fa-youtube"></i></div>
-            </div>
-            <div class="stream-content">
-              <h3>YOUTUBE / @AKUTSU_TV</h3>
-              <p>Cortes dinâmicos de gameplay, melhores momentos, Shorts e produções em vídeo editadas com ritmo acelerado para o YouTube.</p>
-            </div>
-          </div>
-          <div class="stream-action">
-            Inscrever-se no YouTube <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: VÍDEOS DESTAQUE (BENTO GRID COM VÍDEOS OFICIAIS) -->
+    <!-- ============================================================
+         1. SEÇÃO: VÍDEOS DESTAQUE & CATÁLOGO
+    ============================================================ -->
     <section id="videos">
       <div class="section-head">
         <h2>DESTAQUES EM EDIÇÃO DE VÍDEO</h2>
@@ -1139,7 +1097,7 @@
         </div>
       </div>
 
-      <!-- Barra de Filtros e Catálogo -->
+      <!-- Barra de Filtros e Catálogo Completo -->
       <div class="filter-bar">
         <button class="filter-btn active" data-filter="all">TODOS OS VÍDEOS</button>
         <button class="filter-btn" data-filter="vyond">VYOND + PÓS (15)</button>
@@ -1151,7 +1109,9 @@
       <div id="video-grid" class="showcase-grid"></div>
     </section>
 
-    <!-- SEÇÃO: PORTFÓLIO DE DESIGN GRÁFICO (BEHANCE ESPECÍFICO) -->
+    <!-- ============================================================
+         2. SEÇÃO: PORTFÓLIO DE DESIGN GRÁFICO (BEHANCE)
+    ============================================================ -->
     <section id="design" class="behance-section">
       <div class="behance-header-badge">
         <i class="fa-brands fa-behance"></i> PROJETOS NO BEHANCE
@@ -1223,7 +1183,55 @@
       </div>
     </section>
 
-    <!-- CALL TO ACTION FINAL -->
+    <!-- ============================================================
+         3. SEÇÃO: CANAIS DE STREAMING & GAMES
+    ============================================================ -->
+    <section id="streaming" class="streaming-section">
+      <div class="section-head">
+        <h2>LIVESTREAMING & GAMES</h2>
+        <span>CANAL OFICIAL • TWITCH & YOUTUBE</span>
+      </div>
+
+      <div class="streaming-grid">
+        <!-- Card Twitch -->
+        <a href="https://www.twitch.tv/akutsu_tv" target="_blank" class="stream-card twitch">
+          <div>
+            <div class="stream-topbar">
+              <span class="stream-badge twitch-badge"><i class="fa-brands fa-twitch"></i> TWITCH LIVE</span>
+              <div class="stream-card-icon"><i class="fa-brands fa-twitch"></i></div>
+            </div>
+            <div class="stream-content">
+              <h3>TWITCH.TV / AKUTSU_TV</h3>
+              <p>Lives diárias de gameplay, interação em tempo real com a comunidade, transmissões e entretenimento gamer ao vivo.</p>
+            </div>
+          </div>
+          <div class="stream-action">
+            Acessar canal na Twitch <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+
+        <!-- Card YouTube Gaming -->
+        <a href="https://www.youtube.com/@Akutsu_TV" target="_blank" class="stream-card youtube">
+          <div>
+            <div class="stream-topbar">
+              <span class="stream-badge yt-badge"><i class="fa-brands fa-youtube"></i> YOUTUBE GAMES</span>
+              <div class="stream-card-icon"><i class="fa-brands fa-youtube"></i></div>
+            </div>
+            <div class="stream-content">
+              <h3>YOUTUBE / @AKUTSU_TV</h3>
+              <p>Cortes dinâmicos de gameplay, melhores momentos, Shorts e produções em vídeo editadas com ritmo acelerado para o YouTube.</p>
+            </div>
+          </div>
+          <div class="stream-action">
+            Inscrever-se no YouTube <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. CALL TO ACTION FINAL
+    ============================================================ -->
     <section id="contato" class="cta-banner">
       <h2>VAMOS PRODUZIR O PRÓXIMO<br>VÍDEO DA SUA EMPRESA?</h2>
       <p>Edição de alto impacto, retenção instrucional e criação audiovisual estratégica para os objetivos do seu negócio.</p>
@@ -1363,7 +1371,7 @@
     gsap.from(".hero p.lead", { opacity: 0, y: 30, duration: 1, delay: 0.4, ease: "power3.out" });
     gsap.from(".hero-actions", { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: "power3.out" });
 
-    gsap.utils.toArray('.stream-card, .bento-card-h, .bento-card-v, .design-card, .cta-banner').forEach(el => {
+    gsap.utils.toArray('.bento-card-h, .bento-card-v, .design-card, .stream-card, .cta-banner').forEach(el => {
       gsap.from(el, {
         scrollTrigger: {
           trigger: el,
